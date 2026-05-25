@@ -45,7 +45,11 @@ def _sign(secret: str, timestamp: str) -> str:
     return base64.b64encode(digest).decode("utf-8")
 
 
-def build_card(title: str, url: str) -> dict:
+def build_card(title: str, url: str, keyword: str = "") -> dict:
+    # 机器人若开「自定义关键词」安全设置，消息须包含该关键词，否则报错 19024
+    note = "由飞书数据 + Claude 自动生成"
+    if keyword:
+        note += f" · {keyword}"
     return {
         "config": {"wide_screen_mode": True},
         "header": {
@@ -62,17 +66,17 @@ def build_card(title: str, url: str) -> dict:
                 "url": url,
                 "type": "primary",
             }]},
-            {"tag": "note", "elements": [
-                {"tag": "plain_text", "content": "由飞书数据 + Claude 自动生成"}]},
+            {"tag": "note", "elements": [{"tag": "plain_text", "content": note}]},
         ],
     }
 
 
-def send(title: str, url: str) -> None:
+def send(title: str, url: str, keyword: str = "") -> None:
     webhook = os.environ.get("FEISHU_WEBHOOK_URL", "").strip()
     if not webhook:
         raise SystemExit("缺少 FEISHU_WEBHOOK_URL")
-    payload = {"msg_type": "interactive", "card": build_card(title, url)}
+    keyword = keyword or os.environ.get("FEISHU_WEBHOOK_KEYWORD", "").strip()
+    payload = {"msg_type": "interactive", "card": build_card(title, url, keyword)}
 
     secret = os.environ.get("FEISHU_WEBHOOK_SECRET", "").strip()
     if secret:
@@ -90,13 +94,14 @@ def send(title: str, url: str) -> None:
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description="飞书群机器人发送报告链接卡片")
     p.add_argument("--title", default="最新生活报告")
+    p.add_argument("--keyword", default="", help="机器人自定义关键词（也可用环境变量 FEISHU_WEBHOOK_KEYWORD）")
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--url", help="完整报告链接")
     g.add_argument("--path", help="报告相对路径，配合 GITHUB_REPO 拼链接")
     args = p.parse_args(argv)
 
     url = args.url or pages_url_from_path(args.path)
-    send(args.title, url)
+    send(args.title, url, args.keyword)
     return 0
 
 
