@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>生活报告 · 归档</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:linear-gradient(160deg,#0b0b12,#241638); color:#fff; min-height:100vh; padding:48px 20px;
+  }
+  .wrap { max-width:760px; margin:0 auto; }
+  header { text-align:center; margin-bottom:40px; }
+  h1 { font-size:clamp(32px,8vw,56px); font-weight:800; letter-spacing:2px; }
+  .sub { margin-top:12px; opacity:.7; font-size:15px; }
+  .group-title { margin:32px 0 14px; font-size:14px; letter-spacing:3px; color:#ff8fb1; }
+  a.card {
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:18px 20px; margin-bottom:12px; border-radius:16px; text-decoration:none; color:#fff;
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); transition:.2s;
+  }
+  a.card:hover { background:rgba(255,255,255,.12); transform:translateY(-2px); }
+  .card .t { font-size:18px; font-weight:600; }
+  .card .d { font-size:13px; opacity:.6; margin-top:4px; }
+  .badge { font-size:12px; padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.12); white-space:nowrap; }
+  .empty { text-align:center; opacity:.6; padding:60px 0; }
+  footer { text-align:center; margin-top:48px; font-size:12px; opacity:.4; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>生活报告</h1>
+    <div class="sub">飞书流水账 × Claude × 微信读书风</div>
+  </header>
+  <div id="list"><div class="empty">加载中…</div></div>
+  <footer>数据来自飞书知识库，报告由 Claude 自动生成</footer>
+</div>
+<script>
+  const TYPE_LABEL = { weekly: "📅 周报", monthly: "🗓 月报" };
+  fetch("reports/manifest.json?t=" + Date.now())
+    .then(r => r.json())
+    .then(({ reports }) => {
+      const list = document.getElementById("list");
+      if (!reports || !reports.length) {
+        list.innerHTML = '<div class="empty">还没有报告，生成第一份吧 🌱</div>';
+        return;
+      }
+      const groups = { weekly: [], monthly: [] };
+      reports.forEach(r => (groups[r.type] || (groups[r.type] = [])).push(r));
+      let html = "";
+      for (const type of ["weekly", "monthly"]) {
+        const items = groups[type];
+        if (!items || !items.length) continue;
+        html += `<div class="group-title">${TYPE_LABEL[type] || type}</div>`;
+        items.forEach(r => {
+          html += `<a class="card" href="${r.path}">
+              <div>
+                <div class="t">${r.title}</div>
+                <div class="d">生成于 ${(r.generated_at || "").replace("T", " ")}</div>
+              </div>
+              <span class="badge">${r.period || ""}</span>
+            </a>`;
+        });
+      }
+      list.innerHTML = html;
+    })
+    .catch(() => {
+      document.getElementById("list").innerHTML =
+        '<div class="empty">manifest.json 读取失败</div>';
+    });
+</script>
+</body>
+</html>

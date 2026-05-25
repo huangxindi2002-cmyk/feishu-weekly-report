@@ -1,0 +1,76 @@
+name: 生活周报/月报
+
+on:
+  schedule:
+    # 每周五 18:00 北京时间 (UTC+8) = 周五 10:00 UTC
+    - cron: "0 10 * * 5"
+  workflow_dispatch:
+    inputs:
+      report_type:
+        description: "报告类型"
+        type: choice
+        options: [weekly, monthly]
+        default: weekly
+      target:
+        description: "周 Tab(如 5.18-5.22) 或 月份(如 2026-05)；留空=自动(本周/本月)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write   # 允许 commit & push（push 到默认分支即触发 Pages 部署）
+
+concurrency:
+  group: life-report
+  cancel-in-progress: false
+
+jobs:
+  build-and-notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 生成报告
+        id: gen
+        env:
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          FEISHU_WIKI_URL: ${{ vars.FEISHU_WIKI_URL }}
+          FEISHU_BASE_URL: ${{ vars.FEISHU_BASE_URL || 'https://open.feishu.cn' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python scripts/generate_report.py \
+            --type "${{ github.event.inputs.report_type || 'weekly' }}" \
+            --target "${{ github.event.inputs.target }}"
+
+      - name: 提交报告到仓库
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/ index.html
+          if git diff --cached --quiet; then
+            echo "没有变化，跳过提交"
+          else
+            git commit -m "report: ${{ steps.gen.outputs.report_path }}"
+            git push
+          fi
+
+      - name: 飞书群通知
+        if: steps.gen.outputs.report_path != ''
+        env:
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+          FEISHU_WEBHOOK_SECRET: ${{ secrets.FEISHU_WEBHOOK_SECRET }}
+          GITHUB_REPO: ${{ github.repository }}
+        run: |
+          python scripts/send_feishu.py \
+            --path "${{ steps.gen.outputs.report_path }}" \
+            --title "${{ steps.gen.outputs.report_title }}"
