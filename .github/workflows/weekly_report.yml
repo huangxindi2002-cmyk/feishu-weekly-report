@@ -39,6 +39,18 @@ jobs:
       - name: 安装依赖
         run: pip install -r requirements.txt
 
+      - name: 网络连通性自检（调试用）
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "--- 解析 + HTTPS 到 api.anthropic.com ---"
+          curl -sS -m 25 -o /dev/null \
+            -w "HTTP=%{http_code} 连接耗时=%{time_connect}s 总耗时=%{time_total}s\n" \
+            https://api.anthropic.com/v1/models \
+            -H "x-api-key: ${ANTHROPIC_API_KEY}" \
+            -H "anthropic-version: 2023-06-01" \
+            || echo "curl 失败，退出码=$?（说明 runner 到 Anthropic 的网络不通）"
+
       - name: 生成报告
         id: gen
         env:

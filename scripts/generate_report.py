@@ -444,6 +444,11 @@ def main(argv=None) -> int:
         result = build(args.type, args.target, args.year, args.data_file)
     except Exception as e:  # noqa: BLE001
         print(f"[错误] {e}", file=sys.stderr)
+        cause = e.__cause__ or e.__context__
+        if cause is not None:
+            print(f"[底层原因] {type(cause).__name__}: {cause}", file=sys.stderr)
+        import traceback
+        traceback.print_exc()
         return 1
 
     # 给后续步骤（飞书通知）用：写到 .last_report 和 GITHUB_OUTPUT
