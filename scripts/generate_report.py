@@ -391,7 +391,12 @@ def build(report_type: str, target: str | None, year: int,
         raise RuntimeError(f"「{period_label}」没有读到任何记录，已中止生成。")
 
     # 2) 调 Claude（system 段缓存复用）
-    client = anthropic.Anthropic()
+    # 显式 strip：防止从 GitHub Secret 粘贴时末尾带换行/空格，
+    # 否则非法请求头会被 httpx 拒绝并报成 "Connection error"
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("缺少 ANTHROPIC_API_KEY")
+    client = anthropic.Anthropic(api_key=api_key)
     data_text = _format_entries(data)
     print(f"为「{period_label}」生成报告（{n_entries} 条记录，{len(PEOPLE)} 人）…", file=sys.stderr)
     reports: List[PersonReport] = []
