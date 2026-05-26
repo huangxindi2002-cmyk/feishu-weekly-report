@@ -2,8 +2,8 @@ name: 生活周报/月报
 
 on:
   schedule:
-    # 每周五 18:00 北京时间 (UTC+8) = 周五 10:00 UTC
-    - cron: "0 10 * * 5"
+    - cron: "0 10 * * 5"   # 周五 18:00 北京时间(UTC+8) → 周报
+    - cron: "0 1 1 * *"    # 每月 1 号 09:00 北京时间 → 上个月的月报
   workflow_dispatch:
     inputs:
       report_type:
@@ -12,7 +12,7 @@ on:
         options: [weekly, monthly]
         default: weekly
       target:
-        description: "周 Tab(如 5.18-5.22) 或 月份(如 2026-05)；留空=自动(本周/本月)"
+        description: "周 Tab(如 5.18-5.22) 或 月份(如 2026-05)；留空=自动(本周/上月)"
         required: false
         default: ""
 
@@ -39,6 +39,23 @@ jobs:
       - name: 安装依赖
         run: pip install -r requirements.txt
 
+      - name: 确定参数（周报/月报 + 目标）
+        id: params
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            RT="${{ github.event.inputs.report_type }}"
+            TG="${{ github.event.inputs.target }}"
+          elif [ "${{ github.event.schedule }}" = "0 1 1 * *" ]; then
+            RT="monthly"
+            TG="$(date -u -d 'last month' +%Y-%m)"   # 1 号当天取上个月
+          else
+            RT="weekly"
+            TG=""                                     # 留空 -> 脚本自动选最近一周
+          fi
+          echo "report_type=$RT" >> "$GITHUB_OUTPUT"
+          echo "target=$TG" >> "$GITHUB_OUTPUT"
+          echo "解析结果：type=$RT, target=${TG:-(自动)}"
+
       - name: 生成报告
         id: gen
         env:
@@ -49,8 +66,8 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           python scripts/generate_report.py \
-            --type "${{ github.event.inputs.report_type || 'weekly' }}" \
-            --target "${{ github.event.inputs.target }}"
+            --type "${{ steps.params.outputs.report_type }}" \
+            --target "${{ steps.params.outputs.target }}"
 
       - name: 提交报告到仓库
         run: |

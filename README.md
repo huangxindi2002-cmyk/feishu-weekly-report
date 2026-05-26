@@ -74,9 +74,11 @@ python scripts/send_feishu.py --url "https://example.com" --title "测试卡片"
    - **Secrets**：`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`ANTHROPIC_API_KEY`、`FEISHU_WEBHOOK_URL`、（可选）`FEISHU_WEBHOOK_SECRET`
    - **Variables**：`FEISHU_WIKI_URL`（知识库链接）、（可选）`FEISHU_BASE_URL`
 4. 触发方式：
-   - 自动：每周五 18:00（北京时间）跑周报。
+   - 自动：每周五 18:00（北京）出周报；每月 1 号 09:00（北京）出**上月**月报。
    - 手动：Actions → 选 workflow → Run workflow，可填 `report_type` 和 `target`。
    - 跑完会自动 commit 报告 + 更新 `index.html` 列表 + 飞书群发链接。
+
+> 部署细节、Secrets/Variables 清单、排错速查见 [DEPLOY.md](./DEPLOY.md)。
 
 ## 四、Sheet 结构约定
 
