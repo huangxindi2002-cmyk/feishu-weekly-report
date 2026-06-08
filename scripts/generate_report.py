@@ -348,21 +348,28 @@ def week_to_date(week_title: str, year: int) -> str:
 
 
 def auto_pick_week() -> str:
-    """自动选「最近且不晚于今天」的周 Tab，没有则取最新一周。"""
+    """自动选「最近且不晚于今天」的周 Tab，没有则取最新一周。
+
+    跨所有数据源（sheets.json 里的全部表格）扫描，这样新建的月度表里的最新周也能被选到。
+    """
     token = fetch_sheet.get_tenant_token()
-    ss = fetch_sheet.get_spreadsheet_token(token)
-    sheets = fetch_sheet.list_sheets(token, ss)
     today = dt.date.today()
     candidates = []
-    for s in sheets:
-        key = fetch_sheet._tab_start_key(s["title"])
-        if key == (0, 0):
-            continue
-        try:
-            d = dt.date(today.year, key[0], key[1])
-        except ValueError:
-            continue
-        candidates.append((d, s["title"]))
+    seen = set()
+    for _src, ss in fetch_sheet.iter_sources(token):
+        for s in fetch_sheet.list_sheets(token, ss):
+            title = s["title"].strip()
+            if title in seen:
+                continue
+            key = fetch_sheet._tab_start_key(title)
+            if key == (0, 0):
+                continue
+            try:
+                d = dt.date(today.year, key[0], key[1])
+            except ValueError:
+                continue
+            seen.add(title)
+            candidates.append((d, title))
     if not candidates:
         raise fetch_sheet.FeishuError("没有可识别日期的周 Tab")
     past = [c for c in candidates if c[0] <= today]

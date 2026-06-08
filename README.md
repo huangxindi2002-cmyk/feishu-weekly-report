@@ -5,9 +5,12 @@
 ```
 feishu-life-report/
 ├── scripts/
-│   ├── fetch_sheet.py       # 飞书 wiki→sheet token 转换 + 读数据 + 结构化
+│   ├── fetch_sheet.py       # 飞书 wiki/sheet→token + 读数据 + 跨多表聚合
+│   ├── sheet_store.py       # 数据源清单(sheets.json)的存取 + 链接解析
+│   ├── manage_sheets.py     # 本地网页：粘贴链接增/删/验证飞书表格
 │   ├── generate_report.py   # 调 Claude API 生成结构化内容并渲染 HTML
 │   └── send_feishu.py       # 群机器人 Webhook 发消息卡片
+├── sheets.json              # 所有飞书表格数据源清单（被聚合读取，需入库）
 ├── reports/
 │   ├── weekly/YYYY-MM-DD.html
 │   ├── monthly/YYYY-MM.html
@@ -33,6 +36,25 @@ feishu-life-report/
 ```bash
 cp .env.example .env   # 然后填入各项值
 ```
+
+### 4. 多个飞书表格（每月新建表也能用）
+
+早期所有数据在一个知识库表里（多个周 Tab）。现在每月不定期新建独立飞书表格时，
+不用改任何环境变量——所有表格统一登记在 **`sheets.json`** 里，报告脚本会**聚合读取全部表格**。
+
+最省心的方式是开本地网页管理：
+
+```bash
+python scripts/manage_sheets.py        # 打开 http://127.0.0.1:8765，自动唤起浏览器
+```
+
+- 粘贴新表格链接（支持 `/wiki/…` 知识库节点 和 `/sheets/…` 独立电子表格）→「添加」。
+- 列表里可「验证」（连飞书确认链接可用、显示 Tab 数）、可「删除」。
+- 首次打开会把旧的 `FEISHU_WIKI_URL` 自动收进 `sheets.json`，所以历史数据不丢。
+- 改完记得 `git add sheets.json && git commit && git push`，CI 才会用上新表。
+
+> 同名 Tab（多个表里都有 `5.18-5.22`）聚合时只取第一次出现的，自动去重。
+> 不开网页也行：直接编辑 `sheets.json`，或 `FEISHU_WIKI_URL` 单表模式仍向后兼容。
 
 ## 二、本地测试（第 7 步）
 

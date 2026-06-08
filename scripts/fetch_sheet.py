@@ -2,9 +2,12 @@
 
 链路：
   1. app_id/secret  -> tenant_access_token
-  2. wiki node token -> 内嵌 spreadsheet token（obj_token）
+  2. 数据源清单（sheets.json，见 sheet_store.py）里的每个表格：
+     - wiki node token -> 内嵌 spreadsheet token（obj_token）
+     - 独立电子表格 -> token 本身即 spreadsheet token
   3. spreadsheet token -> 工作表(Tab)列表
   4. 读取某个 Tab 的 A/B/D/F/H 列 -> 结构化 entries
+  5. 跨所有表格聚合（按数据源添加顺序、再按 Tab 起始日期）
 
 只读 A(日期) / B(时段) / D(黄欣迪) / F(刘嘉晨) / H(王江楠)，图片列 C/E/G 跳过。
 A 列是合并单元格（一天占多行），API 只在左上角返回值，其余为空，这里做向下填充。
@@ -31,6 +34,9 @@ try:
     load_dotenv()
 except Exception:  # python-dotenv 可选
     pass
+
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
+import sheet_store  # noqa: E402  数据源清单（sheets.json）
 
 
 # ---- 配置 ----------------------------------------------------------------
@@ -196,6 +202,42 @@ def parse_week(rows: list[list], week_title: str) -> dict:
     return {"week": week_title, "entries": entries}
 
 
+# ---- 多数据源：把清单里每个表格解析成 spreadsheet token --------------------
+
+def spreadsheet_token_for(api_token: str, source: dict) -> str:
+    """根据数据源类型拿到真正的 spreadsheet token。
+
+    - kind == "sheet"：独立电子表格，链接里的 token 就是 spreadsheet token。
+    - kind == "wiki" ：知识库节点，需再换成内嵌表格的 obj_token。
+    """
+    if source.get("kind") == "sheet":
+        return source["id"]
+    return get_spreadsheet_token(api_token, source["id"])
+
+
+def iter_sources(api_token: str) -> list[tuple[dict, str]]:
+    """返回 [(source, spreadsheet_token), ...]，跳过解析失败的源（打印告警）。"""
+    sources = sheet_store.load_sources()
+    if not sources:
+        raise FeishuError("没有任何飞书表格数据源：请在 sheets.json 添加，或设置 FEISHU_WIKI_URL")
+    out = []
+    for src in sources:
+        try:
+            ss = spreadsheet_token_for(api_token, src)
+        except FeishuError as e:
+            label = src.get("label") or src.get("id")
+            print(f"[告警] 数据源「{label}」解析失败，已跳过：{e}", file=sys.stderr)
+            continue
+        out.append((src, ss))
+    if not out:
+        raise FeishuError("所有数据源都解析失败")
+    return out
+
+
+def _src_label(src: dict) -> str:
+    return src.get("label") or src.get("id") or "?"
+
+
 # ---- 高层封装 ------------------------------------------------------------
 
 def _find_sheet(sheets: list[dict], week_title: str) -> dict | None:
@@ -212,15 +254,17 @@ def _find_sheet(sheets: list[dict], week_title: str) -> dict | None:
 
 
 def fetch_week(week_title: str) -> dict:
+    """在所有数据源里查找该周 Tab（取第一个命中的）。"""
     token = get_tenant_token()
-    ss = get_spreadsheet_token(token)
-    sheets = list_sheets(token, ss)
-    sheet = _find_sheet(sheets, week_title)
-    if not sheet:
-        avail = ", ".join(s["title"] for s in sheets)
-        raise FeishuError(f"未找到 Tab「{week_title}」。现有 Tab：{avail}")
-    rows = read_sheet_values(token, ss, sheet["sheet_id"])
-    return parse_week(rows, sheet["title"])
+    avail_all = []
+    for src, ss in iter_sources(token):
+        sheets = list_sheets(token, ss)
+        avail_all += [s["title"] for s in sheets]
+        sheet = _find_sheet(sheets, week_title)
+        if sheet:
+            rows = read_sheet_values(token, ss, sheet["sheet_id"])
+            return parse_week(rows, sheet["title"])
+    raise FeishuError(f"未找到 Tab「{week_title}」。现有 Tab：{', '.join(avail_all)}")
 
 
 def _tab_month(title: str) -> int | None:
@@ -237,25 +281,64 @@ def _tab_start_key(title: str) -> tuple[int, int]:
     return (0, 0)
 
 
-def fetch_month(year: int, month: int) -> dict:
-    """合并某月所有 Tab。"""
+def fetch_all() -> dict:
+    """跨所有数据源读取全部周 Tab，按「数据源添加顺序 -> Tab 起始日期」合并。
+
+    同名 Tab（如两个表里都有 5.18-5.22）只取第一次出现的，避免重复。
+    """
     token = get_tenant_token()
-    ss = get_spreadsheet_token(token)
-    sheets = list_sheets(token, ss)
-    matched = [s for s in sheets if _tab_month(s["title"]) == month]
-    matched.sort(key=lambda s: _tab_start_key(s["title"]))
-    if not matched:
-        avail = ", ".join(s["title"] for s in sheets)
-        raise FeishuError(f"{year}-{month:02d} 没有匹配的 Tab。现有 Tab：{avail}")
     all_entries, weeks = [], []
-    for s in matched:
-        rows = read_sheet_values(token, ss, s["sheet_id"])
-        wk = parse_week(rows, s["title"])
-        weeks.append(s["title"])
-        for e in wk["entries"]:
-            e = dict(e)
-            e["_week"] = s["title"]
-            all_entries.append(e)
+    seen_titles = set()
+    for src, ss in iter_sources(token):
+        sheets = list_sheets(token, ss)
+        ordered = sorted(sheets, key=lambda s: _tab_start_key(s["title"]))
+        for s in ordered:
+            if _tab_start_key(s["title"]) == (0, 0):
+                continue  # 跳过非「周」命名的 Tab
+            title = s["title"].strip()
+            if title in seen_titles:
+                continue
+            rows = read_sheet_values(token, ss, s["sheet_id"])
+            wk = parse_week(rows, title)
+            if not wk["entries"]:
+                continue
+            seen_titles.add(title)
+            weeks.append(title)
+            for e in wk["entries"]:
+                e = dict(e)
+                e["_week"] = title
+                all_entries.append(e)
+    if not all_entries:
+        raise FeishuError("没有读到任何记录")
+    range_label = f"{weeks[0]} ~ {weeks[-1]}" if weeks else "全部"
+    return {"label": "全部记录", "range": range_label, "weeks": weeks, "entries": all_entries}
+
+
+def fetch_month(year: int, month: int) -> dict:
+    """跨所有数据源合并某月所有 Tab（同名 Tab 去重）。"""
+    token = get_tenant_token()
+    all_entries, weeks = [], []
+    seen_titles = set()
+    avail_all = []
+    for src, ss in iter_sources(token):
+        sheets = list_sheets(token, ss)
+        avail_all += [s["title"] for s in sheets]
+        matched = [s for s in sheets if _tab_month(s["title"]) == month]
+        matched.sort(key=lambda s: _tab_start_key(s["title"]))
+        for s in matched:
+            title = s["title"].strip()
+            if title in seen_titles:
+                continue
+            rows = read_sheet_values(token, ss, s["sheet_id"])
+            wk = parse_week(rows, title)
+            seen_titles.add(title)
+            weeks.append(title)
+            for e in wk["entries"]:
+                e = dict(e)
+                e["_week"] = title
+                all_entries.append(e)
+    if not weeks:
+        raise FeishuError(f"{year}-{month:02d} 没有匹配的 Tab。现有 Tab：{', '.join(avail_all)}")
     return {"month": f"{year}-{month:02d}", "weeks": weeks, "entries": all_entries}
 
 
@@ -267,14 +350,18 @@ def _main(argv=None) -> int:
     g.add_argument("--list", action="store_true", help="列出所有 Tab")
     g.add_argument("--week", help="某周 Tab 名，如 5.18-5.22")
     g.add_argument("--month", help="某月 YYYY-MM，如 2026-05")
+    g.add_argument("--all", action="store_true", help="合并所有周 Tab")
     args = p.parse_args(argv)
 
     try:
         if args.list:
             token = get_tenant_token()
-            ss = get_spreadsheet_token(token)
-            for s in list_sheets(token, ss):
-                print(f"{s['title']}\t{s['sheet_id']}")
+            for src, ss in iter_sources(token):
+                print(f"# 数据源：{_src_label(src)}  ({src.get('kind')}:{src['id']})")
+                for s in list_sheets(token, ss):
+                    print(f"{s['title']}\t{s['sheet_id']}")
+        elif args.all:
+            print(json.dumps(fetch_all(), ensure_ascii=False, indent=2))
         elif args.week:
             print(json.dumps(fetch_week(args.week), ensure_ascii=False, indent=2))
         else:

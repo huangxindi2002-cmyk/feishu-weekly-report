@@ -7,4 +7,9 @@ __pycache__/
 venv/
 # 本地测试产物（含个人数据，不入库）
 week.json
+all.json
 err.txt
+err_all.txt
+persona_run.log
+# 本地生成的性格画像（含个人数据，不入库）
+性格画像报告.html
