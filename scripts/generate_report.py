@@ -91,6 +91,8 @@ STYLE_GUIDE = """你是一个擅长写「有温度的个人生活记录总结」
 4. 行为分类（activity_stats）：把记录归入「吃饭/工作/社交/娱乐/休息/其他」，统计条数，给代表性原文片段；按条数从多到少排序；没有的分类不要硬凑。
 5. 最常时段（most_active_time）：看哪个时段记录最多，并解读 ta 的作息/状态。
 6. 叙事（narrative）：2-4 段，串起这一期的故事线与小情绪，可以引用与同伴的互动。
+   明细里带「💬 评论互动」的行，是其他人在这条记录下的真实评论对话（已标明每句谁说的），
+   是绝佳的「名场面」和叙事素材，可适当引用，体现三人之间的互动与关系。
 7. 收尾（closing）：一句温暖的寄语。
 8. 只基于提供的真实记录，不要编造没发生的事；记录稀少时就如实写「这周话不多」之类，依然写得可爱。
 9. 全部使用简体中文。"""
@@ -116,6 +118,12 @@ def _format_entries(data: dict) -> str:
             text = (e.get(name) or "").strip()
             if text:
                 lines.append(f"{head} | {name}：{text}")
+                # 紧跟着输出朋友们在这条记录下的评论互动
+                for cm in e.get("comments", []):
+                    if cm.get("on") != name:
+                        continue
+                    conv = " / ".join(f"{r['author']}：{r['text']}" for r in cm["conversation"])
+                    lines.append(f"{head} |   💬 评论互动：{conv}")
     return "\n".join(lines)
 
 
@@ -133,7 +141,10 @@ def generate_person_report(client: anthropic.Anthropic, name: str,
     ]
     resp = client.messages.parse(
         model=MODEL,
-        max_tokens=16000,
+        max_tokens=32000,
+        # max_tokens 调高后 SDK 默认会因「非流式可能超 10 分钟」直接报错；
+        # 显式传 timeout 即跳过该估算。单人报告实际输出很短，15 分钟绰绰有余。
+        timeout=900,
         thinking={"type": "adaptive"},  # 4.7 默认 effort=high
         system=system,
         messages=[{
@@ -148,6 +159,13 @@ def generate_person_report(client: anthropic.Anthropic, name: str,
     )
     if resp.stop_reason == "refusal":
         raise RuntimeError(f"模型拒绝为 {name} 生成内容：{resp.stop_details}")
+    # 截断防护：thinking 吃光预算时输出会在尾部字段退化成 test/x/, 之类的残缺值，
+    # parse 仍会“凑”出一个对象。只有正常收尾(end_turn)才接受，否则中止而非渲染垃圾。
+    if resp.stop_reason != "end_turn":
+        raise RuntimeError(
+            f"为 {name} 生成的内容未正常结束（stop_reason={resp.stop_reason}），"
+            f"疑似被截断，已中止以免渲染残缺内容；可调大 max_tokens 后重试。"
+        )
     u = resp.usage
     print(
         f"  [{name}] tokens in={u.input_tokens} "
@@ -396,6 +414,16 @@ def build(report_type: str, target: str | None, year: int,
     n_entries = len(data.get("entries", []))
     if n_entries == 0:
         raise RuntimeError(f"「{period_label}」没有读到任何记录，已中止生成。")
+
+    # 1.5) 给记录挂上飞书评论互动（增强项，失败不阻断报告生成）
+    if not data_file:
+        try:
+            import fetch_comments
+            token = fetch_sheet.get_tenant_token()
+            n_cm = fetch_comments.attach_comments(token, data)
+            print(f"已挂载 {n_cm} 条评论互动到记录", file=sys.stderr)
+        except Exception as e:  # noqa: BLE001
+            print(f"[告警] 评论挂载失败，跳过：{e}", file=sys.stderr)
 
     # 2) 调 Claude（system 段缓存复用）
     # 显式 strip：防止从 GitHub Secret 粘贴时末尾带换行/空格，
