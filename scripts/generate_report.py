@@ -141,7 +141,11 @@ def generate_person_report(client: anthropic.Anthropic, name: str,
     ]
     resp = client.messages.parse(
         model=MODEL,
-        max_tokens=32000,
+        # adaptive thinking 与 JSON 输出共享 max_tokens 预算。effort=high（默认）在
+        # 记录多的周会吃掉两三万 token 的「思考」，若上限太低，结尾字段(narrative/closing)
+        # 会被截断——messages.parse 仍会受限解码出一个「合法但残缺」的对象照样渲染。
+        # 调到 64000 给思考+输出都留足空间；这是单人报告，实际输出很短，预算只是天花板。
+        max_tokens=64000,
         # max_tokens 调高后 SDK 默认会因「非流式可能超 10 分钟」直接报错；
         # 显式传 timeout 即跳过该估算。单人报告实际输出很短，15 分钟绰绰有余。
         timeout=900,
@@ -166,6 +170,23 @@ def generate_person_report(client: anthropic.Anthropic, name: str,
             f"为 {name} 生成的内容未正常结束（stop_reason={resp.stop_reason}），"
             f"疑似被截断，已中止以免渲染残缺内容；可调大 max_tokens 后重试。"
         )
+    # 内容级截断防护：思考吃光预算时，messages.parse 会受限解码出「合法但残缺」的
+    # 对象（stop_reason 仍可能是 end_turn），表现为尾部字段空/半句话。stop_reason
+    # 检查挡不住这种，必须实打实校验内容，残缺就中止而非把半截报告发出去。
+    report = resp.parsed_output
+    missing = []
+    if not (report.closing or "").strip():
+        missing.append("closing")
+    if not [p for p in report.narrative if (p or "").strip()]:
+        missing.append("narrative")
+    if not [h for h in report.highlights if (h.quote or "").strip()]:
+        missing.append("highlights")
+    if missing:
+        raise RuntimeError(
+            f"为 {name} 生成的内容字段残缺（{', '.join(missing)} 为空），"
+            f"疑似思考吃光 token 预算导致截断，已中止以免渲染残缺内容；"
+            f"可调大 max_tokens 或降低 effort 后重试。"
+        )
     u = resp.usage
     print(
         f"  [{name}] tokens in={u.input_tokens} "
@@ -174,7 +195,7 @@ def generate_person_report(client: anthropic.Anthropic, name: str,
         f"out={u.output_tokens}",
         file=sys.stderr,
     )
-    return resp.parsed_output
+    return report
 
 
 # ---- HTML 渲染 -----------------------------------------------------------
