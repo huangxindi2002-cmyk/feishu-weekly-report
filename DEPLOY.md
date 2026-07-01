@@ -9,7 +9,7 @@
 飞书知识库(Wiki) ──get_node──▶ 内嵌电子表格 token ──读 A/B/D/F/H──▶ 结构化流水账
         │
         ▼
-   Claude API (claude-opus-4-7, 结构化输出 + prompt caching)  每人一份 JSON
+   DeepSeek API (deepseek-v4-pro, JSON 输出)  每人一份 JSON
         │
         ▼
    渲染微信读书风 HTML ──▶ commit 到仓库 ──▶ GitHub Pages 部署
@@ -45,9 +45,11 @@
   |---|---|---|
   | Secret | `FEISHU_APP_ID` | 飞书应用 ID |
   | Secret | `FEISHU_APP_SECRET` | 飞书应用密钥 |
-  | Secret | `ANTHROPIC_API_KEY` | Claude API Key（粘贴时勿带换行）|
+  | Secret | `DEEPSEEK_API_KEY` | DeepSeek API Key（粘贴时勿带换行）|
   | Secret | `FEISHU_WEBHOOK_URL` | 群机器人 Webhook |
   | Secret | `FEISHU_WEBHOOK_SECRET` | 仅「签名校验」模式需要 |
+  | Variable | `AI_PROVIDER` | 可选,默认 `deepseek` |
+  | Variable | `DEEPSEEK_MODEL` | 可选,默认 `deepseek-v4-pro` |
   | Variable | `FEISHU_WIKI_URL` | 知识库链接 |
   | Variable | `FEISHU_WEBHOOK_KEYWORD` | 仅「关键词」模式需要 |
   | Variable | `FEISHU_BASE_URL` | 可选,默认 `https://open.feishu.cn` |
@@ -82,7 +84,8 @@ python scripts/send_feishu.py --path reports/weekly/2026-05-18.html --title "...
 | 读 Tab 报权限/找不到空间 | 应用未加入该知识库 | 把应用加为知识库可阅读成员 |
 | `19024 Key Words Not Found` | 机器人开了「自定义关键词」,消息没带 | 配 `FEISHU_WEBHOOK_KEYWORD`=你的关键词 |
 | 飞书发送报签名错误 | 开了「签名校验」没配密钥 | 配 `FEISHU_WEBHOOK_SECRET` |
-| `[错误] Connection error.` | runner 到 api.anthropic.com 偶发抖动 | 重跑 workflow;SDK 已自动重试 2 次,频繁可调高 `max_retries` |
+| `缺少 DEEPSEEK_API_KEY` | GitHub Secret 未配置或名称写错 | 在 Actions Secrets 里新增 `DEEPSEEK_API_KEY` |
+| `[错误] Connection error.` | runner 到模型 API 偶发抖动 | 重跑 workflow;频繁出现时检查 DeepSeek 余额和服务状态 |
 | `没有读到任何记录,已中止` | 目标周/月还没数据(如本周刚开始) | 指定一个有数据的 `target` |
 | 生成步骤里看不到真因 | 已加底层异常打印 | 看「生成报告」日志里的 `[底层原因] ...` |
 | Actions push 403 | Workflow 权限为只读 | 改成 Read and write permissions |

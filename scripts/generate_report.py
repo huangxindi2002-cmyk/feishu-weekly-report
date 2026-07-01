@@ -1,10 +1,8 @@
-"""调用 Claude API 把一周/一月的生活流水账生成微信读书风格的 HTML 报告。
+"""调用 AI API 把一周/一月的生活流水账生成微信读书风格的 HTML 报告。
 
 设计要点：
-  - 模型 claude-opus-4-7，adaptive thinking，结构化输出（messages.parse + Pydantic）。
-  - Prompt caching：把「风格指南 + 本期全部数据」放进 system 并打 cache_control，
-    三个人的生成调用共享这一段前缀，第 1 次写缓存、后 2 次命中读缓存（约 0.1x 成本）。
-    缓存前缀稳定在最前，易变的「为谁生成」放在最后的 user 消息里。
+  - 默认使用 DeepSeek OpenAI 兼容接口（deepseek-v4-pro + JSON 输出）。
+  - 仍保留 Anthropic 旧接口作为可选回退。
   - 每人产出一份结构化 JSON（关键词/金句/行为分类统计/叙事），再用固定模板渲染成一屏。
 
 用法：
@@ -40,7 +38,9 @@ import anthropic
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import fetch_sheet  # noqa: E402
 
-MODEL = "claude-opus-4-7"
+ANTHROPIC_MODEL = "claude-opus-4-7"
+DEEPSEEK_MODEL = "deepseek-v4-pro"
+DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 ROOT = Path(__file__).resolve().parent.parent
 REPORTS_DIR = ROOT / "reports"
 PEOPLE = list(fetch_sheet.PERSON_COLUMNS.keys())  # 黄欣迪 / 刘嘉晨 / 王江楠
@@ -79,6 +79,9 @@ class PersonReport(BaseModel):
     closing: str = Field(description="一句温暖的收尾寄语")
 
 
+SENTENCE_ENDINGS = "。！？!?…」』】）》）”\"'"
+
+
 STYLE_GUIDE = """你是一个擅长写「有温度的个人生活记录总结」的助手。
 用户会给你某个人在一段时间内的生活流水账（按日期+时段记录的零碎文字），
 请为指定的某个人生成一份有趣、有洞察、带点调侃又温暖的总结，
@@ -98,7 +101,7 @@ STYLE_GUIDE = """你是一个擅长写「有温度的个人生活记录总结」
 9. 全部使用简体中文。"""
 
 
-# ---- 调 Claude -----------------------------------------------------------
+# ---- 调模型 --------------------------------------------------------------
 
 def _format_entries(data: dict) -> str:
     """把结构化数据拍平成给模型看的纯文本（稳定、可缓存）。"""
@@ -127,8 +130,31 @@ def _format_entries(data: dict) -> str:
     return "\n".join(lines)
 
 
-def generate_person_report(client: anthropic.Anthropic, name: str,
-                           data_text: str, period_label: str) -> PersonReport:
+def _model_schema() -> dict:
+    if hasattr(PersonReport, "model_json_schema"):
+        return PersonReport.model_json_schema()
+    return PersonReport.schema()
+
+
+def _validate_person_report_obj(obj: dict) -> PersonReport:
+    if hasattr(PersonReport, "model_validate"):
+        return PersonReport.model_validate(obj)
+    return PersonReport.parse_obj(obj)
+
+
+def _loads_model_json(content: str) -> dict:
+    text = (content or "").strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```$", "", text)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as e:
+        raise RuntimeError(f"模型没有返回合法 JSON：{e}") from e
+
+
+def generate_person_report_anthropic(client: anthropic.Anthropic, name: str,
+                                     data_text: str, period_label: str) -> PersonReport:
     """为单个人生成结构化报告。system 段（风格指南+全量数据）可被缓存复用。"""
     system = [
         {"type": "text", "text": STYLE_GUIDE},
@@ -140,7 +166,7 @@ def generate_person_report(client: anthropic.Anthropic, name: str,
         },
     ]
     resp = client.messages.parse(
-        model=MODEL,
+        model=os.environ.get("ANTHROPIC_MODEL", ANTHROPIC_MODEL),
         # adaptive thinking 与 JSON 输出共享 max_tokens 预算。effort=high（默认）在
         # 记录多的周会吃掉两三万 token 的「思考」，若上限太低，结尾字段(narrative/closing)
         # 会被截断——messages.parse 仍会受限解码出一个「合法但残缺」的对象照样渲染。
@@ -187,6 +213,7 @@ def generate_person_report(client: anthropic.Anthropic, name: str,
             f"疑似思考吃光 token 预算导致截断，已中止以免渲染残缺内容；"
             f"可调大 max_tokens 或降低 effort 后重试。"
         )
+    _validate_report_content(name, report)
     u = resp.usage
     print(
         f"  [{name}] tokens in={u.input_tokens} "
@@ -196,6 +223,117 @@ def generate_person_report(client: anthropic.Anthropic, name: str,
         file=sys.stderr,
     )
     return report
+
+
+def generate_person_report_deepseek(client, name: str,
+                                    data_text: str, period_label: str) -> PersonReport:
+    schema = json.dumps(_model_schema(), ensure_ascii=False)
+    thinking = os.environ.get("DEEPSEEK_THINKING", "disabled").strip()
+    extra_body = {"thinking": {"type": thinking}}
+    if thinking == "enabled":
+        extra_body["reasoning_effort"] = os.environ.get("DEEPSEEK_REASONING_EFFORT", "high")
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                f"{STYLE_GUIDE}\n\n"
+                f"以下是「{period_label}」全员的生活流水账，供你理解上下文：\n\n{data_text}"
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"请只为「{name}」生成这一期的生活报告。"
+                f"聚焦 ta 的记录，可适当引用与其他人的互动；name 字段填「{name}」。\n\n"
+                "只输出一个 JSON object，不要输出 Markdown，不要解释。"
+                "JSON 必须符合这个 schema：\n"
+                f"{schema}"
+            ),
+        },
+    ]
+    resp = client.chat.completions.create(
+        model=os.environ.get("DEEPSEEK_MODEL", DEEPSEEK_MODEL),
+        messages=messages,
+        response_format={"type": "json_object"},
+        max_tokens=int(os.environ.get("DEEPSEEK_MAX_TOKENS", "16000")),
+        extra_body=extra_body,
+        timeout=900,
+    )
+    choice = resp.choices[0]
+    if choice.finish_reason not in {None, "stop"}:
+        raise RuntimeError(
+            f"为 {name} 生成的内容未正常结束（finish_reason={choice.finish_reason}），"
+            f"疑似被截断，已中止以免渲染残缺内容。"
+        )
+    report = _validate_person_report_obj(_loads_model_json(choice.message.content))
+    _validate_report_content(name, report)
+    usage = getattr(resp, "usage", None)
+    if usage:
+        print(
+            f"  [{name}] deepseek tokens in={getattr(usage, 'prompt_tokens', 0)} "
+            f"out={getattr(usage, 'completion_tokens', 0)}",
+            file=sys.stderr,
+        )
+    return report
+
+
+def choose_ai_provider() -> str:
+    provider = os.environ.get("AI_PROVIDER", "").strip().lower()
+    if provider:
+        return provider
+    if os.environ.get("DEEPSEEK_API_KEY", "").strip():
+        return "deepseek"
+    return "anthropic"
+
+
+def make_ai_client(provider: str):
+    if provider == "deepseek":
+        from openai import OpenAI
+
+        api_key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
+        if not api_key:
+            raise RuntimeError("缺少 DEEPSEEK_API_KEY")
+        return OpenAI(
+            api_key=api_key,
+            base_url=os.environ.get("DEEPSEEK_BASE_URL", DEEPSEEK_BASE_URL).strip(),
+        )
+    if provider == "anthropic":
+        api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+        if not api_key:
+            raise RuntimeError("缺少 ANTHROPIC_API_KEY")
+        return anthropic.Anthropic(api_key=api_key)
+    raise RuntimeError(f"不支持的 AI_PROVIDER：{provider}")
+
+
+def _looks_truncated_sentence(text: str) -> bool:
+    s = (text or "").strip()
+    if not s:
+        return True
+    if s[-1] in SENTENCE_ENDINGS:
+        return False
+    # 这些字段应该是完整句子/段落；若以普通文字结尾但没有句末标点，
+    # 在实践里通常意味着模型在尾部被截断了。
+    return bool(re.search(r"[\u4e00-\u9fffA-Za-z0-9]$", s))
+
+
+def _validate_report_content(name: str, report: PersonReport) -> None:
+    issues = []
+    narrative_parts = [p.strip() for p in report.narrative if (p or "").strip()]
+    if len(narrative_parts) < 2:
+        issues.append("narrative 段落少于 2 段")
+    for idx, part in enumerate(narrative_parts, start=1):
+        if _looks_truncated_sentence(part):
+            issues.append(f"narrative 第 {idx} 段疑似半句截断")
+    if _looks_truncated_sentence(report.closing):
+        issues.append("closing 疑似半句截断")
+    for idx, h in enumerate(report.highlights, start=1):
+        if _looks_truncated_sentence(h.note):
+            issues.append(f"highlight {idx} note 疑似半句截断")
+    if issues:
+        raise RuntimeError(
+            f"为 {name} 生成的内容疑似被截断（{'；'.join(issues)}），"
+            f"已中止以免渲染半截报告；请重试生成。"
+        )
 
 
 # ---- HTML 渲染 -----------------------------------------------------------
@@ -446,18 +584,20 @@ def build(report_type: str, target: str | None, year: int,
         except Exception as e:  # noqa: BLE001
             print(f"[告警] 评论挂载失败，跳过：{e}", file=sys.stderr)
 
-    # 2) 调 Claude（system 段缓存复用）
-    # 显式 strip：防止从 GitHub Secret 粘贴时末尾带换行/空格，
-    # 否则非法请求头会被 httpx 拒绝并报成 "Connection error"
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("缺少 ANTHROPIC_API_KEY")
-    client = anthropic.Anthropic(api_key=api_key)
+    # 2) 调模型。默认优先 DeepSeek；也可显式 AI_PROVIDER=anthropic 回退旧接口。
+    provider = choose_ai_provider()
+    client = make_ai_client(provider)
     data_text = _format_entries(data)
-    print(f"为「{period_label}」生成报告（{n_entries} 条记录，{len(PEOPLE)} 人）…", file=sys.stderr)
+    print(
+        f"为「{period_label}」生成报告（{n_entries} 条记录，{len(PEOPLE)} 人，provider={provider}）…",
+        file=sys.stderr,
+    )
     reports: List[PersonReport] = []
     for name in PEOPLE:
-        reports.append(generate_person_report(client, name, data_text, period_label))
+        if provider == "deepseek":
+            reports.append(generate_person_report_deepseek(client, name, data_text, period_label))
+        else:
+            reports.append(generate_person_report_anthropic(client, name, data_text, period_label))
 
     # 3) 渲染 & 落盘
     if report_type == "weekly":
@@ -489,7 +629,7 @@ def build(report_type: str, target: str | None, year: int,
 
 
 def main(argv=None) -> int:
-    p = argparse.ArgumentParser(description="用 Claude 生成生活周报/月报 HTML")
+    p = argparse.ArgumentParser(description="用 AI 模型生成生活周报/月报 HTML")
     p.add_argument("--type", choices=["weekly", "monthly"], default="weekly")
     p.add_argument("--target", help="周 Tab 名(5.18-5.22) 或 月份(2026-05)；留空自动")
     p.add_argument("--year", type=int, default=dt.date.today().year, help="周报文件名用的年份")

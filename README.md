@@ -1,6 +1,6 @@
 # feishu-life-report
 
-从飞书知识库的电子表格读取生活流水账 → 用 Claude API 生成「微信读书年度报告」风格的周报/月报 → 部署到 GitHub Pages → 飞书群机器人发链接。
+从飞书知识库的电子表格读取生活流水账 → 用 DeepSeek API 生成「微信读书年度报告」风格的周报/月报 → 部署到 GitHub Pages → 飞书群机器人发链接。
 
 ```
 feishu-life-report/
@@ -8,7 +8,7 @@ feishu-life-report/
 │   ├── fetch_sheet.py       # 飞书 wiki/sheet→token + 读数据 + 跨多表聚合
 │   ├── sheet_store.py       # 数据源清单(sheets.json)的存取 + 链接解析
 │   ├── manage_sheets.py     # 本地网页：粘贴链接增/删/验证飞书表格
-│   ├── generate_report.py   # 调 Claude API 生成结构化内容并渲染 HTML
+│   ├── generate_report.py   # 调 AI API 生成结构化内容并渲染 HTML
 │   └── send_feishu.py       # 群机器人 Webhook 发消息卡片
 ├── sheets.json              # 所有飞书表格数据源清单（被聚合读取，需入库）
 ├── reports/
@@ -35,6 +35,16 @@ feishu-life-report/
 ### 3. 配置环境变量
 ```bash
 cp .env.example .env   # 然后填入各项值
+```
+
+DeepSeek 相关配置：
+
+```bash
+AI_PROVIDER=deepseek
+DEEPSEEK_API_KEY=你的 DeepSeek API Key
+DEEPSEEK_BASE_URL=https://api.deepseek.com
+DEEPSEEK_MODEL=deepseek-v4-pro
+DEEPSEEK_THINKING=disabled
 ```
 
 ### 4. 多个飞书表格（每月新建表也能用）
@@ -66,7 +76,7 @@ pip install -r requirements.txt
 # 1) 验证飞书连通 + 列出所有 Tab（确认 wiki→sheet 链路通）
 python scripts/fetch_sheet.py --list
 
-# 2) 只读数据、不调用 Claude（先确认解析对不对）
+# 2) 只读数据、不调用模型（先确认解析对不对）
 python scripts/fetch_sheet.py --week 5.18-5.22 > week.json
 cat week.json
 
@@ -74,7 +84,7 @@ cat week.json
 python scripts/generate_report.py --type weekly --data-file week.json
 open reports/weekly/*.html          # macOS 直接打开看效果
 
-# 4) 一步到位：连飞书 + 调 Claude 生成周报（自动选最近一周也可不带 --target）
+# 4) 一步到位：连飞书 + 调 DeepSeek 生成周报（自动选最近一周也可不带 --target）
 python scripts/generate_report.py --type weekly --target 5.18-5.22
 
 # 5) 生成月报（合并当月所有 Tab）
@@ -93,8 +103,8 @@ python scripts/send_feishu.py --url "https://example.com" --title "测试卡片"
 2. 仓库 **Settings → Pages**：Source 选 `Deploy from a branch`，分支选 `main`，目录 `/ (root)`。
    发布地址：`https://<username>.github.io/<repo>/`
 3. 仓库 **Settings → Secrets and variables → Actions**：
-   - **Secrets**：`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`ANTHROPIC_API_KEY`、`FEISHU_WEBHOOK_URL`、（可选）`FEISHU_WEBHOOK_SECRET`
-   - **Variables**：`FEISHU_WIKI_URL`（知识库链接）、（可选）`FEISHU_BASE_URL`
+   - **Secrets**：`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`DEEPSEEK_API_KEY`、`FEISHU_WEBHOOK_URL`、（可选）`FEISHU_WEBHOOK_SECRET`
+   - **Variables**：`FEISHU_WIKI_URL`（知识库链接）、（可选）`FEISHU_BASE_URL`、（可选）`AI_PROVIDER=deepseek`
 4. 触发方式：
    - 自动：每周五 18:00（北京）出周报；每月 1 号 09:00（北京）出**上月**月报。
    - 手动：Actions → 选 workflow → Run workflow，可填 `report_type` 和 `target`。
@@ -113,9 +123,8 @@ python scripts/send_feishu.py --url "https://example.com" --title "测试卡片"
 第 1 行表头、第 2 行人名，第 3 行起为数据。A 列是合并单元格（一天多行），脚本会向下填充。
 只读 **A/B/D/F/H**。改人名或列位置：编辑 `scripts/fetch_sheet.py` 里的 `PERSON_COLUMNS`。
 
-## 五、关于 Claude 调用与成本
+## 五、关于 DeepSeek 调用与成本
 
-- 模型 `claude-opus-4-7`，adaptive thinking，结构化输出（Pydantic 校验）。
-- **Prompt caching**：「风格指南 + 本期全部流水账」放在 system 段并打了缓存点，
-  同一期三个人的三次调用共享这段前缀——第 1 次写缓存，后两次命中缓存（约 0.1× 输入成本）。
-  运行时 stderr 会打印每人的 `cache_read` token 数，可据此确认缓存生效。
+- 默认模型 `deepseek-v4-pro`，通过 OpenAI 兼容接口调用。
+- 默认关闭 thinking（`DEEPSEEK_THINKING=disabled`），主要是为了让 JSON 结构化输出更稳定。
+- 旧的 Claude 调用仍保留为可选回退：设置 `AI_PROVIDER=anthropic` 并提供 `ANTHROPIC_API_KEY` 即可。
