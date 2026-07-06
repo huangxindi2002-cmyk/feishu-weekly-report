@@ -19,6 +19,7 @@ on:
 permissions:
   contents: write   # 允许 commit & push（push 到默认分支即触发 Pages 部署）
   pages: write      # 允许显式触发 GitHub Pages 构建
+  id-token: write   # actions/deploy-pages 需要 OIDC token
 
 concurrency:
   group: life-report
@@ -27,6 +28,9 @@ concurrency:
 jobs:
   build-and-notify:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -90,16 +94,25 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: 触发 GitHub Pages 构建
-        if: steps.commit.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: 准备 Pages 静态文件
         run: |
-          curl -fsS \
-            -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            "https://api.github.com/repos/${{ github.repository }}/pages/builds"
+          rm -rf _site
+          mkdir -p _site
+          cp index.html _site/
+          cp -R reports _site/reports
+          touch _site/.nojekyll
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传 Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
       - name: 等待 Pages 报告可访问
         if: steps.gen.outputs.report_path != ''
