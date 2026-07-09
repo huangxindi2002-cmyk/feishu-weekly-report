@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2026-06 生活报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff; background:#0b0b12; overflow:hidden;
+  }
+  #deck { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  #deck::-webkit-scrollbar { display:none; }
+  .screen {
+    min-height:100vh; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 24px; background:linear-gradient(160deg,var(--from),var(--to));
+  }
+  .inner { width:100%; max-width:680px; }
+  /* 封面 */
+  .cover { --from:#0b0b12; --to:#241638; --accent:#ff8fb1; text-align:center; }
+  .cover .big { font-size:clamp(40px,11vw,84px); font-weight:800; line-height:1.05; letter-spacing:2px; }
+  .cover .sub { margin-top:18px; font-size:18px; opacity:.8; }
+  .cover .cloud { margin:36px auto 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:480px; }
+  .cover .cloud span { font-size:14px; padding:6px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; opacity:.85; }
+  .cover .hint { margin-top:48px; font-size:13px; opacity:.55; animation:bob 1.6s infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  /* 人物页 */
+  .who { font-size:14px; letter-spacing:3px; color:var(--soft); opacity:.85; }
+  .title { font-size:clamp(30px,7vw,52px); font-weight:800; margin:6px 0 10px; }
+  .tagline { font-size:17px; color:var(--soft); opacity:.9; margin-bottom:24px; }
+  h3 { font-size:15px; letter-spacing:2px; margin:30px 0 12px; color:var(--accent); }
+  .kw-cloud { display:flex; flex-wrap:wrap; gap:9px; }
+  .kw { font-size:14px; padding:6px 13px; border-radius:999px;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+         animation:pop .5s var(--d) both; }
+  @keyframes pop { from{opacity:0; transform:scale(.8)} to{opacity:1; transform:scale(1)} }
+  .time-card { margin-top:22px; padding:14px 16px; border-radius:14px;
+                background:rgba(255,255,255,.07); font-size:15px; }
+  .time-card b { color:var(--accent); }
+  .stats { display:flex; flex-direction:column; gap:14px; }
+  .stat-top { display:flex; justify-content:space-between; font-size:15px; }
+  .stat-top b { color:var(--accent); }
+  .bar { height:8px; border-radius:999px; background:rgba(255,255,255,.12); margin:6px 0 4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); border-radius:999px; }
+  .ex { font-size:12px; opacity:.6; }
+  .highlights { display:flex; flex-direction:column; gap:14px; }
+  .hl { padding:16px 18px; border-left:3px solid var(--accent);
+         background:rgba(255,255,255,.06); border-radius:0 12px 12px 0; }
+  .hl .q { font-size:17px; line-height:1.5; }
+  .hl .n { font-size:13px; opacity:.7; margin-top:8px; }
+  .narrative p { font-size:15px; line-height:1.85; opacity:.92; margin-bottom:14px; }
+  .closing { margin-top:30px; font-size:18px; font-style:italic; color:var(--soft); }
+  /* 进度点 */
+  #dots { position:fixed; right:14px; top:50%; transform:translateY(-50%);
+           display:flex; flex-direction:column; gap:10px; z-index:10; }
+  #dots button { width:8px; height:8px; border:0; border-radius:50%;
+                  background:rgba(255,255,255,.3); cursor:pointer; padding:0; }
+  #dots button.on { background:#fff; transform:scale(1.4); }
+</style>
+</head>
+<body>
+<div id="deck">
+  <section class="screen cover">
+    <div class="inner">
+      <div class="big">2026-06<br>生活报告</div>
+      <div class="sub">2026-06 · 5 周 · 共 216 条记录</div>
+      <div class="cloud"><span>Manner</span><span>超级碗</span><span>加班</span><span>超级碗</span><span>面试</span><span>巴西莓粉</span><span>厕所女王</span><span>八段锦</span><span>花茶屠夫</span></div>
+      <div class="hint">↓ 滑动 / 方向键查看每个人</div>
+    </div>
+  </section>
+  
+    <section class="screen" style="--from:#1a1033;--to:#3a1c5c;--accent:#ff8fb1;--soft:#ffd6e5">
+      <div class="inner">
+        <p class="who">黄欣迪 · 第 1 章</p>
+        <h2 class="title">在Manner和超级碗之间反复横跳的职场特种兵</h2>
+        <p class="tagline">一边崩溃一边加班，一边狂笑一边健身，一边痛骂实习生一边说好话——你的六月，主打一个“撕扯但鲜活”。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">Manner</span><span class="kw" style="--d:0.05s">超级碗</span><span class="kw" style="--d:0.10s">加班</span><span class="kw" style="--d:0.15s">健身狂笑</span><span class="kw" style="--d:0.20s">雷霆实习生</span><span class="kw" style="--d:0.25s">不想干了</span><span class="kw" style="--d:0.30s">上海</span><span class="kw" style="--d:0.35s">老鼠朋友</span><span class="kw" style="--d:0.40s">鸠占鹊巢</span><span class="kw" style="--d:0.45s">精致西二旗女生</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>14:00-18:00 是你的摸鱼与干活高峰区，记录最多，堪称“下午四小时最难熬，但总能找到会议室玩手机或跟姐妹买咖啡”的典范；其次为 10:00-11:00，承载了迟到、健身、八段锦和鸡血早会。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>28</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">刚打完专家call大脑一片空白、我让AI帮我规划一下进度，AI直接安排我周末两天加班，我服了、加班结束跟我的好姐妹散步</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>23</b></div>
+              <div class="bar"><i style="width:82%"></i></div>
+              <div class="ex">中午吃超级碗、中午吃健康餐难吃得我想吐，为什么除了超级碗都没有什么好吃的、晚上又跟我的姐妹们一起吃饭 爽之</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>18</b></div>
+              <div class="bar"><i style="width:64%"></i></div>
+              <div class="ex">明天晚上如果不开会就去我朋友家住！、和蓓铧聊天得到的结论：打工人的不可能三角是时间、便宜的机票和好玩的地方！、我要去上海见李嘉诚和王江楠</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>14</b></div>
+              <div class="bar"><i style="width:50%"></i></div>
+              <div class="ex">找到一个美剧开始看、我们摸鱼群的置顶是：hxd:《恋爱圣经》、在会议室酣畅淋漓地玩手机</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>10</b></div>
+              <div class="bar"><i style="width:36%"></i></div>
+              <div class="ex">午睡5分钟😂假寐！、中午爽睡，睡到2点还不想起来上班、我要回家吃我的小蛋糕</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>8</b></div>
+              <div class="bar"><i style="width:29%"></i></div>
+              <div class="ex">下班吧孩子 下班吧、咖啡+++++到厌倦、北京做个美甲随便588 我滴妈</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“我们这个周末为了去上海见李嘉诚和王江楠付出太多！从来没这么多人同时在我不在北京的时候约我，玩剧本杀的德扑的吃饭的喝酒的通通吻了上来，每个都想去每个都去不了😂能不能周末上班工作日见朋友啊！”</p>
+              <p class="n">社交牛人也会被幸福淹没，这段“凡尔赛式诉苦”就是你社交魅力的最佳注脚。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“每次赶飞机就得来挤晚高峰……我快要饿死了 但我只能8点多到机场再吃饭……要和李嘉诚会晤！”</p>
+              <p class="n">饿着肚子跨城会晤，活脱脱一部当代打工人友情奔赴图鉴。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我觉得我已经锻炼出一种诡异的心态了，就是老板每次说我做的分析不行我都会生出一种“原来如此”的满意感然后理直气壮地回应他“好的了解””</p>
+              <p class="n">从挨骂到自带“理解光波”，你的职场钝感力已修炼到第九层。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我现在每次健身总有一趴是看到健身教练要狂笑的，每次他说别乐了，我都忍不住。我觉得我练到了腹肌，教练说他气得脑袋疼”</p>
+              <p class="n">教练：我教健身，你练笑穴？这份快乐也算另类的核心训练。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我发誓我绝对不要找7点起床 还要化妆上班的工作！好困啊！”</p>
+              <p class="n">去朋友家借住后的真挚觉悟，道出了多少打工人对睡眠的忠诚。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>六月对你来说，是「双城记」与「情绪过山车」的混合体。月初，你带着对上海的热爱，跨过晚高峰、饿着肚子，就为和李嘉诚来一场说走就走的会晤——“我要去上海见李嘉诚和王江楠付出太多”，短短一句话，道尽社牛的甜蜜负担。在上海的周末“开心的像做梦”，回到北京立刻嫌弃“北京好土好破完全不是人待的地方”，你和城市的爱恨情仇，像极了恋情里忽冷忽热的状态。</p><p>工作是你最大的修罗场，也是你每天梗的主要来源。从“早上连环开了三个会，向老板汇报了我写的一坨大便”到“我辛苦干了很久的东西其实推动0个业务落地”，你一边崩溃一边产出，还练就了被批评时“理直气壮”回应“好的了解”的诡异心态。实习生是永恒的话题：“带着对笨猪实习生的恨意下班了”、“他能不能马上滚啊”，可转头又跟同事说实习生的好话，这种反复横跳恰恰是你刀子嘴豆腐心的最佳证据。</p><p>健身和吃东西是你最可爱的矛盾组合。每次健身必因教练而笑场，据不完全统计，教练说了至少三次“别乐了”，你却说“练到了腹肌”。而吃饭就更有意思了——“天啊，难道我的生活就这样被manner和超级碗定义了吗？”是的，就是被它们定义了，还偶尔穿插世界最难吃的拌粉、被辣到胃疼的牛腩煲、以及摆拍用的高雅人士早饭。你在健康餐和罪恶餐之间反复横跳，最终选择“中午吃健康餐难吃得我想吐”后，默默又点了一杯Manner。</p><p>友情是你本期最亮的底色。你和老鼠朋友深夜约会、和姐妹买咖啡迟到双倍快乐、在飞书表格里跟李嘉诚玩“鸠占鹊巢”的留言游戏、在群里调侃王江楠是“厕所女王”……这些互动让原本平淡的工作日充满了毛边似的温暖。就像你说的：“我感觉我的生活就这样被manner和超级碗定义了吗？”不是的，定义你生活的还有这些陪你疯、陪你吐槽、陪你在地铁上狂笑的朋友们。</p></div>
+
+        <p class="closing">六月的你，在会议室的涂鸦里藏过焦虑，在健身房的杠铃边憋过笑，在凌晨的文档里种过希望。你好，行走的西二旗精致标杆、超级碗荣誉代言人、实习生心理按摩师——下个月，继续在生活的琐碎里打捞金光吧。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#06141f;--to:#0f3a4d;--accent:#5fd0c5;--soft:#bff0ea">
+      <div class="inner">
+        <p class="who">刘嘉晨 · 第 2 章</p>
+        <h2 class="title">面试、咖啡、减重：一个魔都打工人的多面生活</h2>
+        <p class="tagline">生活是工作间隙里的一口米布丁，熬夜后面的一杯巴西莓粉，和地铁通勤时悄悄向往的下一场徒步。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">超级碗</span><span class="kw" style="--d:0.05s">面试</span><span class="kw" style="--d:0.10s">巴西莓粉</span><span class="kw" style="--d:0.15s">米布丁</span><span class="kw" style="--d:0.20s">徒步</span><span class="kw" style="--d:0.25s">打车</span><span class="kw" style="--d:0.30s">摸鱼</span><span class="kw" style="--d:0.35s">Manner</span><span class="kw" style="--d:0.40s">减重</span><span class="kw" style="--d:0.45s">健身房</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>14:00-18:00 是刘嘉晨最活跃的时段，她集中处理工作、面试、摸鱼和做生活决策，下午四小时浓缩着职场人的韧性与狡猾。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>69</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">让Claude改agent code，给克老师整的已经语言系统紊乱了、今天下午面3个intern，晚上面1个LBS candidate，我称今天为“面试日”！、真不想干了，每个月究竟要花多少小时在和卖家经理问东问西上面</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>55</b></div>
+              <div class="bar"><i style="width:80%"></i></div>
+              <div class="ex">这个朝鲜牛肉汤饭清淡健康又美味！！、这个holy bagel让我感觉像是吃了一个汉堡、好久没吃这家的饺子，嘻嘻</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>42</b></div>
+              <div class="bar"><i style="width:61%"></i></div>
+              <div class="ex">DIY猫眼晶石美甲，安全下车！、在KTV点了红料理外卖，好久没吃了、吃完饭想去野人先生但还没走进店里，服务员就喊着说今天的冰激凌已经卖完了</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>19</b></div>
+              <div class="bar"><i style="width:28%"></i></div>
+              <div class="ex">和陈研打视频，她给我开箱我的iPhone17p、和猎头打了第一个电话、date对象说他看到我在我们见面五次之后还在dating app上活跃</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>14</b></div>
+              <div class="bar"><i style="width:20%"></i></div>
+              <div class="ex">不到十点就好困啊好想睡觉啊、已经美美躺下，明天就回家！、回家可以练会吉他了！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>21</b></div>
+              <div class="bar"><i style="width:30%"></i></div>
+              <div class="ex">贡献本表第一张地铁通勤照片、好久没来外滩了，上次还是在本科毕业的时候吧、给我的mac精挑细选了一张自己拍的照片作为壁纸</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“从昨天研读申请者的申请材料到go through LBS program key facts，今天和申请者聊他的经历、为什么想读LBS MFA、如何serve career goal，我仿佛从未离开LBS。”</p>
+              <p class="n">那一刻，你不仅是面试官，更是 LBS 精神的隔空传承者，温柔得不像个打工机器。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“怎么又来公司了，好痛苦啊！周末过得又快又充实”</p>
+              <p class="n">嘴硬心软的打工人实录，每个周日晚上都在和床铺生死诀别。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“选择保留黄欣迪的“鸠占鹊巢”，并添加原有的话”</p>
+              <p class="n">在共享文档里互相挤占空间，是你们三个特有的调皮仪式感，友谊在单元格间疯长。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“date对象说他看到我在我们见面五次之后还在dating app上活跃，以为我没有exclusive，但我却说了他觉得应该是双方确认exclusive之后才说的话。但误会解开了！”</p>
+              <p class="n">当代都市爱情微缩：用坦率解开 app 时代的错频，迈出沟通的一大步。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“在KTV点了红料理外卖，好久没吃了，又想到本科的时候在寝室点红料理外卖的时候”</p>
+              <p class="n">味道是时光机，一口就把你送回学生时代那些无所畏惧的深夜。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>六月，刘嘉晨的生活是一个高速旋转的万花筒。她一面在 LBS 面试官和公司新人之间无缝切换，一面精打细算着巴西莓粉和米布丁的库存。上班的痛苦是真的，但发现园区睡莲开了、吃完超级碗后的满足感、以及和黄欣迪在飞书表格里“鸠占鹊巢”的打闹，也都是真的。工作总夹杂着“不想干了”的叹息，却又在每次面到好 candidate 或学到新东西时，默默给自己续上一点咖啡因般的动力。</p><p>减重这件事，莫名成了叙事的另一条暗线。她在超级碗和酸奶碗之间反复横跳，一边对着三十块的酸奶碗怀疑毛利太高，一边认真思考要不要升级巴西莓粉的牌子。健身房爬坡、游泳、体重瓶颈期的焦虑，混合着徒步搭子的爽约，构成了一种“边吃边对抗”的可爱较劲。偶尔，偷喝的一杯酒或一次深夜水烟，又成了对日常纪律的温柔叛逃。</p><p>社交场上，她是那个在 KTV 醉眼看直男和 gay 亲嘴的问题目击者，也是用“心诚则零卡”进行唯心主义安慰的生活哲学家。和陈研打视频开箱手机、听同事聊离职的喜悦、和校招搭子谋划安吉徒步，这些瞬间让办公室的冷气里透出一丝人情暖意。尤其与黄欣迪的神奇互动——从互相霸占单元格到讨论杭州商K点男模——让枯燥的打工日长出了幽默的倒刺。</p><p>她的情感世界也在这个六月泛起涟漪：和 date 对象小心翼翼地校准“exclusive”的定义，在午夜街头买一束无人欣赏的花，然后散步两小时归家。这些碎片拼凑出一个在魔都理性求存又保持感性的身影——她一面吐槽工作的无意义，一面在员工总结里认真写下面试心得；一面计算着热量缺口，一面把生活填充进徒步背包里，准备随时出发。</p></div>
+
+        <p class="closing">亲爱的嘉晨，愿你的减重计划终获成效，愿你的面试搭子个个靠谱，愿安吉的风吹散周报里的愁，愿你下一个下班后的夜晚，冰淇淋店还亮着灯。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#1f1206;--to:#4a2c0f;--accent:#ffb454;--soft:#ffe2b3">
+      <div class="inner">
+        <p class="who">王江楠 · 第 3 章</p>
+        <h2 class="title">在厕所和食堂之间，悄悄长大</h2>
+        <p class="tagline">一边摸鱼一边当秘书，一边嫌活杂一边默默扛起。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">厕所女王</span><span class="kw" style="--d:0.05s">八段锦</span><span class="kw" style="--d:0.10s">花茶屠夫</span><span class="kw" style="--d:0.15s">食堂</span><span class="kw" style="--d:0.20s">加班</span><span class="kw" style="--d:0.25s">蚊子包</span><span class="kw" style="--d:0.30s">i人聚会</span><span class="kw" style="--d:0.35s">拉屎</span><span class="kw" style="--d:0.40s">杂活</span><span class="kw" style="--d:0.45s">保健品</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>14:00-18:00 和 12:00 前后：一边是被会议和杂活填满的下午，一边是争分夺秒搞定午饭、厕所和八段锦的午间。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>15</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">上午就在分类文件！j人狂喜，不动脑子很爽、在当部门秘书啊啊啊啊 全是杂活、要求我们每天加班 1.5 小时 sad</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>10</b></div>
+              <div class="bar"><i style="width:67%"></i></div>
+              <div class="ex">中午和新来的暑期一起吃饭，感觉很i，部门领导是i人就会产生一堆i人嘛，我喜欢嘿嘿、晚上去吃食堂，食堂真的好吃。我感觉食堂给我喂胖了。、拿着苹果去健身</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>7</b></div>
+              <div class="bar"><i style="width:47%"></i></div>
+              <div class="ex">睡醒就被拉去开会了、工作完成 躺下、晚上要录第一个广告，恭喜我！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>5</b></div>
+              <div class="bar"><i style="width:33%"></i></div>
+              <div class="ex">刷视频、刷到了好多有趣的，我知道了凯撒是0、晚上要录第一个广告，恭喜我！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>4</b></div>
+              <div class="bar"><i style="width:27%"></i></div>
+              <div class="ex">今天来例假了！厕所堵了！难过。但是大雨没迟到开心、我的西装裤腿里进了只蚊子！、最近都睡8小时，很满意</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>3</b></div>
+              <div class="bar"><i style="width:20%"></i></div>
+              <div class="ex">中午和c姐打电话，她的手又发炎了，坏！真的不能在发展中国家玩极限运动、中午和xxr吃了饭，福田的这家桂满陇很难吃，呜呜然后就分别了、第一次商务饭局！</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“王江楠已经在这个文档里死掉了。”</p>
+              <p class="n">开场就罢工，但后半程默默填坑，完全是你的风格。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“厕所女王王江楠”</p>
+              <p class="n">黄欣迪给你加冕的称号，你嘴上嫌弃，行动上却很忠诚。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“花茶屠夫 同志们 这将成为我主要代号！”</p>
+              <p class="n">自己取的江湖诨号，有种诡异的正经感。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“要求我们每天加班 1.5 小时 sad”</p>
+              <p class="n">轻描淡写的 sad，后面就真的天天加班，成年人的心酸。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“一群i人吃吃吃 也不喝酒嘿嘿”</p>
+              <p class="n">商务饭局的理想形态，被你精准捕捉。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>月初你还在文档里“死掉”，被另外两人吐槽一天到晚都不出现。但马上你就带着“花茶屠夫”的神秘代号杀了回来，一边骂杂活多，一边在 i 人饭局里默默干饭。你大概是这个文档里最擅长在厕所摸鱼、在食堂光盘的人了——连蚊子都不放过，在你的西装裤腿里留下几个大包。</p><p>这个月你开始接手部门秘书般的杂活，分类文件能让你开心，给邮件建文件夹能让你爽到。加班成了日常，公交车代替了打车，但你总能在间隙里找到乐子：偶尔去健身房蹭个厕所，或者在睡前刷视频刷出“凯撒是 0”这种冷知识。</p><p>你和黄欣迪、刘嘉晨的互怼，总带点幼稚又亲切的味道。黄欣迪说你学人精，你说她是“邪恶的男宝”；她调侃你“厕所女王”，你反击她“厕所一样的品味”。但转头你就帮刘嘉晨带了小鹰背包，收获“小王很会挑”的五星好评。</p><p>月末从泰国回来，你晕晕乎乎投入工作，一边喊着没睡醒，一边弹射起床；一边嫌弃食堂，一边被喂胖。你还悄悄录了第一个广告，像一株在办公室角落默默生长的植物，不太起眼，却自己扎下了根。</p></div>
+
+        <p class="closing">王师傅，别总在厕所当女王，偶尔也来文档里坐坐，我们挺想你的。</p>
+      </div>
+    </section>
+</div>
+<div id="dots"><button data-i="0"></button><button data-i="1"></button><button data-i="2"></button><button data-i="3"></button></div>
+<script>
+  const deck = document.getElementById('deck');
+  const screens = [...document.querySelectorAll('.screen')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) {
+      const i = screens.indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('on', j===i));
+    } });
+  }, {threshold:0.6});
+  screens.forEach(s => io.observe(s));
+  dots.forEach(d => d.onclick = () => screens[+d.dataset.i].scrollIntoView());
+  let i = 0;
+  addEventListener('keydown', e => {
+    if (e.key==='ArrowDown'||e.key==='ArrowRight') i=Math.min(i+1,screens.length-1);
+    else if (e.key==='ArrowUp'||e.key==='ArrowLeft') i=Math.max(i-1,0);
+    else return;
+    screens[i].scrollIntoView();
+  });
+</script>
+<!-- generated 2026-07-09 14:51 -->
+</body>
+</html>

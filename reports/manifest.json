@@ -41,6 +41,14 @@
       "generated_at": "2026-06-08T10:38:27"
     },
     {
+      "type": "monthly",
+      "title": "2026-06 生活报告",
+      "period": "2026-06",
+      "path": "reports/monthly/2026-06.html",
+      "date": "2026-06-01",
+      "generated_at": "2026-07-09T14:51:41"
+    },
+    {
       "type": "weekly",
       "title": "5.25-5.29 生活报告",
       "period": "5.25-5.29",
