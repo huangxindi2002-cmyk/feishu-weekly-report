@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>7.06-7.10 生活报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff; background:#0b0b12; overflow:hidden;
+  }
+  #deck { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  #deck::-webkit-scrollbar { display:none; }
+  .screen {
+    min-height:100vh; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 24px; background:linear-gradient(160deg,var(--from),var(--to));
+  }
+  .inner { width:100%; max-width:680px; }
+  /* 封面 */
+  .cover { --from:#0b0b12; --to:#241638; --accent:#ff8fb1; text-align:center; }
+  .cover .big { font-size:clamp(40px,11vw,84px); font-weight:800; line-height:1.05; letter-spacing:2px; }
+  .cover .sub { margin-top:18px; font-size:18px; opacity:.8; }
+  .cover .cloud { margin:36px auto 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:480px; }
+  .cover .cloud span { font-size:14px; padding:6px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; opacity:.85; }
+  .cover .hint { margin-top:48px; font-size:13px; opacity:.55; animation:bob 1.6s infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  /* 人物页 */
+  .who { font-size:14px; letter-spacing:3px; color:var(--soft); opacity:.85; }
+  .title { font-size:clamp(30px,7vw,52px); font-weight:800; margin:6px 0 10px; }
+  .tagline { font-size:17px; color:var(--soft); opacity:.9; margin-bottom:24px; }
+  h3 { font-size:15px; letter-spacing:2px; margin:30px 0 12px; color:var(--accent); }
+  .kw-cloud { display:flex; flex-wrap:wrap; gap:9px; }
+  .kw { font-size:14px; padding:6px 13px; border-radius:999px;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+         animation:pop .5s var(--d) both; }
+  @keyframes pop { from{opacity:0; transform:scale(.8)} to{opacity:1; transform:scale(1)} }
+  .time-card { margin-top:22px; padding:14px 16px; border-radius:14px;
+                background:rgba(255,255,255,.07); font-size:15px; }
+  .time-card b { color:var(--accent); }
+  .stats { display:flex; flex-direction:column; gap:14px; }
+  .stat-top { display:flex; justify-content:space-between; font-size:15px; }
+  .stat-top b { color:var(--accent); }
+  .bar { height:8px; border-radius:999px; background:rgba(255,255,255,.12); margin:6px 0 4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); border-radius:999px; }
+  .ex { font-size:12px; opacity:.6; }
+  .highlights { display:flex; flex-direction:column; gap:14px; }
+  .hl { padding:16px 18px; border-left:3px solid var(--accent);
+         background:rgba(255,255,255,.06); border-radius:0 12px 12px 0; }
+  .hl .q { font-size:17px; line-height:1.5; }
+  .hl .n { font-size:13px; opacity:.7; margin-top:8px; }
+  .narrative p { font-size:15px; line-height:1.85; opacity:.92; margin-bottom:14px; }
+  .closing { margin-top:30px; font-size:18px; font-style:italic; color:var(--soft); }
+  /* 进度点 */
+  #dots { position:fixed; right:14px; top:50%; transform:translateY(-50%);
+           display:flex; flex-direction:column; gap:10px; z-index:10; }
+  #dots button { width:8px; height:8px; border:0; border-radius:50%;
+                  background:rgba(255,255,255,.3); cursor:pointer; padding:0; }
+  #dots button.on { background:#fff; transform:scale(1.4); }
+</style>
+</head>
+<body>
+<div id="deck">
+  <section class="screen cover">
+    <div class="inner">
+      <div class="big">7.06-7.10<br>生活报告</div>
+      <div class="sub">7.06-7.10 · 共 45 条记录</div>
+      <div class="cloud"><span>不想上班</span><span>超级碗</span><span>回家睡午觉</span><span>超级碗</span><span>下班</span><span>邪恶小刘</span><span>邪恶小王</span><span>诈尸</span><span>到此一游</span></div>
+      <div class="hint">↓ 滑动 / 方向键查看每个人</div>
+    </div>
+  </section>
+  
+    <section class="screen" style="--from:#1a1033;--to:#3a1c5c;--accent:#ff8fb1;--soft:#ffd6e5">
+      <div class="inner">
+        <p class="who">黄欣迪 · 第 1 章</p>
+        <h2 class="title">戒咖啡未遂，但睡得很好的那几天</h2>
+        <p class="tagline">一边喊着不想上班，一边把最难的部分留给AI和实习生。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">不想上班</span><span class="kw" style="--d:0.05s">超级碗</span><span class="kw" style="--d:0.10s">回家睡午觉</span><span class="kw" style="--d:0.15s">写报告</span><span class="kw" style="--d:0.20s">戒咖啡失败</span><span class="kw" style="--d:0.25s">忙季摸鱼</span><span class="kw" style="--d:0.30s">酒精与胃</span><span class="kw" style="--d:0.35s">实习生</span><span class="kw" style="--d:0.40s">精神不正常</span><span class="kw" style="--d:0.45s">居家的爽</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>你的高频记录集中在10:00-13:00，早间的起床挣扎、健身打卡和午饭决策一览无余。深夜22:00左右也常有零星感慨，属于典型的“早起困难、晚上复盘”作息。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>15</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">早上来了给自己写绩效自评。感觉最近进入了过了新手保护期但是还是啥都不会、我轻轻的崩而溃之了下周要请假但我严重怀疑我要加班了。全员会材料并不会因为我请假而延缓、把报告里最难的部分留给了AI和我的实习生</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>8</b></div>
+              <div class="bar"><i style="width:53%"></i></div>
+              <div class="ex">但中午午觉睡的很好、中午回家爽睡半小时，根本睡不够啊，闹钟响了又睡了10分钟回笼觉、昨天11:30就上床，看了一会书自然入睡，居然8:45才被闹钟叫醒，感觉睡不够</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>5</b></div>
+              <div class="bar"><i style="width:33%"></i></div>
+              <div class="ex">中午本来想吃超级碗但是看到说老吃生菜对胃也不太好+我想回家先睡觉再吃饭于是选择吃外卖的乡村基，好油、俩人都在吃超级碗、中午吃了54元的三文鱼超级碗，好贵</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>3</b></div>
+              <div class="bar"><i style="width:20%"></i></div>
+              <div class="ex">周三又是我们的高中校友会时间，跟高中同学吃完食堂散了半小时步才回来、下班跟小王打了一下电话！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>2</b></div>
+              <div class="bar"><i style="width:13%"></i></div>
+              <div class="ex">在想又想去酒吧又不能喝酒怎么办 要点无酒精吗、晚上回家洗了澡又拆快递，给自己组装鞋架又出汗，感觉自己脑子有病</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“感觉周末一直在外面玩虽然很爽但是没啥独处的时间，就会导致精神的庸俗。”</p>
+              <p class="n">原来独处能防庸俗，难怪这周你拼了命也要回家睡午觉。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“到底为什么我刚来4个月就要做这些工作5年的人做的事情”</p>
+              <p class="n">一份工资打两份工，新手保护期像暑假一样转眼即逝。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“坚持戒咖啡D3失败。”</p>
+              <p class="n">你的毅力全在戒酒和健身上了，咖啡只是知己，怎能说断就断？</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我靠居家办公也太爽！……保密意识最强的一集！”</p>
+              <p class="n">爽到连屏幕都打了厚码，生怕别人知道你有多爽。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一期，你一边在「不想上班」的碎碎念里沉浮，一边把最难的工作甩给AI和实习生，自己卡点下班、回家午睡，活出了一种混乱又自洽的节奏。酒精伤胃？那就去酒吧点无酒精，纯粹享受和朋友大聊特聊的瘾；咖啡戒不断？嗯，那就把戒断日改到明天吧。</p><p>你和刘嘉晨的超级碗同食、彼此对实习生和工作的吐槽，成了本周最佳职场相声。他说你一边说喝酒促炎一边疯狂去酒吧，你回他“纯粹是喜欢和朋友在酒吧大聊特聊”，拆穿得又狠又温柔。深夜和小王打电话、和高中的老同学在食堂散步，这些偷来的缝隙时光，悄悄撑住了你。</p><p>暴雨那天你果断居家办公，在保密意识最强的厚码屏幕背后，发出“我靠居家办公也太爽”的感叹——那是整周最亮的时刻。哪怕绩效自评写得心累，哪怕全员会材料追着你要，你还是成功薅到了午觉、戒酒、健身和一点点摸鱼的快乐。这当然不是躺平，这是你在“新手保护期过期”后，自己给自己续费的弹性生存。</p></div>
+
+        <p class="closing">下周也请继续理直气壮地睡午觉，把最难的部分留给AI，把最甜的留给下班后的自己。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#06141f;--to:#0f3a4d;--accent:#5fd0c5;--soft:#bff0ea">
+      <div class="inner">
+        <p class="who">刘嘉晨 · 第 2 章</p>
+        <h2 class="title">邪恶小刘的魔幻打工周</h2>
+        <p class="tagline">一边偷偷面试，一边狂吃超级碗，还要当部门最后走的人。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">超级碗</span><span class="kw" style="--d:0.05s">下班</span><span class="kw" style="--d:0.10s">邪恶小刘</span><span class="kw" style="--d:0.15s">面试</span><span class="kw" style="--d:0.20s">蓝天</span><span class="kw" style="--d:0.25s">实习生</span><span class="kw" style="--d:0.30s">开会</span><span class="kw" style="--d:0.35s">插花</span><span class="kw" style="--d:0.40s">value star</span><span class="kw" style="--d:0.45s">晚霞</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>晚间（19:00-22:00），忙着下班、看展、插花和当最后一个走的人，夜生活刚刚开始。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>14</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">开周会就是可以疯狂摸鱼聊天，一上午就这样很快过去了、还没回家，明天开周会，我在tracker里狂写三个topic、我老板要给我整虚头八脑的东西了，她让带教给我提名value star，我问有钱吗，带教说有奖杯，而且可以放cv上，这么说的话这个荣誉也不是毫无用处！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>6</b></div>
+              <div class="bar"><i style="width:43%"></i></div>
+              <div class="ex">丰富的早餐包含咖啡、蓝莓和司康、第一次尝试肯德基的轻食品牌肯律，我觉得不如超级碗带给我的满足感多！、周五就要对自己好一点！美美吃湘菜了！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>5</b></div>
+              <div class="bar"><i style="width:36%"></i></div>
+              <div class="ex">午饭和搭子复盘上周五晚上KTV一些离谱行为、将准点下班，和明洁去看薇薇安迈尔的摄影展！、第一次来fotografiska的露台，今天晚风很舒服</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>2</b></div>
+              <div class="bar"><i style="width:14%"></i></div>
+              <div class="ex">今天午休时间办公室氛围很适合睡！清清凉凉黑黑暗暗、插花，打电话</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>2</b></div>
+              <div class="bar"><i style="width:14%"></i></div>
+              <div class="ex">和local开会、恐惧和一大帮越南人开会，总感觉和他们对不清楚东西！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>2</b></div>
+              <div class="bar"><i style="width:14%"></i></div>
+              <div class="ex">回到家先给花换水！、我是我们部门今天最后一个走的！！</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“邪恶小刘”</p>
+              <p class="n">你的自封名号在这一周异常高频，看来内心的小恶魔时刻准备着。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“带教问我value star要提哪个，我果断说we run，因为好想run。对自己的双关punchline感到满意并且沾沾自喜”</p>
+              <p class="n">打工人的嘴替！这个谐音梗王建国听了都要鼓掌。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我是我们部门今天最后一个走的！！”</p>
+              <p class="n">辛苦但骄傲的语气，隔着屏幕都看见了你关灯锁门的背影。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“偷偷面试被带教发现并且善意“提醒”了，也太尴尬了！就是说还好她也在面试啊啊啊”</p>
+              <p class="n">大型社死又带点好笑的瞬间，原来大家都在同一条船上。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“超级碗永远让我有满足感”</p>
+              <p class="n">这句话可以被超级碗直接拿去做广告词了。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周，刘嘉晨同学化身“邪恶小刘”，在办公室与各路神仙斗智斗勇。你的口头禅“这是什么”和“这又是什么”为黄欣迪的发疯提供了最佳捧哏，而你的自封title“邪恶小刘”更是在记录中反复出现，连王江楠都忍不住留下“邪恶小刘到此一游”的墨宝。但邪恶之下，是一颗热爱蓝天、晚霞和插花的温柔心，台风前的每一朵云都被你捕捉，展露了文艺青年的底色。</p><p>工作上，你一边被周会抽干灵魂，一边在Tracker里狂写三个Topic证明自己还活着；一边恐惧越南人的英语地狱，一边又和Local谈笑风生。最绝的是偷偷面试被带教撞破，尴尬到脚趾扣地，却得知带教也在面试——打工人的共鸣在此刻达到顶峰。而老板突然提名Value Star，你问“有钱吗”的务实精神，和我们欣迪问“嫡系啥特征”有异曲同工之妙，不愧是好朋友。</p><p>吃，是本周的另一大主线。从蓝莓司康到超级碗，从肯律到湘菜，你对吃从不含糊，甚至为超级碗献上最高评价：“超级碗永远让我有满足感”。不过你也精准吐槽了肯律不如超级碗，展现了挑剔的美食家精神。午休时，你在清凉黑暗中睡去，醒来后大口吃肉，再散步流汗，小日子安排得明明白白。</p><p>社交活动同样精彩：和搭子复盘KTV离谱行为，和明洁看薇薇安·迈尔摄影展，在露台上吹晚风，还惦记着黄欣迪说的高雅上海人，并要给她看明洁的拍摄杰作。当黄欣迪为戒咖啡失败哀嚎时，你一句“姐，你一边说喝酒促进炎症，一边疯狂去酒吧”道破天机，这种互怼互爱的友谊让人羡慕。</p></div>
+
+        <p class="closing">愿你永远是那个能发现蓝天、爱吃超级碗、说“run”就跑的邪恶小刘，但记得跑的时候带上你爱的花和晚霞。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#1f1206;--to:#4a2c0f;--accent:#ffb454;--soft:#ffe2b3">
+      <div class="inner">
+        <p class="who">王江楠 · 第 3 章</p>
+        <h2 class="title">神出鬼没的昵称玩家</h2>
+        <p class="tagline">本周戏份不多，但每次出场都有点冷幽默在身上。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">邪恶小王</span><span class="kw" style="--d:0.05s">诈尸</span><span class="kw" style="--d:0.10s">到此一游</span><span class="kw" style="--d:0.15s">没出现</span><span class="kw" style="--d:0.20s">评论互动</span><span class="kw" style="--d:0.25s">小王</span><span class="kw" style="--d:0.30s">出差中</span><span class="kw" style="--d:0.35s">云存在</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>7月6日 14:00-18:00 闪现，其余多在评论里偶尔冒泡；整体像是出差或者神隐，但在朋友对话里依然有强烈的存在感。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>社交</span><b>3</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">7月6日 14:00-18:00 | 王江楠：邪恶小王、7月6日 19:00 | 王江楠：邪恶小刘到此一游、7月9日 13:00 | 王江楠：小王为啥这周还没出现</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“小王等下又诈尸了”</p>
+              <p class="n">对自己的出场方式定性为“诈尸”，悬疑与幽默并存。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“邪恶小王”</p>
+              <p class="n">接龙式配合，用最简短的词就把团队中二魂点燃。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“小王为啥这周还没出现”</p>
+              <p class="n">自己吐槽自己，反问中带着“我虽然不在，但我在关心我为什么不在”的哲学感。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>小王这周过着一种“物理上掉线，精神上永远在场”的生活。开头预告“诈尸”，然后果然在刘嘉晨那句“邪恶小刘”后面跟了“邪恶小王”，接龙完成度满分。即使没记录什么实体生活，光靠回复也能看出这是个玩梗高手，在你们仨的聊天里负责神补刀。</p><p>最绝的是7月9号忽然来一句“小王为啥这周还没出现”，用第三人称调侃自己，那一刻你仿佛分裂成作者和读者，一边审视一边吐槽。结合黄欣迪下班跟你打电话的片段，你的云存在成功维持了友情温度，让人猜你大概在出差、赶项目，或者只是懒得写流水账。</p><p>这样也好，留白让报告更有趣——你的关键词是“评论互动”，行为统计里社交独一档。感谢你贡献了本周最轻快的笑点，没怎么记录日子，却记录了很多关系。</p></div>
+
+        <p class="closing">下次别只当“邪恶小王”，也来点生活流水账让大家品品你的日常吧。</p>
+      </div>
+    </section>
+</div>
+<div id="dots"><button data-i="0"></button><button data-i="1"></button><button data-i="2"></button><button data-i="3"></button></div>
+<script>
+  const deck = document.getElementById('deck');
+  const screens = [...document.querySelectorAll('.screen')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) {
+      const i = screens.indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('on', j===i));
+    } });
+  }, {threshold:0.6});
+  screens.forEach(s => io.observe(s));
+  dots.forEach(d => d.onclick = () => screens[+d.dataset.i].scrollIntoView());
+  let i = 0;
+  addEventListener('keydown', e => {
+    if (e.key==='ArrowDown'||e.key==='ArrowRight') i=Math.min(i+1,screens.length-1);
+    else if (e.key==='ArrowUp'||e.key==='ArrowLeft') i=Math.max(i-1,0);
+    else return;
+    screens[i].scrollIntoView();
+  });
+</script>
+<!-- generated 2026-07-10 12:19 -->
+</body>
+</html>
