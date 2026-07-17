@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>7.13-7.17 生活报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff; background:#0b0b12; overflow:hidden;
+  }
+  #deck { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  #deck::-webkit-scrollbar { display:none; }
+  .screen {
+    min-height:100vh; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 24px; background:linear-gradient(160deg,var(--from),var(--to));
+  }
+  .inner { width:100%; max-width:680px; }
+  /* 封面 */
+  .cover { --from:#0b0b12; --to:#241638; --accent:#ff8fb1; text-align:center; }
+  .cover .big { font-size:clamp(40px,11vw,84px); font-weight:800; line-height:1.05; letter-spacing:2px; }
+  .cover .sub { margin-top:18px; font-size:18px; opacity:.8; }
+  .cover .cloud { margin:36px auto 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:480px; }
+  .cover .cloud span { font-size:14px; padding:6px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; opacity:.85; }
+  .cover .hint { margin-top:48px; font-size:13px; opacity:.55; animation:bob 1.6s infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  /* 人物页 */
+  .who { font-size:14px; letter-spacing:3px; color:var(--soft); opacity:.85; }
+  .title { font-size:clamp(30px,7vw,52px); font-weight:800; margin:6px 0 10px; }
+  .tagline { font-size:17px; color:var(--soft); opacity:.9; margin-bottom:24px; }
+  h3 { font-size:15px; letter-spacing:2px; margin:30px 0 12px; color:var(--accent); }
+  .kw-cloud { display:flex; flex-wrap:wrap; gap:9px; }
+  .kw { font-size:14px; padding:6px 13px; border-radius:999px;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+         animation:pop .5s var(--d) both; }
+  @keyframes pop { from{opacity:0; transform:scale(.8)} to{opacity:1; transform:scale(1)} }
+  .time-card { margin-top:22px; padding:14px 16px; border-radius:14px;
+                background:rgba(255,255,255,.07); font-size:15px; }
+  .time-card b { color:var(--accent); }
+  .stats { display:flex; flex-direction:column; gap:14px; }
+  .stat-top { display:flex; justify-content:space-between; font-size:15px; }
+  .stat-top b { color:var(--accent); }
+  .bar { height:8px; border-radius:999px; background:rgba(255,255,255,.12); margin:6px 0 4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); border-radius:999px; }
+  .ex { font-size:12px; opacity:.6; }
+  .highlights { display:flex; flex-direction:column; gap:14px; }
+  .hl { padding:16px 18px; border-left:3px solid var(--accent);
+         background:rgba(255,255,255,.06); border-radius:0 12px 12px 0; }
+  .hl .q { font-size:17px; line-height:1.5; }
+  .hl .n { font-size:13px; opacity:.7; margin-top:8px; }
+  .narrative p { font-size:15px; line-height:1.85; opacity:.92; margin-bottom:14px; }
+  .closing { margin-top:30px; font-size:18px; font-style:italic; color:var(--soft); }
+  /* 进度点 */
+  #dots { position:fixed; right:14px; top:50%; transform:translateY(-50%);
+           display:flex; flex-direction:column; gap:10px; z-index:10; }
+  #dots button { width:8px; height:8px; border:0; border-radius:50%;
+                  background:rgba(255,255,255,.3); cursor:pointer; padding:0; }
+  #dots button.on { background:#fff; transform:scale(1.4); }
+</style>
+</head>
+<body>
+<div id="deck">
+  <section class="screen cover">
+    <div class="inner">
+      <div class="big">7.13-7.17<br>生活报告</div>
+      <div class="sub">7.13-7.17 · 共 45 条记录</div>
+      <div class="cloud"><span>睡觉</span><span>摸鱼</span><span>新加坡</span><span>面试</span><span>会议室</span><span>带教</span><span>默默围观</span><span>馋</span><span>麻辣拌</span></div>
+      <div class="hint">↓ 滑动 / 方向键查看每个人</div>
+    </div>
+  </section>
+  
+    <section class="screen" style="--from:#1a1033;--to:#3a1c5c;--accent:#ff8fb1;--soft:#ffd6e5">
+      <div class="inner">
+        <p class="who">黄欣迪 · 第 1 章</p>
+        <h2 class="title">飞向新加坡的摸鱼毕业季</h2>
+        <p class="tagline">这一年，你睡得比考拉多，摸鱼摸出哲学，最后理直气壮拥抱 holiday mode。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">睡觉</span><span class="kw" style="--d:0.05s">摸鱼</span><span class="kw" style="--d:0.10s">新加坡</span><span class="kw" style="--d:0.15s">毕业</span><span class="kw" style="--d:0.20s">肠胃炎</span><span class="kw" style="--d:0.25s">飞书忘写</span><span class="kw" style="--d:0.30s">健身迟到</span><span class="kw" style="--d:0.35s">邪恶的黄欣迪</span><span class="kw" style="--d:0.40s">鸠占鹊巢</span><span class="kw" style="--d:0.45s">假期模式</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>12:00-13:00 及 21:00-22:00——中午忙着补觉、纠结吃什么；深夜要么在收拾行李，要么在自我批评忘记写飞书，是典型的午间充电和夜间反思型选手。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>休息</span><b>8</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">好困啊睡过头了没去健身，我最近真的好能睡，我昨天睡了9个半小时、中午回家倒头就睡、睡到1:20起来匆忙吃饭</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>工作</span><b>5</b></div>
+              <div class="bar"><i style="width:62%"></i></div>
+              <div class="ex">这两天没啥事！反观我老板快要忙爆炸了，他让我standby，但其实应该没啥要帮他做的、下午带暑期实习生做的活跟老板对了一下，老板提出一堆反对意见、上午就这样陪业务老板写作业</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>4</b></div>
+              <div class="bar"><i style="width:50%"></i></div>
+              <div class="ex">中午吃超级碗，但感觉天气太热了根本没胃口，要不以后还是吃食堂拉倒、中午吃了个粥本来是为了保护我的胃，结果那个粥特别特别烫，感觉对我的食道哈胃反而造成了伤害</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>3</b></div>
+              <div class="bar"><i style="width:38%"></i></div>
+              <div class="ex">回家洗了个澡跟Vivian打了个电话，但还是12:40才睡觉、鸠占鹊巢一下子、3点去供应商回访顺理成章聊天摸了会儿鱼</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>3</b></div>
+              <div class="bar"><i style="width:38%"></i></div>
+              <div class="ex">再欣赏一下我的美丽鞋子、下午狠狠摸鱼、回家磨磨叽叽收拾箱子</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>3</b></div>
+              <div class="bar"><i style="width:38%"></i></div>
+              <div class="ex">这两天老是忘记写飞书！自我批评、好诡异，这两天不知道吃啥拉肚子了，感觉肠胃炎还没完全好、预告，这周后面我不更新了，我要享受holiday mode</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“鸠占鹊巢一下子”</p>
+              <p class="n">你的工位外交为何如此娴熟？</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“邪恶的黄欣迪”</p>
+              <p class="n">感谢李嘉诚赐名，这个 title 请务必保留到下次飞书大会。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“最近肠胃不好，但还在吃辣，我咋这么欠！”</p>
+              <p class="n">身体说不要，筷子却伸向了辣椒——当代年轻人的叛逆养生。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“走在机场的时候总还是怀念去年到处飞的日子”</p>
+              <p class="n">毕业前最后一场飞行，你将浪漫与牛马身份一并打包。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这周的你，用一句话总结就是：身体在工位，灵魂在新加坡。睡满九小时仍是日常基操，健身迟到变成打卡项目，而肠胃炎也阻挡不了吃辣的热情——“我咋这么欠！”</p><p>你的工位存在感飘忽不定，老板忙到飞起时你在摸鱼，业务要过方案时你已切换度假脑。最妙的还是鸠占鹊巢和“邪恶的黄欣迪”，李嘉诚的文案被你直接复制，而刘嘉晨的评论互动精准揭露了你可爱又狡猾的一面。</p><p>飞回新加坡参加毕业典礼，你突然说：“纯牛马了这下！哎！”但下一句却是怀念去年到处飞的日子。原来你不是在告别学生时代，是在心疼那个曾经说走就走、到处飞行的自己。</p><p>最后，你潇洒预告不再更新，刘嘉晨秒回“批准！！”——你们仨的默契，像极了一起逃了早自习的中学死党。</p></div>
+
+        <p class="closing">毕业后你依然是那个在机场感慨、在工位摸鱼、在朋友心里闪闪发光的黄欣迪。愿你无论飞到哪里，都有好胃口和好睡眠。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#06141f;--to:#0f3a4d;--accent:#5fd0c5;--soft:#bff0ea">
+      <div class="inner">
+        <p class="who">刘嘉晨 · 第 2 章</p>
+        <h2 class="title">面试、零食与告别的序章</h2>
+        <p class="tagline">你在会议室与工位之间，悄悄排练下一幕人生。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">面试</span><span class="kw" style="--d:0.05s">会议室</span><span class="kw" style="--d:0.10s">带教</span><span class="kw" style="--d:0.15s">零食</span><span class="kw" style="--d:0.20s">麻辣拌</span><span class="kw" style="--d:0.25s">离职</span><span class="kw" style="--d:0.30s">情绪价值</span><span class="kw" style="--d:0.35s">犒劳自己</span><span class="kw" style="--d:0.40s">准备跑路</span><span class="kw" style="--d:0.45s">嫡系</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>深夜 21:00-22:00，你总在别人下班后才开始收拢一天的忙乱，像个夜晚的复盘者。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>14</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">勤勤恳恳来到公司准备面试发现面试官半小时没有show up、部门里又有一个人提离职了，what a mess！、第一次在这个大会做present！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>7</b></div>
+              <div class="bar"><i style="width:50%"></i></div>
+              <div class="ex">长途跋涉穿过园区去吃自选菜了！、久违的麻辣拌、沙茶排骨年糕非常下饭</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>4</b></div>
+              <div class="bar"><i style="width:29%"></i></div>
+              <div class="ex">六七个人在15人的会议室里一起打手游、浅爬15分钟的坡，不然我都要散架了！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>3</b></div>
+              <div class="bar"><i style="width:21%"></i></div>
+              <div class="ex">中午和搭子吃超级碗的时候大家一起蛐蛐她带教、带教已经在谈薪了！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>2</b></div>
+              <div class="bar"><i style="width:14%"></i></div>
+              <div class="ex">本来想回家接着工作，但其实没有</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>2</b></div>
+              <div class="bar"><i style="width:14%"></i></div>
+              <div class="ex">祝法国人民国庆节快乐！、今天打车好贵，我多花了10块！</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“勤勤恳恳来到公司准备面试发现面试官半小时没有show up”</p>
+              <p class="n">精心化的妆，约好的会，面官却放了你鸽子。成年人的崩溃有时只是一场缺席。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我们部门至少三个人面这个岗了，面试官都不怎么问我在职经历，哥们估计把我们部门了解的差不多了”</p>
+              <p class="n">你已经活成了部门的活体百科全书，面试官只需暗中观察。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“今晚和她吃饭catchup，她已经在谈薪了！”</p>
+              <p class="n">原来带教跑得比你还快，这顿饭吃得真是百感交集。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“这个焦糖饼干好好吃，我们公司的牛肉脆小零食也好好吃！今天吃了四袋小零食”</p>
+              <p class="n">在动荡的职场，唯有零食永远提供确定的幸福。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周，你的世界缩小为：会议室、面试、悄悄刷新的招聘软件。从周一面官无故消失，到周五孤身填表，你在「被面试」和「面别人」之间反复横跳，甚至还在大会做了嫡系专属的presentation——黄欣迪盖章认证：「我们李嘉诚现在完全是嫡系！」但你心里清楚，这更像带教在加速交接，为跑路做准备。</p><p>在紧凑的日程里，你发展出一套野生的生存智慧：找6人会议室面试隔音好，避开大老板午餐会，以及用零食和奶茶为自己续航。你像办公室里一只警觉又贪吃的松鼠，在连环会的间隙，精准地往嘴里塞进焦糖饼干、牛肉脆、咸法酪泰奶和沙茶排骨年糕，然后用“犒劳自己”的名义安抚每一次面试后的神经。</p><p>你和搭子的午间吐槽大会是名场面：「大家蛐蛐她带教“一个小土豆”怎么能谈到那么多美女，非常mean的不留功德的几个人」，这种略带罪恶感的八卦，像学生时代课间的窃窃私语，短暂消解了各自前程未卜的焦虑。好在老板夸你瘦了，带教请你喝奶茶，这些碎片式的温柔，让你在混乱中还能抓住一点「被看见」的实感。</p><p>周末将至，黄欣迪飞向毕业典礼，你独自收尾，感叹找工怠惰。但别急，你看那晚霞，也看那会议室里打手游的人群。在下一个offer到来之前，不妨把这场动荡当作一次悠长的中场休息。</p></div>
+
+        <p class="closing">愿你吃下的每口零食都变成offer，愿你在会议室里迷过的路，最终都通向想去的工位。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#1f1206;--to:#4a2c0f;--accent:#ffb454;--soft:#ffe2b3">
+      <div class="inner">
+        <p class="who">王江楠 · 第 3 章</p>
+        <h2 class="title">沉默是金，但馋是真的</h2>
+        <p class="tagline">用最少的话，吃最热的瓜（和麻辣拌）</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">默默围观</span><span class="kw" style="--d:0.05s">馋</span><span class="kw" style="--d:0.10s">麻辣拌</span><span class="kw" style="--d:0.15s">社恐面试</span><span class="kw" style="--d:0.20s">被消失的健身</span><span class="kw" style="--d:0.25s">带教跑了</span><span class="kw" style="--d:0.30s">胃口很好</span><span class="kw" style="--d:0.35s">孤独的填表人</span><span class="kw" style="--d:0.40s">打工怠惰</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>中午到下午（12:00-13:00, 14:00-18:00），不是在吃饭，就是在面试或等待吃饭，完美诠释打工人的午间能量守恒。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>8</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">早上来公司第一件事，找个会议室准备面试、下午过得会非常快，一个intern面试，一个2h的大会，一个intern面试，就可以下班了。而这是我第一次在这个大会做present！、她又问我是不是又瘦了，我老板就这样给我提供情绪价值</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>5</b></div>
+              <div class="bar"><i style="width:62%"></i></div>
+              <div class="ex">中午和搭子吃超级碗的时候大家一起蛐蛐她带教“一个小土豆”怎么能谈到那么多美女、我们部门至少三个人面这个岗了，面试官都不怎么问我在职经历，哥们估计把我们部门了解的差不多了、好感慨！这次回去以后就是真正毕业了！纯牛马了这下！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>5</b></div>
+              <div class="bar"><i style="width:62%"></i></div>
+              <div class="ex">又来吃麻辣拌了、晚餐囫囵吃了一个饱腹感很强的酸奶碗和一个好吃的三明治！、这个沙茶排骨年糕非常下饭，排骨也很嫩！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>2</b></div>
+              <div class="bar"><i style="width:25%"></i></div>
+              <div class="ex">发现六七个人在15人的会议室里一起打手游、今天刷IG，有人怀念在LBS读书的日子</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>2</b></div>
+              <div class="bar"><i style="width:25%"></i></div>
+              <div class="ex">好困啊睡过头了没去健身，我最近真的好能睡，我昨天睡了9个半小时、本来想回家接着工作，但其实没有</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“中午和搭子吃超级碗的时候大家一起蛐蛐她带教“一个小土豆”怎么能谈到那么多美女，非常mean的不留功德的几个人”</p>
+              <p class="n">职场阴德守恒定律：中午蛐蛐老板，下午就被抓去present。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“疯狂星期四，但我的搭子倾情和我传授在公司找会议室面试的经验！要找6人的，不然4人会议室容易隔音很差”</p>
+              <p class="n">会议室防窥学，当代打工人的核心面试竞争力。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我们部门至少三个人面这个岗了，面试官都不怎么问我在职经历，哥们估计把我们部门了解的差不多了”</p>
+              <p class="n">面试官比你还了解你部门的离职率，惊悚又好笑。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“唉最近我带教很多事情都让我直接来做，我本来想说她是不是快要走了，结果今晚和她吃饭catchup，她已经在谈薪了！”</p>
+              <p class="n">带教：我来考考你；你：我来送送你。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“今天这个表格将只有我！孤独的我！”</p>
+              <p class="n">当伙伴们远走高飞，留守人士终于拥有了整个飞书表格。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周，江楠的生活主题是“在别人的跑路氛围里，默默吃瓜，努力干饭”。你几乎从不主动挑起话头，却精准出现在每一个八卦和面试的名场面里：中午蛐蛐带教、向搭子取经“会议室面试学”、在走廊被老板关心体重。</p><p>你的食欲依然坚挺，麻辣拌反复登场，沙茶排骨年糕荣登高光，还有办公室牛肉脆和焦糖饼干见缝插针。即使胃口好到让自己忧心，吃饭时聊的话题也挡不住“找工怠惰”的自我吐槽——可转头你又连面两个intern，还在大会做了人生第一次present。</p><p>伙伴们一个个开启飞行模式：欣迪飞回了新加坡纯牛马毕业，带教也在谈薪的边缘反复横跳。当飞书表格只剩你一人留守，你发出“孤独的我”的呐喊——但转眼就在一楼会议室撞见组队打手游的同事，回家前还刷起了LBS同学怀念瑞士西班牙，只叹“当时只道是寻常”。</p><p>健身记录虽集体消失，但深夜一句“本来想回家接着工作，但其实没有”才是你最真实的坚持。王江楠，嘴上说着怠惰，身体却诚实地在每一次面试、每一顿饱饭、每一声“我走了”里，扎实地推进着属于自己的剧情。</p></div>
+
+        <p class="closing">世界纷纷扰扰，你自稳坐食堂。愿下一周有人陪你吃饭，同事少跑路，带教慢点走。</p>
+      </div>
+    </section>
+</div>
+<div id="dots"><button data-i="0"></button><button data-i="1"></button><button data-i="2"></button><button data-i="3"></button></div>
+<script>
+  const deck = document.getElementById('deck');
+  const screens = [...document.querySelectorAll('.screen')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) {
+      const i = screens.indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('on', j===i));
+    } });
+  }, {threshold:0.6});
+  screens.forEach(s => io.observe(s));
+  dots.forEach(d => d.onclick = () => screens[+d.dataset.i].scrollIntoView());
+  let i = 0;
+  addEventListener('keydown', e => {
+    if (e.key==='ArrowDown'||e.key==='ArrowRight') i=Math.min(i+1,screens.length-1);
+    else if (e.key==='ArrowUp'||e.key==='ArrowLeft') i=Math.max(i-1,0);
+    else return;
+    screens[i].scrollIntoView();
+  });
+</script>
+<!-- generated 2026-07-17 11:14 -->
+</body>
+</html>
