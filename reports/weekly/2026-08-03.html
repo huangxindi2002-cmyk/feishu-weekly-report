@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>8.3-8.7 生活报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff; background:#0b0b12; overflow:hidden;
+  }
+  #deck { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  #deck::-webkit-scrollbar { display:none; }
+  .screen {
+    min-height:100vh; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 24px; background:linear-gradient(160deg,var(--from),var(--to));
+  }
+  .inner { width:100%; max-width:680px; }
+  /* 封面 */
+  .cover { --from:#0b0b12; --to:#241638; --accent:#ff8fb1; text-align:center; }
+  .cover .big { font-size:clamp(40px,11vw,84px); font-weight:800; line-height:1.05; letter-spacing:2px; }
+  .cover .sub { margin-top:18px; font-size:18px; opacity:.8; }
+  .cover .cloud { margin:36px auto 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:480px; }
+  .cover .cloud span { font-size:14px; padding:6px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; opacity:.85; }
+  .cover .hint { margin-top:48px; font-size:13px; opacity:.55; animation:bob 1.6s infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  /* 人物页 */
+  .who { font-size:14px; letter-spacing:3px; color:var(--soft); opacity:.85; }
+  .title { font-size:clamp(30px,7vw,52px); font-weight:800; margin:6px 0 10px; }
+  .tagline { font-size:17px; color:var(--soft); opacity:.9; margin-bottom:24px; }
+  h3 { font-size:15px; letter-spacing:2px; margin:30px 0 12px; color:var(--accent); }
+  .kw-cloud { display:flex; flex-wrap:wrap; gap:9px; }
+  .kw { font-size:14px; padding:6px 13px; border-radius:999px;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+         animation:pop .5s var(--d) both; }
+  @keyframes pop { from{opacity:0; transform:scale(.8)} to{opacity:1; transform:scale(1)} }
+  .time-card { margin-top:22px; padding:14px 16px; border-radius:14px;
+                background:rgba(255,255,255,.07); font-size:15px; }
+  .time-card b { color:var(--accent); }
+  .stats { display:flex; flex-direction:column; gap:14px; }
+  .stat-top { display:flex; justify-content:space-between; font-size:15px; }
+  .stat-top b { color:var(--accent); }
+  .bar { height:8px; border-radius:999px; background:rgba(255,255,255,.12); margin:6px 0 4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); border-radius:999px; }
+  .ex { font-size:12px; opacity:.6; }
+  .highlights { display:flex; flex-direction:column; gap:14px; }
+  .hl { padding:16px 18px; border-left:3px solid var(--accent);
+         background:rgba(255,255,255,.06); border-radius:0 12px 12px 0; }
+  .hl .q { font-size:17px; line-height:1.5; }
+  .hl .n { font-size:13px; opacity:.7; margin-top:8px; }
+  .narrative p { font-size:15px; line-height:1.85; opacity:.92; margin-bottom:14px; }
+  .closing { margin-top:30px; font-size:18px; font-style:italic; color:var(--soft); }
+  /* 进度点 */
+  #dots { position:fixed; right:14px; top:50%; transform:translateY(-50%);
+           display:flex; flex-direction:column; gap:10px; z-index:10; }
+  #dots button { width:8px; height:8px; border:0; border-radius:50%;
+                  background:rgba(255,255,255,.3); cursor:pointer; padding:0; }
+  #dots button.on { background:#fff; transform:scale(1.4); }
+</style>
+</head>
+<body>
+<div id="deck">
+  <section class="screen cover">
+    <div class="inner">
+      <div class="big">8.3-8.7<br>生活报告</div>
+      <div class="sub">8.3-8.7 · 共 45 条记录</div>
+      <div class="cloud"><span>上班坐牢</span><span>妈妈</span><span>保时捷哥</span><span>出差</span><span>深圳</span><span>美食</span><span>邪恶小王</span><span>善良的我</span><span>鸠占鹊巢</span></div>
+      <div class="hint">↓ 滑动 / 方向键查看每个人</div>
+    </div>
+  </section>
+  
+    <section class="screen" style="--from:#1a1033;--to:#3a1c5c;--accent:#ff8fb1;--soft:#ffd6e5">
+      <div class="inner">
+        <p class="who">黄欣迪 · 第 1 章</p>
+        <h2 class="title">妈妈来了，弟弟甜了，班味儿重了</h2>
+        <p class="tagline">在乖乖女和摆烂大王之间仰卧起坐的一周</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">上班坐牢</span><span class="kw" style="--d:0.05s">妈妈</span><span class="kw" style="--d:0.10s">保时捷哥</span><span class="kw" style="--d:0.15s">弟弟</span><span class="kw" style="--d:0.20s">实习生的一坨</span><span class="kw" style="--d:0.25s">喝酒暂停</span><span class="kw" style="--d:0.30s">想念留学生活</span><span class="kw" style="--d:0.35s">刘嘉晨</span><span class="kw" style="--d:0.40s">困死了</span><span class="kw" style="--d:0.45s">摆烂</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>晚上8点到10点，那是你一边改一坨、一边吐槽、一边纠结约会的贤者时间——活干不完，感悟倒是挺多。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>18</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">培训了一周，久违地回来坐牢的感觉、跟实习生对他们做的东西，完全是一坨啊、写doc没思路的感觉好像便秘。。。。讨厌案头研究。。。。</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>10</b></div>
+              <div class="bar"><i style="width:56%"></i></div>
+              <div class="ex">早上6点多就起来实在太困了，中午回家点了个肯德基倒头就睡、晚上在摆烂、10:50才下班，筋疲力尽</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>9</b></div>
+              <div class="bar"><i style="width:50%"></i></div>
+              <div class="ex">保时捷哥约晚上一起喝酒 我什么时候能改掉随便牵手和摸腹肌这个狗屎毛病。、我觉得找弟弟的好处真的是嘴巴很甜很会撒娇、每次在飞书和刘嘉晨相遇我都很开心</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>6</b></div>
+              <div class="bar"><i style="width:33%"></i></div>
+              <div class="ex">中午我妈大驾光临我的午睡时间压缩至15分钟、晚上和我高中同学们吃饭，聆听渣男的瓜、回家发现我妈在睡午觉所以我自己来吃和府捞面</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>4</b></div>
+              <div class="bar"><i style="width:22%"></i></div>
+              <div class="ex">上午去体检，喜提甲状腺结节*1、我的花养得真好 但是不会再外卖买了、2点要开会，我家电梯又有一个坏了，我直接16楼走楼梯下来</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“我什么时候能改掉随便牵手和摸腹肌这个狗屎毛病。”</p>
+              <p class="n">改不掉的，这就是你——嘴上说狗屎，手上很诚实，听李嘉诚的，享受吧老铁。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我觉得找弟弟的好处真的是嘴巴很甜很会撒娇…弟弟会说帮不上忙很急，保时捷哥说我来帮你踢凳子。”</p>
+              <p class="n">你看，连吐槽都像在凡尔赛，弟弟和保时捷哥的 CPU 都被你拿捏了。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“每次在飞书和刘嘉晨相遇我都很开心”</p>
+              <p class="n">你们俩在飞书的评论区，简直就是平行时空的相声专场，打工的苦都被你们聊成了糖。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“实习生对他们做的东西，完全是一坨啊 / 对完doc觉得进度更无望了”</p>
+              <p class="n">心疼你，但请记住，每一个优秀的 PMO 都是从凝视一坨开始的。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“不知道是谁给我老板的小心别最后出口转内销了哈哈哈”</p>
+              <p class="n">职场人情世故大师就是你，一箱水蜜桃都能玩出谍战片的预感。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周，你身上笼罩着两个巨大的结界：妈妈驾到，和上班坐牢。妈妈一来，你的夜生活、酒局、date统统按了暂停键，乖乖回家吃排骨、10点半睡觉，连午睡都被压缩到15分钟。但乖乖女的皮囊下，你依然在见缝插针地吐槽工作，把一坨一样的doc改了又改，开完长会后10:50才筋疲力尽地下班，灵魂和膝盖一样嘎吱嘎吱。</p><p>你的社交宇宙却一刻都没停转。一边在飞书和远在深圳的李嘉晨互相偷图、吐槽、说相声，一边熟练地在保时捷哥和弟弟之间走钢丝——一个踢凳子，一个帮你急，你则清醒地知道弟弟讲话甜但线下像幼儿园。最绝的是那句“随便牵手和摸腹肌”的忏悔，被嘉晨一句“别改”直接封神，你们俩的你来我往，简直是这一周最欢乐的弹幕。</p><p>你总在忙碌的间隙闪回一些柔软的瞬间：去年12月去台湾前的微博让你心碎，想念2025年的留学生活，看到好天气会羡慕乔从巴西回来了，收到妈妈指令时又切换成那个需要被照顾的小女儿。这些情绪碎片拼接起来，是你正在努力平衡的成长阵痛——不想上班，但活儿没丢；想摆烂，但会还是去开了；想约会，但妈妈在就不能乱跑。</p><p>值得庆祝的是，你种的花开得很好，你从16楼楼梯走下去时觉得自己是个猛人，你在开会间隙和同级聊聊天便觉得工位没那么窒息。你在好累、好困、好烦的缝隙里，依然给弟弟留了周五的晚饭，给嘉晨发了开心的讯号，也给自己留了说“摆烂就摆烂”的诚实。</p></div>
+
+        <p class="closing">这一周的你，在结节和楼梯里磨练肉身，在妈妈和弟弟间修炼情商，在嘉晨的评论区收藏快乐。辛苦了，乖乖女和坏小孩同时附体的日子，都是未来的下酒菜。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#06141f;--to:#0f3a4d;--accent:#5fd0c5;--soft:#bff0ea">
+      <div class="inner">
+        <p class="who">刘嘉晨 · 第 2 章</p>
+        <h2 class="title">出差深圳：美食、老友与翻译历险</h2>
+        <p class="tagline">在糯米鸡和椰子鸡之间，夹着凌晨的复盘和浅浅的想念。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">出差</span><span class="kw" style="--d:0.05s">深圳</span><span class="kw" style="--d:0.10s">美食</span><span class="kw" style="--d:0.15s">椰子鸡</span><span class="kw" style="--d:0.20s">翻译</span><span class="kw" style="--d:0.25s">面试</span><span class="kw" style="--d:0.30s">朋友</span><span class="kw" style="--d:0.35s">牛肉</span><span class="kw" style="--d:0.40s">烧腊</span><span class="kw" style="--d:0.45s">复盘</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>14:00-18:00 和 20:00 以后，出差中上午匆忙，下午或工作或闲散，夜晚留给美食和朋友，是典型“白天求生存，晚上求生活”的节奏。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>8</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">之前没做过同传，现在发现能跟上翻译，但可能不一定100%还原话事人的句意吧！、有一个vn program revamp的事情，这两天我反复和local pic对好几次了，可一直聊不明白、昨天忙的要死今天闲的要死，真的很要命</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>7</b></div>
+              <div class="bar"><i style="width:88%"></i></div>
+              <div class="ex">椰子鸡汤也太美味了，煲仔饭也太美味了！、快九点才吃到晚饭，潮发不愧是潮发，牛肉太嫩太好吃了！根本停不下来、东航的飞机餐竟然有烧腊饭了！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>5</b></div>
+              <div class="bar"><i style="width:62%"></i></div>
+              <div class="ex">上次见思奇还是一年前，又开心，有一种淡淡的安心、好喜欢朋友，人不能没有朋友，朋友之间是互相治愈的、饭后和小王散步，在路上分别见到了广东特产大蟑螂、大老鼠、大蜗牛，好一个大满贯</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>2</b></div>
+              <div class="bar"><i style="width:25%"></i></div>
+              <div class="ex">下午休假回酒店准备晚上的面试了、在深圳湾广场散步吹风</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>5</b></div>
+              <div class="bar"><i style="width:62%"></i></div>
+              <div class="ex">拎着行李箱出门了，这周出差深圳，下午的飞机、好大的太阳，行走在路上仿佛室外蒸笼，方圆30m愣是空无一人、大早上的甚至对糯米鸡都很有胃口</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“我带教让我去帮忙问另一个同事姐姐的intern的cv，因为她有个朋友看上这个intern了，但我真想不出来我能用什么理由去问了，于是我就硬说对这个小哥哥感到好奇…”</p>
+              <p class="n">为了帮人牵线不惜自造“好奇人设”，不愧是热心又机灵的李嘉晨。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“饭后和小王散步，在路上分别见到了广东特产大蟑螂、大老鼠、大蜗牛，好一个大满贯”</p>
+              <p class="n">这趟深圳行，集齐了美食与“惊喜”生物，也算不虚此行。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“想到傍晚起飞的时候淡淡的橘色的天空还有机场亮起的小灯”</p>
+              <p class="n">哪怕飞机餐和延误让人揪心，你依然捕捉到了云端的浪漫。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“虽然给老板交差了，但我还在找Claude复盘这个沟通卡点，不得不说Claude的分析非常有道理”</p>
+              <p class="n">深夜与AI促膝长谈工作难题，认真的你让人佩服。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这周你拖着行李箱独自飞去深圳，开启一段交织着工作、美食和老友重逢的差旅。你对吃格外认真——从飞机上的烧腊饭，到椰子鸡汤和牛肉火锅，每一顿都值得记录，甚至不惜为糯米鸡早起。工作像一场陌生领域的闯关：临时同传、跨时区拉锯、被紧急请求打乱面试计划，但你总能从中挖出一点幽默，比如“我硬说对这个小哥哥感到好奇”，或者靠Claude复盘沟通卡点。</p><p>你和邪恶小王（王江楠）的散步是本周高光，大蟑螂、大老鼠、大蜗牛凑成“广东三件套”，你配文“好一个大满贯”；和黄欣迪的隔空互动也没落下，两人在飞书相遇就开心，还互偷图片却互称“东施效颦”。朋友在你的生活里分量很重：见思奇让你“有一种淡淡的安心”，你直呼“人不能没有朋友，朋友之间是互相治愈的”。</p><p>但忙碌中也藏着小确丧：面试被迫改期、和越南同事反复拉锯到对方无奈说“last time”，你却转头去分析原因；下午闲得发慌、烈日下暴走，晚上却能准时抵达深圳湾吹风。你就像那个会抬头看橘色天空的人，在出差缝隙里稳定地照顾自己的胃和心情。</p></div>
+
+        <p class="closing">愿你的每一趟差旅都有糯米鸡暖胃，有朋友等你在下个路口，还有Claude陪你深夜复盘。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#1f1206;--to:#4a2c0f;--accent:#ffb454;--soft:#ffe2b3">
+      <div class="inner">
+        <p class="who">王江楠 · 第 3 章</p>
+        <h2 class="title">隐形的小王，偶尔露面的野生记录员</h2>
+        <p class="tagline">虽然我不常出现，但每次冒泡都很关键。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">邪恶小王</span><span class="kw" style="--d:0.05s">善良的我</span><span class="kw" style="--d:0.10s">鸠占鹊巢</span><span class="kw" style="--d:0.15s">椰子鸡</span><span class="kw" style="--d:0.20s">大满贯</span><span class="kw" style="--d:0.25s">散步</span><span class="kw" style="--d:0.30s">朋友</span><span class="kw" style="--d:0.35s">偷图</span><span class="kw" style="--d:0.40s">东施效颦</span><span class="kw" style="--d:0.45s">被审判</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>记录极少，但唯一主动露面在 13:00，一看就是趁午休来友情客串。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>社交</span><b>2</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">8月3日 10:00 | 王江楠：邪恶小王这周都没出现，善良的我来替她写两句、8月6日 21:00 | 评论互动：黄欣迪：邪恶小王</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>2</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">8月6日 19:00 | 刘嘉晨：今天不到七点就溜走去和小王吃椰子鸡、8月6日 21:00 | 刘嘉晨：饭后和小王散步，在路上分别见到了广东特产大蟑螂、大老鼠、大蜗牛，好一个大满贯</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>1</b></div>
+              <div class="bar"><i style="width:50%"></i></div>
+              <div class="ex">8月7日 12:00 | 刘嘉晨：刘嘉晨的朋友来鸠占鹊巢一下，如何呢</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“邪恶小王这周都没出现，善良的我来替她写两句”</p>
+              <p class="n">上来就给自己发“善良卡”，不愧是我们的野生代言人。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“饭后和小王散步，在路上分别见到了广东特产大蟑螂、大老鼠、大蜗牛，好一个大满贯”</p>
+              <p class="n">广东生态游，小王是见证人兼幸运物，这波不亏。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“刘嘉晨的朋友来鸠占鹊巢一下，如何呢”</p>
+              <p class="n">直接借用别人账号发言，理直气壮中透着可爱，不愧是朋友眼中的自己人。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这周王江楠本人处于神隐状态，以至于第一天黄欣迪就吐槽“邪恶小王这周都没出现”。于是，“善良的我”上线替自己写记录，顺便占了个坑。接着她就继续隐身，全程活在别人的记录里。</p><p>但你并非毫无踪迹。在深圳的刘嘉晨，忙里偷闲和你约了顿椰子鸡，饭后散步更是撞见蟑螂、老鼠、大蜗牛的“广东特产大满贯”，吓得黄欣迪在评论区大喊“邪恶小王”——你看，即便不说话，你的存在感也拉满。</p><p>最精彩的一幕发生在最后一天，你直接“鸠占鹊巢”用刘嘉晨的账号发了一条：“刘嘉晨的朋友来鸠占鹊巢一下，如何呢”。这种自来熟的幽默，就像突然跳出来揉揉朋友的头，让人会心一笑。</p></div>
+
+        <p class="closing">致话不多但一直在线的小王：下次多写两句，我们都等着看你的故事呢。</p>
+      </div>
+    </section>
+</div>
+<div id="dots"><button data-i="0"></button><button data-i="1"></button><button data-i="2"></button><button data-i="3"></button></div>
+<script>
+  const deck = document.getElementById('deck');
+  const screens = [...document.querySelectorAll('.screen')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) {
+      const i = screens.indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('on', j===i));
+    } });
+  }, {threshold:0.6});
+  screens.forEach(s => io.observe(s));
+  dots.forEach(d => d.onclick = () => screens[+d.dataset.i].scrollIntoView());
+  let i = 0;
+  addEventListener('keydown', e => {
+    if (e.key==='ArrowDown'||e.key==='ArrowRight') i=Math.min(i+1,screens.length-1);
+    else if (e.key==='ArrowUp'||e.key==='ArrowLeft') i=Math.max(i-1,0);
+    else return;
+    screens[i].scrollIntoView();
+  });
+</script>
+<!-- generated 2026-08-10 16:08 -->
+</body>
+</html>
