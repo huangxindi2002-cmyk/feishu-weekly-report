@@ -33,6 +33,14 @@
       "generated_at": "2026-08-10T16:08:04"
     },
     {
+      "type": "monthly",
+      "title": "2026-08 生活报告",
+      "period": "2026-08",
+      "path": "reports/monthly/2026-08.html",
+      "date": "2026-08-01",
+      "generated_at": "2026-09-01T06:00:03"
+    },
+    {
       "type": "weekly",
       "title": "7.27-7.31 生活报告",
       "period": "7.27-7.31",
