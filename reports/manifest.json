@@ -2,6 +2,14 @@
   "reports": [
     {
       "type": "weekly",
+      "title": "8.31-9.4 生活报告",
+      "period": "8.31-9.4",
+      "path": "reports/weekly/2026-08-31.html",
+      "date": "2026-08-31",
+      "generated_at": "2026-09-04T13:52:11"
+    },
+    {
+      "type": "weekly",
       "title": "8.24-8.28 生活报告",
       "period": "8.24-8.28",
       "path": "reports/weekly/2026-08-24.html",

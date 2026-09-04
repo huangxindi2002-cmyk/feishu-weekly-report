@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>8.31-9.4 生活报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff; background:#0b0b12; overflow:hidden;
+  }
+  #deck { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  #deck::-webkit-scrollbar { display:none; }
+  .screen {
+    min-height:100vh; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 24px; background:linear-gradient(160deg,var(--from),var(--to));
+  }
+  .inner { width:100%; max-width:680px; }
+  /* 封面 */
+  .cover { --from:#0b0b12; --to:#241638; --accent:#ff8fb1; text-align:center; }
+  .cover .big { font-size:clamp(40px,11vw,84px); font-weight:800; line-height:1.05; letter-spacing:2px; }
+  .cover .sub { margin-top:18px; font-size:18px; opacity:.8; }
+  .cover .cloud { margin:36px auto 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:480px; }
+  .cover .cloud span { font-size:14px; padding:6px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; opacity:.85; }
+  .cover .hint { margin-top:48px; font-size:13px; opacity:.55; animation:bob 1.6s infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  /* 人物页 */
+  .who { font-size:14px; letter-spacing:3px; color:var(--soft); opacity:.85; }
+  .title { font-size:clamp(30px,7vw,52px); font-weight:800; margin:6px 0 10px; }
+  .tagline { font-size:17px; color:var(--soft); opacity:.9; margin-bottom:24px; }
+  h3 { font-size:15px; letter-spacing:2px; margin:30px 0 12px; color:var(--accent); }
+  .kw-cloud { display:flex; flex-wrap:wrap; gap:9px; }
+  .kw { font-size:14px; padding:6px 13px; border-radius:999px;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+         animation:pop .5s var(--d) both; }
+  @keyframes pop { from{opacity:0; transform:scale(.8)} to{opacity:1; transform:scale(1)} }
+  .time-card { margin-top:22px; padding:14px 16px; border-radius:14px;
+                background:rgba(255,255,255,.07); font-size:15px; }
+  .time-card b { color:var(--accent); }
+  .stats { display:flex; flex-direction:column; gap:14px; }
+  .stat-top { display:flex; justify-content:space-between; font-size:15px; }
+  .stat-top b { color:var(--accent); }
+  .bar { height:8px; border-radius:999px; background:rgba(255,255,255,.12); margin:6px 0 4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); border-radius:999px; }
+  .ex { font-size:12px; opacity:.6; }
+  .highlights { display:flex; flex-direction:column; gap:14px; }
+  .hl { padding:16px 18px; border-left:3px solid var(--accent);
+         background:rgba(255,255,255,.06); border-radius:0 12px 12px 0; }
+  .hl .q { font-size:17px; line-height:1.5; }
+  .hl .n { font-size:13px; opacity:.7; margin-top:8px; }
+  .narrative p { font-size:15px; line-height:1.85; opacity:.92; margin-bottom:14px; }
+  .closing { margin-top:30px; font-size:18px; font-style:italic; color:var(--soft); }
+  /* 进度点 */
+  #dots { position:fixed; right:14px; top:50%; transform:translateY(-50%);
+           display:flex; flex-direction:column; gap:10px; z-index:10; }
+  #dots button { width:8px; height:8px; border:0; border-radius:50%;
+                  background:rgba(255,255,255,.3); cursor:pointer; padding:0; }
+  #dots button.on { background:#fff; transform:scale(1.4); }
+</style>
+</head>
+<body>
+<div id="deck">
+  <section class="screen cover">
+    <div class="inner">
+      <div class="big">8.31-9.4<br>生活报告</div>
+      <div class="sub">8.31-9.4 · 共 27 条记录</div>
+      <div class="cloud"><span>德州</span><span>砍价</span><span>vendor</span><span>骑驴找马</span><span>交接大便工作</span><span>跨行找工作</span><span>围观</span><span>潜水</span><span>缺席</span></div>
+      <div class="hint">↓ 滑动 / 方向键查看每个人</div>
+    </div>
+  </section>
+  
+    <section class="screen" style="--from:#1a1033;--to:#3a1c5c;--accent:#ff8fb1;--soft:#ffd6e5">
+      <div class="inner">
+        <p class="who">黄欣迪 · 第 1 章</p>
+        <h2 class="title">德州、砍价与鸽掉的健身</h2>
+        <p class="tagline">你的快乐清单很短，但每一条都很上头。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">德州</span><span class="kw" style="--d:0.05s">砍价</span><span class="kw" style="--d:0.10s">vendor</span><span class="kw" style="--d:0.15s">专家</span><span class="kw" style="--d:0.20s">老板</span><span class="kw" style="--d:0.25s">胃口</span><span class="kw" style="--d:0.30s">焦虑</span><span class="kw" style="--d:0.35s">睡眠</span><span class="kw" style="--d:0.40s">健身</span><span class="kw" style="--d:0.45s">保时捷哥</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>上午10点-下午1点，你总在赶早会、吐槽工作和勉强吃饭，典型的打工人晨间挣扎。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>8</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">AI对组织的影响体现在我们现在不仅不需要校招生，连实习生都不需要了。。、每次访TT这个专家都感觉他在水时长、在和vendor的砍价中我已经练习成为厚脸皮第一名</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>4</b></div>
+              <div class="bar"><i style="width:50%"></i></div>
+              <div class="ex">周一早上惯例：鸽掉健身、我发现一周下来最快乐的事基本就是打德州。。、保时捷哥的车最近刮到了送回去修了，唯一的优势已然丧失😂</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>1</b></div>
+              <div class="bar"><i style="width:12%"></i></div>
+              <div class="ex">受不了了，今天胃口巨差，中午吃饭几乎都没咋吃，不知道为什么。</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“周一早上惯例：鸽掉健身”</p>
+              <p class="n">你的健身卡一定在钱包里哭，但你的诚实让人不忍心批评。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“在和vendor的砍价中我已经练习成为厚脸皮第一名”</p>
+              <p class="n">职场给你最大的馈赠，是一张越磨越厚的脸皮。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我都这么水了vendor还要涨价”</p>
+              <p class="n">水时长专家 vs 涨价 vendor，你夹在中间像个无辜的砍价侠。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“结果巴西那边的老板记错时间了，就只能改成早上开”</p>
+              <p class="n">跨国会议的第一定律：老板永远记错时区，但你得随时待命。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周的你，完美演绎了“嘴上吐槽，手上干活”的社畜日常。健身被鸽得理直气壮，德州成了最快乐的出口，而保时捷哥的车一修，连仅有的快乐都打了个折。</p><p>工作里你被迫面对AI抢实习生饭碗的荒诞现实，又要在水时长的专家和涨价的vendor之间来回砍价，硬生生练成了厚脸皮第一名。胃口被焦虑和熬夜搞垮，中午饭都吃不下，晚上还差点被老板的10点会议钉在工位上——结果巴西老板记错时间，会改到了早上，你连个懒觉都没捞着。</p><p>好在文字里还藏着幽默感：调侃保时捷哥“唯一的优势已然丧失”，把访TT专家形容成“水时长”，连糟糕的胃口都能自我诊断成“上班太焦虑、睡太晚、吃太油腻”的综合症。这就是你，一边垮着一边还能精准吐槽。</p></div>
+
+        <p class="closing">愿下周的德州多赢几把，vendor少涨点价，健身……算了，还是愿你能吃顿好饭吧。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#06141f;--to:#0f3a4d;--accent:#5fd0c5;--soft:#bff0ea">
+      <div class="inner">
+        <p class="who">刘嘉晨 · 第 2 章</p>
+        <h2 class="title">骑驴找马，寺庙求佛</h2>
+        <p class="tagline">一边交接大便工作，一边为面试力竭，心里还揣着字节梦。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">骑驴找马</span><span class="kw" style="--d:0.05s">交接大便工作</span><span class="kw" style="--d:0.10s">跨行找工作</span><span class="kw" style="--d:0.15s">面试</span><span class="kw" style="--d:0.20s">字节</span><span class="kw" style="--d:0.25s">潭柘寺</span><span class="kw" style="--d:0.30s">力竭</span><span class="kw" style="--d:0.35s">绝望</span><span class="kw" style="--d:0.40s">索然无味</span><span class="kw" style="--d:0.45s">炸酱面</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>晚上8点到10点半：不是在面试，就是在去面试的路上，白天还要交接大便工作，晚上还要连轴转，社畜夜生活实锤。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>5</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">来交接大便工作了，为什么这个工作不能扔出去啊、这周将是连轴转的交接，交出已有工作，接替新的工作，都是大便工作、I want to run as soon as possible！！！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>1</b></div>
+              <div class="bar"><i style="width:20%"></i></div>
+              <div class="ex">今天天气不错！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>3</b></div>
+              <div class="bar"><i style="width:60%"></i></div>
+              <div class="ex">今天早餐吃了好多碳水！、中午韩国街速速吃了炸酱面、中午的炸酱面好饱，晚上根本吃不下</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>5</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">跨行找工作好难，我怎么能在短期内快速了解到企业微信AI SaaS那么多东西啊、好绝望，周六要去潭柘寺拜一拜、溜回家面试去了</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“骑驴找马好搞心态啊！！”</p>
+              <p class="n">看来这头驴骑得并不安稳，但好歹驴还在。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“I want to run as soon as possible！！！”</p>
+              <p class="n">三个感叹号，跑得比老板画的大饼还快。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“好绝望，周六要去潭柘寺拜一拜”</p>
+              <p class="n">从简历到佛祖，全方位求助，真的尽力了。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“中午的炸酱面好饱，晚上根本吃不下”</p>
+              <p class="n">碳水守恒定律：中午吃太多，晚上只能饿着面试。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“这周将是连轴转的交接，交出已有工作，接替新的工作，都是大便工作”</p>
+              <p class="n">用最平静的语气说出最脏的工作内容，成年人的崩溃就是这么朴实无华。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一期你的生活主旋律就两个字：折腾。工作要交接，还要见缝插针地面试，骑驴找马的心态在崩溃边缘反复横跳。周一还打算休假排三个面试，结果两个被 reschedule，剩下的一个你也“索然无味”，干脆全挪到周二，可见这马找得有多心累。</p><p>你对自己的工作描述精准到让人心疼——“大便工作”。交接起来更是“连轴转的交接”，仿佛在玩一个谁接谁倒霉的烫手山芋游戏。但你又跑不了，只能趁午休溜回家面试，晚上八点一场，十点半一场，面到力竭。唯一的高光时刻是韩国街的炸酱面，碳水爆炸，晚上直接省一顿饭，靠反刍支撑面试。</p><p>跨行找工作的焦虑几乎贯穿每条记录：想了解企业微信AI SaaS，想去字节，感觉自己短期内搞不定那么多东西，最后只能寄希望于潭柘寺。周六拜一拜，佛渡有缘人，但佛可能也救不了“大便工作”留下的心理阴影。</p></div>
+
+        <p class="closing">愿你的下一份工作少一点“大便”，多一点“索然无味”的底气。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#1f1206;--to:#4a2c0f;--accent:#ffb454;--soft:#ffe2b3">
+      <div class="inner">
+        <p class="who">王江楠 · 第 3 章</p>
+        <h2 class="title">沉默的旁观者，温暖的缺席</h2>
+        <p class="tagline">你们的热闹，我的安静</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">围观</span><span class="kw" style="--d:0.05s">潜水</span><span class="kw" style="--d:0.10s">缺席</span><span class="kw" style="--d:0.15s">朋友圈点赞</span><span class="kw" style="--d:0.20s">默默关注</span><span class="kw" style="--d:0.25s">没有记录</span><span class="kw" style="--d:0.30s">安静</span><span class="kw" style="--d:0.35s">旁观</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>本期没有明确记录时段，王江楠仿佛开启了隐身模式，只在别人的故事外轻轻路过。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>社交</span><b>1</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">王江楠在刘嘉晨8月31日10:00的面试吐槽下默默点了个赞</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“（本期没有王江楠的原话，只有一次点赞）”</p>
+              <p class="n">你的存在感全在别人动态下的小红心，堪称朋友圈里的隐形守护者。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周，黄欣迪在跟vendor斗智斗勇，刘嘉晨在面试的海洋里扑腾，而你，王江楠，像一个深藏功与名的观众，连一句台词都没留。</p><p>唯一能捕捉到的痕迹，是你在刘嘉晨那声“骑驴找马好搞心态”下的一个赞。无声的安慰，懂的都懂。</p><p>也许你正忙着过自己的小日子，没空记录；也许你只是觉得，有些心情放在心里就好。无论如何，你的缺席反而成了一种温柔的背景音。</p></div>
+
+        <p class="closing">下次多冒个泡吧，朋友们会想听你的故事。</p>
+      </div>
+    </section>
+</div>
+<div id="dots"><button data-i="0"></button><button data-i="1"></button><button data-i="2"></button><button data-i="3"></button></div>
+<script>
+  const deck = document.getElementById('deck');
+  const screens = [...document.querySelectorAll('.screen')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) {
+      const i = screens.indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('on', j===i));
+    } });
+  }, {threshold:0.6});
+  screens.forEach(s => io.observe(s));
+  dots.forEach(d => d.onclick = () => screens[+d.dataset.i].scrollIntoView());
+  let i = 0;
+  addEventListener('keydown', e => {
+    if (e.key==='ArrowDown'||e.key==='ArrowRight') i=Math.min(i+1,screens.length-1);
+    else if (e.key==='ArrowUp'||e.key==='ArrowLeft') i=Math.max(i-1,0);
+    else return;
+    screens[i].scrollIntoView();
+  });
+</script>
+<!-- generated 2026-09-04 13:52 -->
+</body>
+</html>
