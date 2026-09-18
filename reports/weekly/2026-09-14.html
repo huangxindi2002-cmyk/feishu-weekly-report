@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>9.14-9.18 生活报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff; background:#0b0b12; overflow:hidden;
+  }
+  #deck { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  #deck::-webkit-scrollbar { display:none; }
+  .screen {
+    min-height:100vh; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 24px; background:linear-gradient(160deg,var(--from),var(--to));
+  }
+  .inner { width:100%; max-width:680px; }
+  /* 封面 */
+  .cover { --from:#0b0b12; --to:#241638; --accent:#ff8fb1; text-align:center; }
+  .cover .big { font-size:clamp(40px,11vw,84px); font-weight:800; line-height:1.05; letter-spacing:2px; }
+  .cover .sub { margin-top:18px; font-size:18px; opacity:.8; }
+  .cover .cloud { margin:36px auto 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:480px; }
+  .cover .cloud span { font-size:14px; padding:6px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; opacity:.85; }
+  .cover .hint { margin-top:48px; font-size:13px; opacity:.55; animation:bob 1.6s infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  /* 人物页 */
+  .who { font-size:14px; letter-spacing:3px; color:var(--soft); opacity:.85; }
+  .title { font-size:clamp(30px,7vw,52px); font-weight:800; margin:6px 0 10px; }
+  .tagline { font-size:17px; color:var(--soft); opacity:.9; margin-bottom:24px; }
+  h3 { font-size:15px; letter-spacing:2px; margin:30px 0 12px; color:var(--accent); }
+  .kw-cloud { display:flex; flex-wrap:wrap; gap:9px; }
+  .kw { font-size:14px; padding:6px 13px; border-radius:999px;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+         animation:pop .5s var(--d) both; }
+  @keyframes pop { from{opacity:0; transform:scale(.8)} to{opacity:1; transform:scale(1)} }
+  .time-card { margin-top:22px; padding:14px 16px; border-radius:14px;
+                background:rgba(255,255,255,.07); font-size:15px; }
+  .time-card b { color:var(--accent); }
+  .stats { display:flex; flex-direction:column; gap:14px; }
+  .stat-top { display:flex; justify-content:space-between; font-size:15px; }
+  .stat-top b { color:var(--accent); }
+  .bar { height:8px; border-radius:999px; background:rgba(255,255,255,.12); margin:6px 0 4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); border-radius:999px; }
+  .ex { font-size:12px; opacity:.6; }
+  .highlights { display:flex; flex-direction:column; gap:14px; }
+  .hl { padding:16px 18px; border-left:3px solid var(--accent);
+         background:rgba(255,255,255,.06); border-radius:0 12px 12px 0; }
+  .hl .q { font-size:17px; line-height:1.5; }
+  .hl .n { font-size:13px; opacity:.7; margin-top:8px; }
+  .narrative p { font-size:15px; line-height:1.85; opacity:.92; margin-bottom:14px; }
+  .closing { margin-top:30px; font-size:18px; font-style:italic; color:var(--soft); }
+  /* 进度点 */
+  #dots { position:fixed; right:14px; top:50%; transform:translateY(-50%);
+           display:flex; flex-direction:column; gap:10px; z-index:10; }
+  #dots button { width:8px; height:8px; border:0; border-radius:50%;
+                  background:rgba(255,255,255,.3); cursor:pointer; padding:0; }
+  #dots button.on { background:#fff; transform:scale(1.4); }
+</style>
+</head>
+<body>
+<div id="deck">
+  <section class="screen cover">
+    <div class="inner">
+      <div class="big">9.14-9.18<br>生活报告</div>
+      <div class="sub">9.14-9.18 · 共 45 条记录</div>
+      <div class="cloud"><span>加班</span><span>开会</span><span>发烧</span><span>洗心革面</span><span>五子棋</span><span>猫猫</span><span>被踢出群</span><span>项目</span><span>表格</span></div>
+      <div class="hint">↓ 滑动 / 方向键查看每个人</div>
+    </div>
+  </section>
+  
+    <section class="screen" style="--from:#1a1033;--to:#3a1c5c;--accent:#ff8fb1;--soft:#ffd6e5">
+      <div class="inner">
+        <p class="who">黄欣迪 · 第 1 章</p>
+        <h2 class="title">发烧打工人，在工位硬抗</h2>
+        <p class="tagline">一边发烧一边被老板追杀，本宫的头好疼</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">加班</span><span class="kw" style="--d:0.05s">开会</span><span class="kw" style="--d:0.10s">发烧</span><span class="kw" style="--d:0.15s">咳嗽</span><span class="kw" style="--d:0.20s">老板</span><span class="kw" style="--d:0.25s">专家call</span><span class="kw" style="--d:0.30s">外卖</span><span class="kw" style="--d:0.35s">道歉机器</span><span class="kw" style="--d:0.40s">早下班</span><span class="kw" style="--d:0.45s">头晕</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>晚上8-10点，你总在深夜才获得一点属于自己的时间，但往往已经被工作榨干</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>22</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">下午收到了一串对我上周研究的cmmts，然后又被challenge住了，感觉再这么打专家call下去我会步gay哥后尘被老板写入季度回顾的downlight里面。。、打专家call数字死活对不上，没招了、趁老板还在开会，下班。本宫的头好疼。</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>8</b></div>
+              <div class="bar"><i style="width:36%"></i></div>
+              <div class="ex">中午睡的根本起不来，结果下午开会就迟到了、回去以后一测体温发现37.7度，立刻开始照顾自己模式、睡了一会但是现在又困了感觉生病了还要上班真是反人类</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>7</b></div>
+              <div class="bar"><i style="width:32%"></i></div>
+              <div class="ex">中午点外卖吃了个粥结果一点胃口都没有、我只吃了9个饺子就不想吃了、发现发烧没胃口，准备晚上点外卖吃点清淡的</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>6</b></div>
+              <div class="bar"><i style="width:27%"></i></div>
+              <div class="ex">为了表达我的不满，我要把王江楠踢出这个项目、下午来了先弄了一个小时发票然后又弄了半个小时越南签证、回去以后一测体温发现37.7度</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>4</b></div>
+              <div class="bar"><i style="width:18%"></i></div>
+              <div class="ex">我中午和乔吃饭，我俩都周一综合症，累的要死、中午给飞老师过生日！找了个会议室吃蛋糕，苦中作乐</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“你不懂这种每天劈头盖脸被老板批夹着尾巴做人的感受😑我现在已经是道歉机器了”</p>
+              <p class="n">从今天起，你的正式头衔改为「黄·道歉机器·欣迪」。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“趁老板还在开会，下班。本宫的头好疼。”</p>
+              <p class="n">本宫的头好疼，本宫的班好难上。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“打专家call数字死活对不上，没招了”</p>
+              <p class="n">专家给你上难度，你给自己上血压。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我服了中午老板跟他的同行吃饭聊TT电商聊到了我昨天报告里写的一个out of date的东西我老板立马发消息让我改”</p>
+              <p class="n">老板的消息永远比你的病假条来得快。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“中午给飞老师过生日！找了个会议室吃蛋糕，苦中作乐”</p>
+              <p class="n">在会议室吃蛋糕，堪称当代职场人的小型越狱。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周你仿佛开启了「地狱生存模式」：周一被专家call暴击，周二直接发烧37.7度，但依然坚持在工位发光发热，甚至总结出「上班治疗发烧」的玄学理论。</p><p>你和老板的关系像极了猫鼠游戏：你趁他接水时溜走，他在饭局上远程追杀你的报告；你刚说服他数据没错，转头又被他抓到out of date的漏洞。难怪你自称「道歉机器」。</p><p>即便如此，你仍不忘苦中作乐：给飞老师过生日、和乔吐槽周一综合症、在会议室里玩一会儿，甚至扬言把王江楠踢出项目——结果只是把人提出群聊，友谊的小船说翻就翻，但翻完还能捞起来。</p><p>最心酸的莫过于吃饭：9个饺子就算一顿，喝粥没胃口，晚上回家吃夜宵担心肠胃，咳嗽不敢吃辣。身体在抗议，灵魂还在硬扛。</p></div>
+
+        <p class="closing">希望下一周你的头不疼了，老板的消息少一点，饺子里能多点馅。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#06141f;--to:#0f3a4d;--accent:#5fd0c5;--soft:#bff0ea">
+      <div class="inner">
+        <p class="who">刘嘉晨 · 第 2 章</p>
+        <h2 class="title">洗心革面，但猫和五子棋不让</h2>
+        <p class="tagline">你的本周关键词：吃、休假、面试，以及……假装重新做人。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">洗心革面</span><span class="kw" style="--d:0.05s">五子棋</span><span class="kw" style="--d:0.10s">猫猫</span><span class="kw" style="--d:0.15s">黑胶</span><span class="kw" style="--d:0.20s">佛卡夏</span><span class="kw" style="--d:0.25s">休假</span><span class="kw" style="--d:0.30s">面试</span><span class="kw" style="--d:0.35s">好吃</span><span class="kw" style="--d:0.40s">阳光</span><span class="kw" style="--d:0.45s">对称</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>19:00-21:00。你似乎总在傍晚开始活跃：不是在下五子棋，就是在回味白天的美食，或者分享周末的阳光和猫。别人加班你发呆，别人开会你下棋，真有你的。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>3</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">最近沉迷五子棋，走出了一个非常对称的格局、周六下午去朋友家看猫猫，不怕生还特别可爱！、周六下午在朋友家听黑胶，太适合f1的曲子了！！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>2</b></div>
+              <div class="bar"><i style="width:67%"></i></div>
+              <div class="ex">silverflow银流咖啡的佛卡夏太美味了！！菌菇芝士和炒蛋的味道和口感都一级棒、好吃</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>工作</span><b>2</b></div>
+              <div class="bar"><i style="width:67%"></i></div>
+              <div class="ex">今天休假，准备面试、做的事情实在无聊透了</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>2</b></div>
+              <div class="bar"><i style="width:67%"></i></div>
+              <div class="ex">这周我要洗心革面，重新打卡！、周六下午的阳光特别好</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>1</b></div>
+              <div class="bar"><i style="width:33%"></i></div>
+              <div class="ex">昨晚一个人吃了很多</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“这周我要洗心革面，重新打卡！”</p>
+              <p class="n">结果整周都在五子棋和猫猫里洗心革面，打卡？不存在的。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“最近沉迷五子棋，走出了一个非常对称的格局”</p>
+              <p class="n">别人在格子间搬砖，你在棋盘上追求对称美学。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“周六下午去朋友家看猫猫，不怕生还特别可爱！”</p>
+              <p class="n">社牛猫猫 vs 只想躺平的你，到底谁治愈谁？</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“silverflow银流咖啡的佛卡夏太美味了！！菌菇芝士和炒蛋的味道和口感都一级棒”</p>
+              <p class="n">连用两个感叹号，食评界的文艺复兴全靠你。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“昨晚一个人吃了很多”</p>
+              <p class="n">深夜美食家の孤独自白，但快乐是真实的。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>开学第二周，你高喊“洗心革面，重新打卡”，然后转头就沉迷五子棋、撸猫、听黑胶、吃佛卡夏。别人周一综合征，你周一在棋盘上走出对称格局；别人被老板挑战，你在朋友家晒太阳。这哪里是洗心革面，分明是给生活开了个度假模式。</p><p>虽然你嘴上说“做的事情实在无聊透了”，但身体却很诚实：美食一顿不落，猫猫照撸不误，五子棋下得飞起。连黄欣迪都忍不住吐槽你“还是太有责任心”，殊不知你早把责任心分给了猫和棋盘。</p><p>本周你成功把“休假”过成了主旋律，面试只是插曲。哪怕在朋友家听黑胶，你都能联想到F1的曲子，说明你不是在放松，就是在去放松的路上。唯一的工作痕迹是“今天休假，准备面试”——然后就没有然后了。</p><p>你就像班级里那个嘴上说“我要好好学习”但转头就去操场打球的同学，只不过你的球场是棋盘、猫和咖啡馆。这样的你，反而让整个小组的氛围都轻松了不少。</p></div>
+
+        <p class="closing">愿你下周继续“洗心革面”，但别丢了下五子棋和撸猫的快乐；毕竟，会玩的人，才不会被生活玩。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#1f1206;--to:#4a2c0f;--accent:#ffb454;--soft:#ffe2b3">
+      <div class="inner">
+        <p class="who">王江楠 · 第 3 章</p>
+        <h2 class="title">被踢出群的隐身主角</h2>
+        <p class="tagline">这周的王江楠，活在别人的对话里。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">被踢出群</span><span class="kw" style="--d:0.05s">项目</span><span class="kw" style="--d:0.10s">表格</span><span class="kw" style="--d:0.15s">黄欣迪</span><span class="kw" style="--d:0.20s">不满</span><span class="kw" style="--d:0.25s">隐身</span><span class="kw" style="--d:0.30s">主角</span><span class="kw" style="--d:0.35s">未记录</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>无个人记录（只出现在他人互动中，时间集中在 9 月 14 日 11:00 前后）</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>其他</span><b>1</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">9月14日 11:00 |   💬 评论互动：刘嘉晨：还没踢 / 黄欣迪：已经提出群了</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“为了表达我的不满，我要把王江楠踢出这个项目，以后这个表格只有我和李嘉诚了”</p>
+              <p class="n">这大概是本周关于你的最大新闻——虽然你自己可能还不知道。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“已经提出群了”</p>
+              <p class="n">黄欣迪的操作速度比你的反驳速度快多了。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“还没踢”</p>
+              <p class="n">刘嘉晨试图替你挽尊，但无济于事。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周，王江楠的流水账是一片空白，但你的名字却像一块沉默的石头，在 9 月 14 日的上午激起了一朵浪花。黄欣迪突然宣布要把你踢出项目，理由只有三个字：「表达我的不满」。你在她的记录里不是一个活生生的人，而是一个需要被移除的障碍。</p><p>更戏剧的是，刘嘉晨似乎还想当个和事佬，弱弱地说了一句「还没踢」，但黄欣迪立刻补刀：「已经提出群了」。那一刻，你甚至没有机会为自己辩护，就在群聊里消失了。也许你正忙着别的事，也许你根本不知道这场针对你的小风波。</p><p>这周关于你的记录只有一条互动，但它已经足够让你成为这期报告里最神秘的存在：一个被踢出群的隐身主角。我们不知道你那天有没有吃饭、有没有加班、有没有在深夜 emo——我们只知道，你在某些人的心里，曾经那么有存在感，以至于要被踢出去才解气。</p></div>
+
+        <p class="closing">下周，记得自己冒个泡，别只活在别人的吐槽里。</p>
+      </div>
+    </section>
+</div>
+<div id="dots"><button data-i="0"></button><button data-i="1"></button><button data-i="2"></button><button data-i="3"></button></div>
+<script>
+  const deck = document.getElementById('deck');
+  const screens = [...document.querySelectorAll('.screen')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) {
+      const i = screens.indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('on', j===i));
+    } });
+  }, {threshold:0.6});
+  screens.forEach(s => io.observe(s));
+  dots.forEach(d => d.onclick = () => screens[+d.dataset.i].scrollIntoView());
+  let i = 0;
+  addEventListener('keydown', e => {
+    if (e.key==='ArrowDown'||e.key==='ArrowRight') i=Math.min(i+1,screens.length-1);
+    else if (e.key==='ArrowUp'||e.key==='ArrowLeft') i=Math.max(i-1,0);
+    else return;
+    screens[i].scrollIntoView();
+  });
+</script>
+<!-- generated 2026-09-18 13:58 -->
+</body>
+</html>
