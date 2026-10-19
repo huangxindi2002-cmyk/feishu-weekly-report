@@ -6,10 +6,10 @@
      - wiki node token -> 内嵌 spreadsheet token（obj_token）
      - 独立电子表格 -> token 本身即 spreadsheet token
   3. spreadsheet token -> 工作表(Tab)列表
-  4. 读取某个 Tab 的 A/B/D/F/H 列 -> 结构化 entries
+  4. 读取某个 Tab 的 A/B/D/F 列 -> 结构化 entries
   5. 跨所有表格聚合（按数据源添加顺序、再按 Tab 起始日期）
 
-只读 A(日期) / B(时段) / D(黄欣迪) / F(刘嘉晨) / H(王江楠)，图片列 C/E/G 跳过。
+只读 A(日期) / B(时段) / D(黄欣迪) / F(刘嘉晨)，图片列 C/E 及 G/H 跳过。
 A 列是合并单元格（一天占多行），API 只在左上角返回值，其余为空，这里做向下填充。
 
 可单独当 CLI 用：
@@ -47,7 +47,7 @@ BASE_URL = os.environ.get("FEISHU_BASE_URL", "https://open.feishu.cn").rstrip("/
 PERSON_COLUMNS = {
     "黄欣迪": 3,  # D 列
     "刘嘉晨": 5,  # F 列
-    "王江楠": 7,  # H 列
+    # "王江楠": 7,  # H 列（已停止纳入报告，表格里该列仍保留）
 }
 DATE_COL = 0  # A 列
 TIME_COL = 1  # B 列

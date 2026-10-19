@@ -118,10 +118,12 @@ python scripts/send_feishu.py --url "https://example.com" --title "测试卡片"
 
 | 列 | A | B | C | D | E | F | G | H |
 |---|---|---|---|---|---|---|---|---|
-| 含义 | 日期 | 时段 | 图片(跳过) | 黄欣迪 | 图片(跳过) | 刘嘉晨 | 图片(跳过) | 王江楠 |
+| 含义 | 日期 | 时段 | 图片(跳过) | 黄欣迪 | 图片(跳过) | 刘嘉晨 | 图片(跳过) | 王江楠(不纳入) |
 
 第 1 行表头、第 2 行人名，第 3 行起为数据。A 列是合并单元格（一天多行），脚本会向下填充。
-只读 **A/B/D/F/H**。改人名或列位置：编辑 `scripts/fetch_sheet.py` 里的 `PERSON_COLUMNS`。
+当前只读 **A/B/D/F**（H 列王江楠已停止纳入报告，表格里该列仍可保留）。
+改人名或列位置：编辑 `scripts/fetch_sheet.py` 里的 `PERSON_COLUMNS`；若同时涉及评论归属，
+还要同步 `scripts/fetch_comments.py` 里的 `COL_PERSON`。
 
 ## 五、关于 DeepSeek 调用与成本
 

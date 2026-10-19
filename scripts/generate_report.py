@@ -43,7 +43,7 @@ DEEPSEEK_MODEL = "deepseek-v4-pro"
 DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 ROOT = Path(__file__).resolve().parent.parent
 REPORTS_DIR = ROOT / "reports"
-PEOPLE = list(fetch_sheet.PERSON_COLUMNS.keys())  # 黄欣迪 / 刘嘉晨 / 王江楠
+PEOPLE = list(fetch_sheet.PERSON_COLUMNS.keys())  # 黄欣迪 / 刘嘉晨
 
 # 每人配色（背景渐变 + 强调色），渲染时按顺序取用
 THEMES = [

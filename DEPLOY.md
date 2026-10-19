@@ -92,7 +92,8 @@ python scripts/send_feishu.py --path reports/weekly/2026-05-18.html --title "...
 
 ## 五、改配置
 
-- 改人名 / 列位置:`scripts/fetch_sheet.py` 顶部 `PERSON_COLUMNS`。
+- 改人名 / 列位置:`scripts/fetch_sheet.py` 顶部 `PERSON_COLUMNS`(当前为黄欣迪/刘嘉晨两人);
+  若同时涉及评论归属,同步改 `scripts/fetch_comments.py` 的 `COL_PERSON`。
 - 改报告语气 / 关键词 / 行为分类口径:`scripts/generate_report.py` 的 `STYLE_GUIDE`。
 - 改配色:`generate_report.py` 的 `THEMES`。
 - 改定时:`.github/workflows/weekly_report.yml` 的两个 `cron`。

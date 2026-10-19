@@ -40,7 +40,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import fetch_sheet  # noqa: E402
 
 MODEL = "claude-opus-4-7"
-PEOPLE = list(fetch_sheet.PERSON_COLUMNS.keys())  # 黄欣迪 / 刘嘉晨 / 王江楠
+PEOPLE = list(fetch_sheet.PERSON_COLUMNS.keys())  # 黄欣迪 / 刘嘉晨
 DEFAULT_OUT = Path.home() / "Desktop" / "性格画像报告.html"
 
 # 每人配色（背景渐变 + 强调色），渲染时按顺序取用
