@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>10.26-10.30 生活报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff; background:#0b0b12; overflow:hidden;
+  }
+  #deck { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  #deck::-webkit-scrollbar { display:none; }
+  .screen {
+    min-height:100vh; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 24px; background:linear-gradient(160deg,var(--from),var(--to));
+  }
+  .inner { width:100%; max-width:680px; }
+  /* 封面 */
+  .cover { --from:#0b0b12; --to:#241638; --accent:#ff8fb1; text-align:center; }
+  .cover .big { font-size:clamp(40px,11vw,84px); font-weight:800; line-height:1.05; letter-spacing:2px; }
+  .cover .sub { margin-top:18px; font-size:18px; opacity:.8; }
+  .cover .cloud { margin:36px auto 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:480px; }
+  .cover .cloud span { font-size:14px; padding:6px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; opacity:.85; }
+  .cover .hint { margin-top:48px; font-size:13px; opacity:.55; animation:bob 1.6s infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  /* 人物页 */
+  .who { font-size:14px; letter-spacing:3px; color:var(--soft); opacity:.85; }
+  .title { font-size:clamp(30px,7vw,52px); font-weight:800; margin:6px 0 10px; }
+  .tagline { font-size:17px; color:var(--soft); opacity:.9; margin-bottom:24px; }
+  h3 { font-size:15px; letter-spacing:2px; margin:30px 0 12px; color:var(--accent); }
+  .kw-cloud { display:flex; flex-wrap:wrap; gap:9px; }
+  .kw { font-size:14px; padding:6px 13px; border-radius:999px;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+         animation:pop .5s var(--d) both; }
+  @keyframes pop { from{opacity:0; transform:scale(.8)} to{opacity:1; transform:scale(1)} }
+  .time-card { margin-top:22px; padding:14px 16px; border-radius:14px;
+                background:rgba(255,255,255,.07); font-size:15px; }
+  .time-card b { color:var(--accent); }
+  .stats { display:flex; flex-direction:column; gap:14px; }
+  .stat-top { display:flex; justify-content:space-between; font-size:15px; }
+  .stat-top b { color:var(--accent); }
+  .bar { height:8px; border-radius:999px; background:rgba(255,255,255,.12); margin:6px 0 4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); border-radius:999px; }
+  .ex { font-size:12px; opacity:.6; }
+  .highlights { display:flex; flex-direction:column; gap:14px; }
+  .hl { padding:16px 18px; border-left:3px solid var(--accent);
+         background:rgba(255,255,255,.06); border-radius:0 12px 12px 0; }
+  .hl .q { font-size:17px; line-height:1.5; }
+  .hl .n { font-size:13px; opacity:.7; margin-top:8px; }
+  .narrative p { font-size:15px; line-height:1.85; opacity:.92; margin-bottom:14px; }
+  .closing { margin-top:30px; font-size:18px; font-style:italic; color:var(--soft); }
+  /* 进度点 */
+  #dots { position:fixed; right:14px; top:50%; transform:translateY(-50%);
+           display:flex; flex-direction:column; gap:10px; z-index:10; }
+  #dots button { width:8px; height:8px; border:0; border-radius:50%;
+                  background:rgba(255,255,255,.3); cursor:pointer; padding:0; }
+  #dots button.on { background:#fff; transform:scale(1.4); }
+</style>
+</head>
+<body>
+<div id="deck">
+  <section class="screen cover">
+    <div class="inner">
+      <div class="big">10.26-10.30<br>生活报告</div>
+      <div class="sub">10.26-10.30 · 共 45 条记录</div>
+      <div class="cloud"><span>工作好无聊</span><span>西二旗自律第一人</span><span>下头</span><span>搬家</span><span>交接</span><span>漂亮饭</span></div>
+      <div class="hint">↓ 滑动 / 方向键查看每个人</div>
+    </div>
+  </section>
+  
+    <section class="screen" style="--from:#1a1033;--to:#3a1c5c;--accent:#ff8fb1;--soft:#ffd6e5">
+      <div class="inner">
+        <p class="who">黄欣迪 · 第 1 章</p>
+        <h2 class="title">西二旗自律与下头暧昧实录</h2>
+        <p class="tagline">一边“好想死”，一边去健身、看戏、买黄牛号，生活乱中有序。</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">工作好无聊</span><span class="kw" style="--d:0.05s">西二旗自律第一人</span><span class="kw" style="--d:0.10s">下头</span><span class="kw" style="--d:0.15s">涮肉</span><span class="kw" style="--d:0.20s">老板休假</span><span class="kw" style="--d:0.25s">用户访谈</span><span class="kw" style="--d:0.30s">音乐剧</span><span class="kw" style="--d:0.35s">潇湘阁</span><span class="kw" style="--d:0.40s">鲁迅博物馆</span><span class="kw" style="--d:0.45s">断头皇后</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>晚上19:00-22:00，夜越深越活跃，不是在加班就是在奔赴下一场生活。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>8</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">工作好无聊好想死、开会，业务方互相推诿，这个业务做着很烧心啊、短剧周会更是蒸蒸日下，大家都没啥可聊的，死气沉沉</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>5</b></div>
+              <div class="bar"><i style="width:62%"></i></div>
+              <div class="ex">晚上约暧昧对象（红头发的福建人）吃串！、zmm说我今天怎么换了一个人，前两天都不理他、去找王江楠喝酒，爽之</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>5</b></div>
+              <div class="bar"><i style="width:62%"></i></div>
+              <div class="ex">又去了鲁迅博物馆，第很多次去，说实话布展真的一般！、晚上吃白塔寺一个高端涮肉，等号等了3个小时、昨天晚上突发奇想极限收了一张音乐剧的票</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>4</b></div>
+              <div class="bar"><i style="width:50%"></i></div>
+              <div class="ex">中午吃超级碗都吃不下、吃了个很难吃的桂满陇外卖、中午奢侈地点了70块钱的潇湘阁</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>4</b></div>
+              <div class="bar"><i style="width:50%"></i></div>
+              <div class="ex">早上给自己把最后一包豆浆打了、这天还健身了，西二旗自律第一名、中午回家吃昨天剩的潇湘阁，试我新买的衣服，化妆</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>2</b></div>
+              <div class="bar"><i style="width:25%"></i></div>
+              <div class="ex">昨天没睡好午觉狂睡40分钟都睡不醒、最近醒来好早</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“我来帮黄欣迪写：今天休假一天，去鲁迅博物馆静心，晚上约暧昧对象（红头发的福建人）吃串！”</p>
+              <p class="n">刘嘉晨比你本人还上心，直接接管叙事，怕不是你的专属秘书。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“不知道为什么zmm（就是我date的福建弟弟）一定要在约会的时候聊我的工作并试图给我提建议，非常下头😓”</p>
+              <p class="n">约会聊工作建议，建议直接红牌罚下。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“中午奢侈地点了70块钱的潇湘阁”</p>
+              <p class="n">74块钱的潇湘阁是对抗无聊工作日的糖衣炮弹，偶尔也要宠一下自己。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“王江楠酒量奇烂！不如我，我得意”</p>
+              <p class="n">友谊的小船在酒量比拼中稳稳当当，还顺便坐实了“西二旗自律第一人”的酒量版。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周你像一台电量在10%到80%之间反复横跳的手机：白天在“工作好无聊好想死”和“西二旗自律第一人”之间切换，晚上还要挤出时间涮肉、看戏、喝酒。老板休假的那个下午，你从会议室溜达到潇湘阁，再到霸王茶姬，把周中的苦闷喝成了一连串小确幸。</p><p>暧昧对象的戏份很足，但剧情有点让人挠头：红头发福建弟弟在约会时强行输出职业建议，让你当场下头，转头又约你元旦旅游，而你内心os是“太抬举他”。这种一天无感一天特别喜欢的节奏，像极了开盲盒，只是开出来的大多是“谢谢惠顾”。</p><p>工作上的“蒸蒸日下”你早就看透，业务方互相推诿，周会40分钟结束战斗，写了两小时访谈notes发出去0反馈。但你依然会在深夜读《断头皇后》、极限收一张音乐剧票，把日子过得有嚼劲。刘嘉晨和你的隔空互动也很有戏：她帮你写日志，你笑她热心；“短短一句话道尽千言万语”的互评，是这周为数不多的高光共振。</p><p>睡眠依然是个神秘领域：6:40醒、午觉40分钟睡不醒。但没关系，你会在清晨打豆浆、中午试新衣、晚上冲去剧场，把生活的褶皱一点一点熨平。</p></div>
+
+        <p class="closing">愿你的下周少一点“下头”，多一点“爽之”，实在不行就再点一次70块的潇湘阁。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#06141f;--to:#0f3a4d;--accent:#5fd0c5;--soft:#bff0ea">
+      <div class="inner">
+        <p class="who">刘嘉晨 · 第 2 章</p>
+        <h2 class="title">散财童子搬家记</h2>
+        <p class="tagline">一边打包人生，一边难舍难分</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">搬家</span><span class="kw" style="--d:0.05s">交接</span><span class="kw" style="--d:0.10s">漂亮饭</span><span class="kw" style="--d:0.15s">难舍难分</span><span class="kw" style="--d:0.20s">散财童子</span><span class="kw" style="--d:0.25s">工位无所适从</span><span class="kw" style="--d:0.30s">social</span><span class="kw" style="--d:0.35s">花园洋房</span><span class="kw" style="--d:0.40s">货拉拉</span><span class="kw" style="--d:0.45s">快乐吃喝</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>上午到中午（10:00-13:00）是你最活跃的记录时段，一天的开启往往从吃和搬家琐事开始，主打一个边生活边吐槽。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>其他</span><b>9</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">我服了为什么我撤销宽带还要付700块的违约金，好麻烦啊啊啊啊、搬个家我要成散财童子了、找到身边唯一一个要去SHEIN的lbs同学，她面sheglam战略的时候四轮压力面，ceo面了姐快两个小时</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>7</b></div>
+              <div class="bar"><i style="width:78%"></i></div>
+              <div class="ex">美滋滋地把瓜昨天给我买的抹茶巧克力大饼吃了！、npy强推的红房子西菜馆还是很好吃的，1935年成立的老字号，very shanghai-style、今天下午摄入糖分可能有点多！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>工作</span><b>7</b></div>
+              <div class="bar"><i style="width:78%"></i></div>
+              <div class="ex">终于来到了久违的工位，已经无所适从了、这周last week，工作上倒是非常闲，只剩交接了、下午连着三个交接会</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>4</b></div>
+              <div class="bar"><i style="width:44%"></i></div>
+              <div class="ex">晚上和研究生的室友吃饭，发现大家工作一年多的心态想法和毕业时真的很不一样了、我将提前下班去吃漂亮饭、最近和男朋友有点难舍难分</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>3</b></div>
+              <div class="bar"><i style="width:33%"></i></div>
+              <div class="ex">家里有两周没收拾打扫了，好乱，还要开始打包东西！、好喜欢梧桐区的花园洋房，好舍不得、中午吃完饭在外面晃荡到3pm才回到工位，完全就是非常舒适</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>2</b></div>
+              <div class="bar"><i style="width:22%"></i></div>
+              <div class="ex">我将提前下班去吃漂亮饭、晚上和研究生室友吃饭</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“最近和男朋友有点难舍难分”</p>
+              <p class="n">短短一句话撩动多少心弦，连欣迪都忍不住啧一声。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“搬个家我要成散财童子了”</p>
+              <p class="n">宽带违约金、打包、货拉拉，钱像水一样流走，你的钱包在哭泣。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我笑死了，收拾桌柜的时候发现自己之前来例假囤了好多卫生间和棉条，我每次来例假都会买，因为生怕不够用，被同事看到说我好像批发的”</p>
+              <p class="n">囤货囤到被同事说是批发，这份安全感真的无人能敌。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“终于来到了久违的工位，已经无所适从了”</p>
+              <p class="n">last week 的打工人，工位都变得陌生了起来。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我将提前下班去吃漂亮饭”</p>
+              <p class="n">为漂亮饭早退，是打工人最后的浪漫。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周是你在这家公司的 last week，主线任务很清晰：打包、交接、social。工作已经闲到只剩交接会，但生活的热闹才刚刚开始。你要搬家，舍不得梧桐区的花园洋房，又和男朋友难舍难分，还见缝插针地去吃漂亮饭。搬家让你成了散财童子，宽带的违约金气到你想把条款裱起来，转头还是果断选择了货拉拉。</p><p>你和欣迪的互动不多，但处处有爱。你帮她写记录，她笑你热心；你偷拍像明洁的同事，她没看见但一定懂你的点。你们各自忙乱，却总在流水账里接住对方。你晚上和研究生室友吃饭，聊到工作一年多的心态变化，发现大家跳槽的理由都差不多，也想起了之前实习 mentor 的话：老板和同事是正常人比什么都重要。</p><p>这一周你是被生活推着走，但也有自己的小确幸。吃了瓜买的抹茶巧克力大饼，去吃了 1935 年的红房子西菜馆，收到小伙伴送的花花摆在工位赏心悦目。即使体重上涨，早上饿了还是要吃早饭；即使搬家很烦，还是会在朋友圈里感叹人真的很复杂，大家有各自的隐晦与皎洁。</p></div>
+
+        <p class="closing">搬家快乐，散财童子终会变成新家的主人。愿你的下一段旅程，老板和同事都是正常人，身边人都难舍难分。</p>
+      </div>
+    </section>
+</div>
+<div id="dots"><button data-i="0"></button><button data-i="1"></button><button data-i="2"></button></div>
+<script>
+  const deck = document.getElementById('deck');
+  const screens = [...document.querySelectorAll('.screen')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) {
+      const i = screens.indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('on', j===i));
+    } });
+  }, {threshold:0.6});
+  screens.forEach(s => io.observe(s));
+  dots.forEach(d => d.onclick = () => screens[+d.dataset.i].scrollIntoView());
+  let i = 0;
+  addEventListener('keydown', e => {
+    if (e.key==='ArrowDown'||e.key==='ArrowRight') i=Math.min(i+1,screens.length-1);
+    else if (e.key==='ArrowUp'||e.key==='ArrowLeft') i=Math.max(i-1,0);
+    else return;
+    screens[i].scrollIntoView();
+  });
+</script>
+<!-- generated 2026-10-30 16:22 -->
+</body>
+</html>
