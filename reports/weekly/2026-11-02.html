@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>11.2-11.6 生活报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff; background:#0b0b12; overflow:hidden;
+  }
+  #deck { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  #deck::-webkit-scrollbar { display:none; }
+  .screen {
+    min-height:100vh; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 24px; background:linear-gradient(160deg,var(--from),var(--to));
+  }
+  .inner { width:100%; max-width:680px; }
+  /* 封面 */
+  .cover { --from:#0b0b12; --to:#241638; --accent:#ff8fb1; text-align:center; }
+  .cover .big { font-size:clamp(40px,11vw,84px); font-weight:800; line-height:1.05; letter-spacing:2px; }
+  .cover .sub { margin-top:18px; font-size:18px; opacity:.8; }
+  .cover .cloud { margin:36px auto 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:480px; }
+  .cover .cloud span { font-size:14px; padding:6px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; opacity:.85; }
+  .cover .hint { margin-top:48px; font-size:13px; opacity:.55; animation:bob 1.6s infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  /* 人物页 */
+  .who { font-size:14px; letter-spacing:3px; color:var(--soft); opacity:.85; }
+  .title { font-size:clamp(30px,7vw,52px); font-weight:800; margin:6px 0 10px; }
+  .tagline { font-size:17px; color:var(--soft); opacity:.9; margin-bottom:24px; }
+  h3 { font-size:15px; letter-spacing:2px; margin:30px 0 12px; color:var(--accent); }
+  .kw-cloud { display:flex; flex-wrap:wrap; gap:9px; }
+  .kw { font-size:14px; padding:6px 13px; border-radius:999px;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+         animation:pop .5s var(--d) both; }
+  @keyframes pop { from{opacity:0; transform:scale(.8)} to{opacity:1; transform:scale(1)} }
+  .time-card { margin-top:22px; padding:14px 16px; border-radius:14px;
+                background:rgba(255,255,255,.07); font-size:15px; }
+  .time-card b { color:var(--accent); }
+  .stats { display:flex; flex-direction:column; gap:14px; }
+  .stat-top { display:flex; justify-content:space-between; font-size:15px; }
+  .stat-top b { color:var(--accent); }
+  .bar { height:8px; border-radius:999px; background:rgba(255,255,255,.12); margin:6px 0 4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); border-radius:999px; }
+  .ex { font-size:12px; opacity:.6; }
+  .highlights { display:flex; flex-direction:column; gap:14px; }
+  .hl { padding:16px 18px; border-left:3px solid var(--accent);
+         background:rgba(255,255,255,.06); border-radius:0 12px 12px 0; }
+  .hl .q { font-size:17px; line-height:1.5; }
+  .hl .n { font-size:13px; opacity:.7; margin-top:8px; }
+  .narrative p { font-size:15px; line-height:1.85; opacity:.92; margin-bottom:14px; }
+  .closing { margin-top:30px; font-size:18px; font-style:italic; color:var(--soft); }
+  /* 进度点 */
+  #dots { position:fixed; right:14px; top:50%; transform:translateY(-50%);
+           display:flex; flex-direction:column; gap:10px; z-index:10; }
+  #dots button { width:8px; height:8px; border:0; border-radius:50%;
+                  background:rgba(255,255,255,.3); cursor:pointer; padding:0; }
+  #dots button.on { background:#fff; transform:scale(1.4); }
+</style>
+</head>
+<body>
+<div id="deck">
+  <section class="screen cover">
+    <div class="inner">
+      <div class="big">11.2-11.6<br>生活报告</div>
+      <div class="sub">11.2-11.6 · 共 45 条记录</div>
+      <div class="cloud"><span>公司要完蛋了</span><span>老板跑路</span><span>购物欲大爆发</span><span>入职</span><span>学习</span><span>工位</span></div>
+      <div class="hint">↓ 滑动 / 方向键查看每个人</div>
+    </div>
+  </section>
+  
+    <section class="screen" style="--from:#1a1033;--to:#3a1c5c;--accent:#ff8fb1;--soft:#ffd6e5">
+      <div class="inner">
+        <p class="who">黄欣迪 · 第 1 章</p>
+        <h2 class="title">业务要完蛋，购物欲要上天</h2>
+        <p class="tagline">一边担心公司完蛋，一边想一次性点3个男模</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">公司要完蛋了</span><span class="kw" style="--d:0.05s">老板跑路</span><span class="kw" style="--d:0.10s">购物欲大爆发</span><span class="kw" style="--d:0.15s">健身鸽王</span><span class="kw" style="--d:0.20s">邪恶的巴西人</span><span class="kw" style="--d:0.25s">摸鱼</span><span class="kw" style="--d:0.30s">想做PMO</span><span class="kw" style="--d:0.35s">想去台湾</span><span class="kw" style="--d:0.40s">心流被AI毁了</span><span class="kw" style="--d:0.45s">踩点上班</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>晚上 22:00 之后：一天的兵荒马乱结束后，终于有空输出最真实的吐槽，从巴西人到老板，从火鸡面到台湾，深夜是情绪回收站。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>12</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">每天两眼一睁就是业务要完蛋了天塌了一切都在快速变化的互联网。。。、跟同桌激情畅聊公司明年会不会裁一大波人的时候老板走过来了、我认识0个人啊就让我对接这个那个的</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>8</b></div>
+              <div class="bar"><i style="width:67%"></i></div>
+              <div class="ex">最近购物欲真的大爆发。。秋冬就是很想买很多贵贵的东西。。。、摸鱼聊天结论：努力搞钱，将来一次性点3个男模、我想去旅游。。。</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>4</b></div>
+              <div class="bar"><i style="width:33%"></i></div>
+              <div class="ex">中午吃了一个巨难吃无比的饭，拉黑这家跷脚牛肉了、wagas的早饭惊为天人的好吃、压力爆棚想吃火鸡面想喝奶茶但我都忍住了</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>4</b></div>
+              <div class="bar"><i style="width:33%"></i></div>
+              <div class="ex">开完找同部门校招姐妹狂聊一小时，长吁短叹我们业务没救了、跟同桌激情畅聊公司明年会不会裁一大波人的时候老板走过来了、我艹我笑得好崩溃...没想到他跟我说“刚注册”</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>3</b></div>
+              <div class="bar"><i style="width:25%"></i></div>
+              <div class="ex">回家睡觉睡到不知天地为何物、回家认真护肤了、吃完饭困的要死根本不想干活</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“摸鱼聊天结论：努力搞钱，将来一次性点3个男模”</p>
+              <p class="n">很有战略眼光，男模自由才是终极财务自由。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“临走之前跟我同桌进行了一波信息交换 得出的结论就是我们公司真的要完蛋了！”</p>
+              <p class="n">每天靠信息交换确认自己处境，比开会高效多了。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“压力爆棚想吃火鸡面想喝奶茶但我都忍住了”</p>
+              <p class="n">嘴上说着公司完蛋，身体却很诚实地自律。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我艹我笑得好崩溃...我同桌瞪大了眼睛，我还以为他惊讶于我不会一个很基础的东西，没想到他跟我说“刚注册””</p>
+              <p class="n">当代职场恭维学：一张嘴就把天儿聊死又聊活。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我上周和我朋友聊天还说以后辞职了去韩国读一个3个月的语言学校来申请入台证。。。”</p>
+              <p class="n">为了一张入台证，连辞职和语言学校都想好了，执行力拉满。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周黄欣迪的内心戏像一部职场悬疑剧：老板是不是要跑路？业务是不是要完蛋？我是不是要失业？每天从早到晚的线索收集、信息交换、同事密谈，最后总能在晚上得出一个坚定的结论——嗯，公司真的要完蛋了。但第二天又踩着点去上班，一边对着难吃的食堂叹气，一边继续担心老板神出鬼没。</p><p>工作上的抓狂都很有画面感：被拉去当PMO，认识0个人还要对接这个那个；用户和巴西人轮流放鸽子，还把业务老板都同步了时间；老板不签到，自己默默背不良记录。但即便这样，她依然能在摸鱼聊天里制定出「努力搞钱，将来一次性点3个男模」的宏伟计划，并且认真执行「回家认真护肤」，自律到连火鸡面和奶茶都忍住了。</p><p>购物欲大爆发也是本周的主旋律，秋冬一到，什么贵贵的东西都想买，刘嘉晨隔空送来懂你的支持：「想把咖啡机、扫地机器人、黑胶唱片机都买回家」。两个人还一起感叹 AI 毁了心流状态，形成了一种「公司要完蛋但我先买点东西压压惊」的默契。</p><p>深夜是最活跃的时段，吐槽巴西人、想念台湾、回忆搞笑对话，还有对未来的各种计划——去南京、去韩国读语言学校、申请入台证。虽然白天兵荒马乱，但深夜的想象力依然辽阔。</p></div>
+
+        <p class="closing">愿你购物车永远有货，老板永远不跑，台湾早日成行。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#06141f;--to:#0f3a4d;--accent:#5fd0c5;--soft:#bff0ea">
+      <div class="inner">
+        <p class="who">刘嘉晨 · 第 2 章</p>
+        <h2 class="title">入职新世界的冒险家</h2>
+        <p class="tagline">在陌生体系里，重新学做小学生</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">入职</span><span class="kw" style="--d:0.05s">学习</span><span class="kw" style="--d:0.10s">工位</span><span class="kw" style="--d:0.15s">电梯</span><span class="kw" style="--d:0.20s">健身房</span><span class="kw" style="--d:0.25s">晚饭</span><span class="kw" style="--d:0.30s">作息</span><span class="kw" style="--d:0.35s">适应</span><span class="kw" style="--d:0.40s">吐槽</span><span class="kw" style="--d:0.45s">摸鱼</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>10:00-22:00，记录几乎覆盖全天，但 19:00-22:00 频次略高。可能是入职初期作息被新环境推着走，下班后还在消化一天的疲惫。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>18</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">好的今天入职了！狂签八份文件、培训的时候发现在虾的经验和知识基本没法迁移，全得学！、我又开始带薪学习了，好像回到本科学物流管理课</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>10</b></div>
+              <div class="bar"><i style="width:56%"></i></div>
+              <div class="ex">今天还在家收拾，目前已经把该归位的归位了、成抽纸大户了、把床消毒了一遍，换上了新买的床垫</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>6</b></div>
+              <div class="bar"><i style="width:33%"></i></div>
+              <div class="ex">园区食堂还挺多、这里的人吃饭好早，吃到七点食堂就没啥人了、牛，中午吃饭等电梯能等快10分钟</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>5</b></div>
+              <div class="bar"><i style="width:28%"></i></div>
+              <div class="ex">工位的椅子好不舒服，很不方便我睡觉啊！、下午五点多就困是怎么回事！、最近睡得晚脸上就开始冒痘了！今天要早点睡！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>4</b></div>
+              <div class="bar"><i style="width:22%"></i></div>
+              <div class="ex">想在公寓楼爬楼梯健身、每次回家路上路过商场的健身房，我到底啥时候能迈出第一步去办卡、晴天但是雾霾，于是出门了</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>3</b></div>
+              <div class="bar"><i style="width:17%"></i></div>
+              <div class="ex">旁边的姐姐说我第一天上班就待到这么久，大可不必、一起培训的bro别太典了，动不动“我补充一下”</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“好的今天入职了！狂签八份文件”</p>
+              <p class="n">仪式感拉满，从此就是有工牌的人了。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“培训的时候发现在虾的经验和知识基本没法迁移，全得学！”</p>
+              <p class="n">过去的光环先收一收，新地图要重新开荒。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“旁边姐姐说我第一天上班就待到这么久，大可不必因为以后有的是加班机会”</p>
+              <p class="n">来自前辈的温柔恐吓，听得人心里一暖又一凉。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“工位的椅子好不舒服，很不方便我睡觉啊！”</p>
+              <p class="n">对新公司的第一句硬件测评，很实在。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“我七点半。。”</p>
+              <p class="n">在黄欣迪震惊于你六点吃晚饭时，你诚实交代了从前节奏，新工作至少治好了晚饭拖延症。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>你这一周的关键词是“重启”。从收拾行李、换床单被套开始，你试图用物理上的秩序感来对抗新环境的不确定。入职当天狂签八份文件，问 HR 细到入职流程，都是你给自己做的心理建设：这次，要认真对待。</p><p>新工作像把你扔进了一间全是生词的教室：虾的经验无法迁移，开会听不懂，电脑不让装微信，女厕只有四个坑，椅子不适合午睡……你在吐槽里一点一点丈量着这里的规则。但你也开始带薪学习，下午五点多就犯困，六点吃到晚饭，这些微小的新节奏，正在把你慢慢接住。</p><p>和黄欣迪的互动里，透露着你们相似的处境：你懂她购物欲爆发的秋冬，她惊讶你六点就吃晚饭。你们一个在旧公司担心业务完蛋，一个在新公司担心自己不适应，但彼此调侃，就成了最有效的解压阀。</p></div>
+
+        <p class="closing">在新的时区里，你正在重新校准自己的表。慢慢来，入职新手村也有它的风景。</p>
+      </div>
+    </section>
+</div>
+<div id="dots"><button data-i="0"></button><button data-i="1"></button><button data-i="2"></button></div>
+<script>
+  const deck = document.getElementById('deck');
+  const screens = [...document.querySelectorAll('.screen')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) {
+      const i = screens.indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('on', j===i));
+    } });
+  }, {threshold:0.6});
+  screens.forEach(s => io.observe(s));
+  dots.forEach(d => d.onclick = () => screens[+d.dataset.i].scrollIntoView());
+  let i = 0;
+  addEventListener('keydown', e => {
+    if (e.key==='ArrowDown'||e.key==='ArrowRight') i=Math.min(i+1,screens.length-1);
+    else if (e.key==='ArrowUp'||e.key==='ArrowLeft') i=Math.max(i-1,0);
+    else return;
+    screens[i].scrollIntoView();
+  });
+</script>
+<!-- generated 2026-11-06 17:00 -->
+</body>
+</html>
