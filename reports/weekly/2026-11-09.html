@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>11.9-11.13 生活报告</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:#fff; background:#0b0b12; overflow:hidden;
+  }
+  #deck { height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+  #deck::-webkit-scrollbar { display:none; }
+  .screen {
+    min-height:100vh; scroll-snap-align:start;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 24px; background:linear-gradient(160deg,var(--from),var(--to));
+  }
+  .inner { width:100%; max-width:680px; }
+  /* 封面 */
+  .cover { --from:#0b0b12; --to:#241638; --accent:#ff8fb1; text-align:center; }
+  .cover .big { font-size:clamp(40px,11vw,84px); font-weight:800; line-height:1.05; letter-spacing:2px; }
+  .cover .sub { margin-top:18px; font-size:18px; opacity:.8; }
+  .cover .cloud { margin:36px auto 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:480px; }
+  .cover .cloud span { font-size:14px; padding:6px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; opacity:.85; }
+  .cover .hint { margin-top:48px; font-size:13px; opacity:.55; animation:bob 1.6s infinite; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  /* 人物页 */
+  .who { font-size:14px; letter-spacing:3px; color:var(--soft); opacity:.85; }
+  .title { font-size:clamp(30px,7vw,52px); font-weight:800; margin:6px 0 10px; }
+  .tagline { font-size:17px; color:var(--soft); opacity:.9; margin-bottom:24px; }
+  h3 { font-size:15px; letter-spacing:2px; margin:30px 0 12px; color:var(--accent); }
+  .kw-cloud { display:flex; flex-wrap:wrap; gap:9px; }
+  .kw { font-size:14px; padding:6px 13px; border-radius:999px;
+         background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+         animation:pop .5s var(--d) both; }
+  @keyframes pop { from{opacity:0; transform:scale(.8)} to{opacity:1; transform:scale(1)} }
+  .time-card { margin-top:22px; padding:14px 16px; border-radius:14px;
+                background:rgba(255,255,255,.07); font-size:15px; }
+  .time-card b { color:var(--accent); }
+  .stats { display:flex; flex-direction:column; gap:14px; }
+  .stat-top { display:flex; justify-content:space-between; font-size:15px; }
+  .stat-top b { color:var(--accent); }
+  .bar { height:8px; border-radius:999px; background:rgba(255,255,255,.12); margin:6px 0 4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--accent); border-radius:999px; }
+  .ex { font-size:12px; opacity:.6; }
+  .highlights { display:flex; flex-direction:column; gap:14px; }
+  .hl { padding:16px 18px; border-left:3px solid var(--accent);
+         background:rgba(255,255,255,.06); border-radius:0 12px 12px 0; }
+  .hl .q { font-size:17px; line-height:1.5; }
+  .hl .n { font-size:13px; opacity:.7; margin-top:8px; }
+  .narrative p { font-size:15px; line-height:1.85; opacity:.92; margin-bottom:14px; }
+  .closing { margin-top:30px; font-size:18px; font-style:italic; color:var(--soft); }
+  /* 进度点 */
+  #dots { position:fixed; right:14px; top:50%; transform:translateY(-50%);
+           display:flex; flex-direction:column; gap:10px; z-index:10; }
+  #dots button { width:8px; height:8px; border:0; border-radius:50%;
+                  background:rgba(255,255,255,.3); cursor:pointer; padding:0; }
+  #dots button.on { background:#fff; transform:scale(1.4); }
+</style>
+</head>
+<body>
+<div id="deck">
+  <section class="screen cover">
+    <div class="inner">
+      <div class="big">11.9-11.13<br>生活报告</div>
+      <div class="sub">11.9-11.13 · 共 45 条记录</div>
+      <div class="cloud"><span>转岗</span><span>叹气</span><span>自救</span><span>广州</span><span>出差</span><span>知否</span></div>
+      <div class="hint">↓ 滑动 / 方向键查看每个人</div>
+    </div>
+  </section>
+  
+    <section class="screen" style="--from:#1a1033;--to:#3a1c5c;--accent:#ff8fb1;--soft:#ffd6e5">
+      <div class="inner">
+        <p class="who">黄欣迪 · 第 1 章</p>
+        <h2 class="title">动荡期的自救与叹气</h2>
+        <p class="tagline">工作性价比提升，但心绪跟着业务一起震荡</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">转岗</span><span class="kw" style="--d:0.05s">叹气</span><span class="kw" style="--d:0.10s">自救</span><span class="kw" style="--d:0.15s">商业化</span><span class="kw" style="--d:0.20s">短剧</span><span class="kw" style="--d:0.25s">简历</span><span class="kw" style="--d:0.30s">摆烂</span><span class="kw" style="--d:0.35s">鸽</span><span class="kw" style="--d:0.40s">故宫</span><span class="kw" style="--d:0.45s">鸡鸣寺</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>上午10:00-11:00，你总是在迟到边缘试探，但终究没有完全躺平，毕竟十点的健身教练和十一点的工位都还在等你。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>23</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">下午跟老板11完他直接建议我转岗，靴子落地了。。。我将被迫走出舒适区、上午无心工作在工位上假装工作、资深姐充分运用了那个费曼学习法，自己思考的东西要找人讲出来才清楚，我充当的是她的听众和赞同机器</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>12</b></div>
+              <div class="bar"><i style="width:52%"></i></div>
+              <div class="ex">中午和短剧一个运营姐吃饭，大聊特聊！、本来要去打羽毛球的，突然来月经了去不了，回家爽睡、跟同桌聊了一顿感觉我已经直白表达我不想干了，反正我们部门都要无了</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>10</b></div>
+              <div class="bar"><i style="width:43%"></i></div>
+              <div class="ex">昨天看红果短剧1:30才睡，红果还是可以满足部分对于精品化内容的需求的、最近改简历又开始用Gemini，海外豆包来的。但无他，回复是真的很快、明天去鸡鸣寺拜一下吧！</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>休息</span><b>9</b></div>
+              <div class="bar"><i style="width:39%"></i></div>
+              <div class="ex">早上10:40才起床，实在起不来啊、最近感觉压力大有点月经不调、晚上去南京见刘嘉晨</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>4</b></div>
+              <div class="bar"><i style="width:17%"></i></div>
+              <div class="ex">昨天看红果短剧1:30才睡、大半夜开始看我之前在NUS的照片，还有去台湾旅游的vlog，真是夜深忽梦少年事，梦啼妆泪红阑干、最近改简历又开始用Gemini</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“下午跟老板11完他直接建议我转岗，靴子落地了。。。我将被迫走出舒适区”</p>
+              <p class="n">别人是被推着走，你是被靴子砸着走。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“王江楠这个蠢猪！我是全世界最好的人”</p>
+              <p class="n">自信与暴躁齐飞，你果然是你。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“巴西人又把我鸽了。。。。。巴西人你们到底何意味天天鸽我”</p>
+              <p class="n">被鸽的怨气穿透屏幕，建议下次用葡萄牙语骂。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“哎！最近把上班以来的气叹完了！”</p>
+              <p class="n">气叹完了，但班还得上，这就是成年人的觉悟。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“夜深忽梦少年事，梦啼妆泪红阑干”</p>
+              <p class="n">熬夜怀旧，第二天又起不来，循环往复。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这一周你的职场正在经历一场小型地震：老板建议转岗，靴子落地，你被迫离开舒适区；资深姐拉你搞商业化，你一边觉得没必要，一边又觉得能学一点是一点；同时你开始改简历、看机会，嘴上说着摆烂，身体却很诚实地自救。</p><p>你跟刘嘉晨形成了鲜明的对照：他飞去广州出差，轻松聚餐、看鳄鱼肉、听老板讲瓜；你在北京食堂嫌饭难吃、被巴西人鸽、月经不调、熬夜看红果短剧和NUS旧照。你们在评论区互相打气，他说“这份工作的性价比逐渐提升”，你说“加油jc宝宝”，塑料友谊里带着真切的共情。</p><p>你的行动力很强：想转策略产品就立马买书，改简历用上Gemini，还计划去鸡鸣寺拜拜。但情绪也总在摇摆，前一秒觉得“业务都要完蛋了”，后一秒又觉得“还年轻要自救”。叹气叹到上班以来的额度用完，但第二天还是踩着十一点的线到了工位。</p><p>最后你决定周末去南京见刘嘉晨，还惦记着故宫的黄叶。虽然鸡鸣寺的票还没买，但至少你开始计划一些与工作无关的事。动荡时期，稳住自己，你已经做得很好了。</p></div>
+
+        <p class="closing">愿你在动荡中找到自己的节奏，叹气之后，依然有去看黄叶和拜佛的心情。</p>
+      </div>
+    </section>
+    <section class="screen" style="--from:#06141f;--to:#0f3a4d;--accent:#5fd0c5;--soft:#bff0ea">
+      <div class="inner">
+        <p class="who">刘嘉晨 · 第 2 章</p>
+        <h2 class="title">广州出差记：知否与鳄鱼肉</h2>
+        <p class="tagline">在出差与追剧之间，寻找工作的意义</p>
+
+        <div class="kw-cloud"><span class="kw" style="--d:0.00s">广州</span><span class="kw" style="--d:0.05s">出差</span><span class="kw" style="--d:0.10s">知否</span><span class="kw" style="--d:0.15s">鳄鱼肉</span><span class="kw" style="--d:0.20s">师兄</span><span class="kw" style="--d:0.25s">商务局</span><span class="kw" style="--d:0.30s">健身</span><span class="kw" style="--d:0.35s">轻松上班</span><span class="kw" style="--d:0.40s">知否上头</span><span class="kw" style="--d:0.45s">城市差异</span></div>
+
+        <div class="time-card">🕘 最常出没：<b>10:00-13:00 时段记录最多，共 12 条。你是个早起的鸟儿（虽然有时被知否拖到凌晨三点），但出差期间作息相对规律，上午活动频繁，下午多开会或看资料，晚上常有聚餐或追剧。</b></div>
+
+        <h3>这一期都在忙啥</h3>
+        <div class="stats"><div class="stat">
+              <div class="stat-top"><span>工作</span><b>16</b></div>
+              <div class="bar"><i style="width:100%"></i></div>
+              <div class="ex">今天师兄给我介绍具体团队分工和事情的时候我确认了我老板的scope确实还是太小了，整个供应链只看国内一小段，我之后得多想想怎么多学点东西&amp;扩大点scope、明明没活干我还要坐班、入职一周多了，实在忍不住和老板约了1on1，不然我真的一头雾水</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>娱乐</span><b>5</b></div>
+              <div class="bar"><i style="width:31%"></i></div>
+              <div class="ex">昨晚看知否看到凌晨三点半…好上头、吃晚饭躺在床上爽看知否！、正午阳光真是良心团队，除了知否，我n刷的琅琊榜、伪装者、欢乐颂都是他们出的</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>社交</span><b>4</b></div>
+              <div class="bar"><i style="width:25%"></i></div>
+              <div class="ex">和同事出来聚餐了、工作后的第一个商务局，四个老板，我老板作为内蒙人是最能喝的、吗的老板们开始讲惊天连环瓜，只有我老板三句不离工作</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>吃饭</span><b>4</b></div>
+              <div class="bar"><i style="width:25%"></i></div>
+              <div class="ex">广东人真是啥都吃，生平第一次鳄鱼肉也是在冬瓜盅火锅吃上了、吃到了好吃的汕头牛肉饭！！、在广东总是不知不觉吃很撑</div>
+            </div><div class="stat">
+              <div class="stat-top"><span>其他</span><b>2</b></div>
+              <div class="bar"><i style="width:12%"></i></div>
+              <div class="ex">今天在床上挣扎到八点半还是起来去健身了，想着醒都醒了不去也太对不起这个时间点了。很小的一个酒店健身房，所见即所得、我同事在广州租的房子38平单间，离公司四公里，一千五一个月。。。考虑到生活的柴米油盐之后会发现城市的差异有时候是真金白银的差异啊</div>
+            </div></div>
+
+        <h3>名场面</h3>
+        <div class="highlights"><blockquote class="hl">
+              <p class="q">“广东人真是啥都吃，生平第一次鳄鱼肉也是在冬瓜盅火锅吃上了”</p>
+              <p class="n">恭喜解锁隐藏菜单，下次可以挑战一下福建人（不是）。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“昨晚看知否看到凌晨三点半…好上头”</p>
+              <p class="n">凌晨三点半，明兰知道你这么拼吗？</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“明明没活干我还要坐班”</p>
+              <p class="n">带薪摸鱼的最高境界，就是摸到怀疑人生。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“工作后的第一个商务局，四个老板，我老板作为内蒙人是最能喝的”</p>
+              <p class="n">内蒙人的酒量，果然是从小用奶茶练出来的。</p>
+            </blockquote><blockquote class="hl">
+              <p class="q">“吗的老板们开始讲惊天连环瓜，只有我老板三句不离工作”</p>
+              <p class="n">老板：职场如戏，我只想当个没有感情的赚钱机器。</p>
+            </blockquote></div>
+
+        <h3>写给你的话</h3>
+        <div class="narrative"><p>这周你飞到了温暖的广州，从6度的南京到20度的羊城，穿衣都成了哲学问题。出差的日子似乎格外轻松：下午两点才到办公室，六点就出去聚餐，还能在酒店健身房找回自律。你一边感叹广东人啥都吃（鳄鱼肉！），一边被知否勾走了魂，凌晨三点半还在为明兰的命运上头。</p><p>工作上的你，看似云淡风轻，实则内心翻涌。你和师兄聊 scope，和老板约 1on1，在“没活干还要坐班”的无奈中努力寻找成长空间。商务局上，你见识了老板们的惊天连环瓜，也见识了内蒙老板的酒量，而你的老板三句不离工作，让你在瓜田里显得格外清醒。</p><p>你也在观察生活的褶皱：同事38平的出租屋让你感慨城市差异是真金白银的差异；地铁里和同事过于亲密的距离让你忍俊不禁。在轻松与思考之间，你慢慢拼凑着职场新人的真实图景。</p></div>
+
+        <p class="closing">愿你在每一次出差和追剧之间，都能找到属于自己的节奏，工作有光，生活有味。</p>
+      </div>
+    </section>
+</div>
+<div id="dots"><button data-i="0"></button><button data-i="1"></button><button data-i="2"></button></div>
+<script>
+  const deck = document.getElementById('deck');
+  const screens = [...document.querySelectorAll('.screen')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) {
+      const i = screens.indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('on', j===i));
+    } });
+  }, {threshold:0.6});
+  screens.forEach(s => io.observe(s));
+  dots.forEach(d => d.onclick = () => screens[+d.dataset.i].scrollIntoView());
+  let i = 0;
+  addEventListener('keydown', e => {
+    if (e.key==='ArrowDown'||e.key==='ArrowRight') i=Math.min(i+1,screens.length-1);
+    else if (e.key==='ArrowUp'||e.key==='ArrowLeft') i=Math.max(i-1,0);
+    else return;
+    screens[i].scrollIntoView();
+  });
+</script>
+<!-- generated 2026-11-13 17:26 -->
+</body>
+</html>
